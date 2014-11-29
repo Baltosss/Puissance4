@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Puissance 4²</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_four_in_row">Puissance4²</string>
+    <string name="hello">Hello FourInRow!</string>
+
+    <string name="texthaut">Let s play :</string>
+    <string name="Replay">Replay</string>
+    <string name="scoreJaune">Yellow Score : 0</string>
+    <string name="scoreRouge">Red Score : 0</string>
+
+
+</resources>

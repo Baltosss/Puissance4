@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="fill_parent"
+              android:orientation="vertical" >
+    <TextView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:textColor="#33CC33"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            android:textSize="50dp"
+            android:paddingBottom="10dp"
+            android:text="Puissance4²"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="wrap_content"
+                  android:layout_height="fill_parent"
+                  android:orientation="horizontal" >
+
+        <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" android:layout_width="wrap_content">
+
+            <Button
+                    android:id="@+id/playOnPhone"
+                    android:layout_width="match_parent"
+                    android:layout_margin="20dp"
+                    android:layout_height="130dp"
+                    android:layout_gravity="center_vertical"
+
+                    android:textSize="30dp"
+
+                    android:padding="20dp"
+
+                    android:textColor="#FF0000"
+                    android:text="Play Against Near Player" />
+
+            <Button
+                    android:id="@+id/playComputer"
+
+                    android:layout_margin="20dp"
+                    android:layout_height="130dp"
+                    android:layout_gravity="center_vertical"
+
+                    android:textSize="30dp"
+
+                    android:padding="20dp"
+
+
+                    android:textColor="#FFFF00"
+                    android:text="Play Against Friend" android:layout_width="match_parent"/>
+
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="613dp"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+            <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:text="Or choose an opponent and invite him to play :"
+                    android:textColor="#33CC33"
+                    android:textSize="20dp"
+                    android:typeface="monospace" />
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal" >
+                <TextView
+                        android:layout_height="wrap_content"
+                        android:text="Username :" android:layout_width="match_parent"/>
+                <EditText
+                        android:id="@+id/username"
+                        android:layout_height="wrap_content" android:layout_width="352dp"/>
+
+
+            </LinearLayout>
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal" >
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Password :" />
+
+                <EditText
+                        android:id="@+id/password"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword" android:layout_width="351dp"/>
+            </LinearLayout>
+            <CheckBox
+                    android:id="@+id/remenberCheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Check to remember the password" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal" >
+
+                <Button
+                        android:id="@+id/connectButton"
+                        android:layout_width="310dp"
+                        android:layout_height="wrap_content"
+                        android:text="Connect" />
+
+
+            </LinearLayout>
+            <ListView
+                    android:id="@+id/ListAmis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="horizontal" >
+            </ListView>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
