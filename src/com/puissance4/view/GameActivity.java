@@ -99,7 +99,7 @@ public class GameActivity extends Activity {
         } else if (row == 0) {
             slot.setBackground(getResources().getDrawable(R.drawable.slot_red_star));
             slot.setEnabled(true);
-            slot.setOnClickListener(new OnGameButtonClickListener(this,party,column,row));
+            slot.setOnClickListener(new OnGameButtonClickListener(this, party, column));
         } else if (column == 0) {
             slot.setBackground(getResources().getDrawable(R.drawable.slot_star));
             slot.setEnabled(false);

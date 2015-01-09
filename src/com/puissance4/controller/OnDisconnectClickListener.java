@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
+import com.puissance4.server_handler.NetworkComm;
 import com.puissance4.view.GameConfiguration;
 import com.puissance4.view.MainActivity;
 
@@ -18,6 +19,8 @@ public class OnDisconnectClickListener extends ActivityListener {
 
     @Override
     public void onClick(View view) {
+        ////////////////////// DISCONNECTION INSTRUCTIONS ///////////
+        NetworkComm.getInstance().disconnect();
         GameConfiguration.PASSWORD = null;
         GameConfiguration.USERNAME = null;
         SharedPreferences preferences = context.getPreferences(Context.MODE_PRIVATE);

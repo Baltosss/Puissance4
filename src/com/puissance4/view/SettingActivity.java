@@ -6,13 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.example.Puissance4.R;
 import com.puissance4.controller.OnConnectClickListener;
 import com.puissance4.controller.OnDisconnectClickListener;
+import com.puissance4.controller.OnRegisterClickListener;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,6 +19,7 @@ import java.util.regex.Pattern;
  * Created by fred on 08/01/15.
  */
 public class SettingActivity extends Activity {
+    private Context context = this;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +33,7 @@ public class SettingActivity extends Activity {
         else {
             buildDisconnectedSettings();
         }
+        buildGridSettings();
     }
 
     private void getRememberedSettings() {
@@ -71,5 +71,50 @@ public class SettingActivity extends Activity {
         Button connectButton = (Button) findViewById(R.id.buttonConnect);
         Button registerButton = (Button) findViewById(R.id.buttonRegister);
         connectButton.setOnClickListener(new OnConnectClickListener(this));
+        registerButton.setOnClickListener(new OnRegisterClickListener(this));
+    }
+
+    private void buildGridSettings() {
+        Spinner widthSpinner = (Spinner) findViewById(R.id.spinnerWidth);
+        Spinner heightSpinner = (Spinner) findViewById(R.id.spinnerHeight);
+        Spinner shuffleSpinner = (Spinner) findViewById(R.id.spinnerShuffle);
+        Integer[] widths = new Integer[GameConfiguration.MAX_GRID_WIDTH-GameConfiguration.MIN_GRID_WIDTH];
+        Integer[] heights = new Integer[GameConfiguration.MAX_GRID_HEIGHT-GameConfiguration.MIN_GRID_HEIGHT];
+        Integer[] shuffles = new Integer[GameConfiguration.MAX_SHUFFLE-GameConfiguration.MIN_SHUFFLE];
+        for(int i=0; i<(GameConfiguration.MAX_GRID_HEIGHT-GameConfiguration.MIN_GRID_HEIGHT); i++) {
+            heights[i] = i + GameConfiguration.MIN_GRID_HEIGHT;
+        }
+        for(int i=0; i<(GameConfiguration.MAX_GRID_WIDTH-GameConfiguration.MIN_GRID_WIDTH); i++) {
+            widths[i] = i + GameConfiguration.MIN_GRID_WIDTH;
+        }
+        for(int i=0; i<(GameConfiguration.MAX_SHUFFLE-GameConfiguration.MIN_SHUFFLE); i++) {
+            shuffles[i] = i + GameConfiguration.MIN_SHUFFLE;
+        }
+        ArrayAdapter<Integer> adapterHeight = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, heights);
+        ArrayAdapter<Integer> adapterWidth = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, widths);
+        ArrayAdapter<Integer> adapterShuffle = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, shuffles);
+        widthSpinner.setAdapter(adapterWidth);
+        heightSpinner.setAdapter(adapterHeight);
+        shuffleSpinner.setAdapter(adapterShuffle);
+        widthSpinner.setSelection(GameConfiguration.GRID_WIDTH-GameConfiguration.MIN_GRID_WIDTH);
+        heightSpinner.setSelection(GameConfiguration.GRID_HEIGHT-GameConfiguration.MIN_GRID_HEIGHT);
+        shuffleSpinner.setSelection(GameConfiguration.COUNT_SHUFFLE-GameConfiguration.MIN_SHUFFLE);
+
+        Button modifyGridButton = (Button) findViewById(R.id.buttonModify);
+        modifyGridButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View rootView = view.getRootView();
+                Spinner width = (Spinner) rootView.findViewById(R.id.spinnerWidth);
+                Spinner height = (Spinner) rootView.findViewById(R.id.spinnerHeight);
+                Spinner shuffle = (Spinner) rootView.findViewById(R.id.spinnerShuffle);
+                GameConfiguration.GRID_HEIGHT = (int) height.getSelectedItem();
+                GameConfiguration.GRID_WIDTH = (int) width.getSelectedItem();
+                GameConfiguration.COUNT_SHUFFLE = (int) shuffle.getSelectedItem();
+                Toast.makeText(context, R.string.gridModified, Toast.LENGTH_SHORT);
+                Intent intent = new Intent(context, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

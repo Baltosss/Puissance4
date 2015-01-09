@@ -17,12 +17,10 @@ import com.puissance4.view.GameActivity;
 public class OnGameButtonClickListener extends ActivityListener {
     private Party party;
     private int column;
-    private int row;
-    public OnGameButtonClickListener(GameActivity context, Party party, int column, int row) {
+    public OnGameButtonClickListener(GameActivity context, Party party, int column) {
         super(context);
         this.party = party;
         this.column = column;
-        this.row = row;
     }
 
     @Override
