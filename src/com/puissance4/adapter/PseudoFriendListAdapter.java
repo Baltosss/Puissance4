@@ -10,21 +10,19 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.Puissance4.R;
-import com.puissance4.model.Player;
 import com.puissance4.server_handler.NetworkComm;
 import com.puissance4.view.FriendListActivity;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by fred on 09/01/15.
  */
-public class FriendListAdapter extends ArrayAdapter<Player> {
-    private ArrayList<Player> objects;
+public class PseudoFriendListAdapter extends ArrayAdapter<String>{
+    private String[] objects;
     private Context context;
-    public FriendListAdapter(Context context, int resource, ArrayList<Player> objects) {
-        super(context, resource, objects);
+    public PseudoFriendListAdapter(Context context, int textViewResourceId, String[] objects) {
+        super(context, textViewResourceId, objects);
         this.objects = objects;
         this.context = context;
     }
@@ -36,18 +34,18 @@ public class FriendListAdapter extends ArrayAdapter<Player> {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = inflater.inflate(R.layout.friend_item, null);
         }
-        final Player friend = objects.get(position);
+        final String friend = objects[position];
         if(friend != null) {
             TextView friendText = (TextView) v.findViewById(R.id.textFriendItem);
             Button deleteButton = (Button) v.findViewById(R.id.buttonFriendItem);
-            friendText.setText(friend.getName());
+            friendText.setText(friend);
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     try {
                         ////////////////// REMOVE A FRIEND /////////////////////////////
                         NetworkComm.getInstance().connect();
-                        NetworkComm.getInstance().removeFriend(friend.getName());
+                        NetworkComm.getInstance().removeFriend(friend);
                         NetworkComm.getInstance().disconnect();
                         Toast.makeText(context, R.string.friendRemoved, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(context, FriendListActivity.class);

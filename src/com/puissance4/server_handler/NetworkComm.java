@@ -1,5 +1,7 @@
 package com.puissance4.server_handler;
 
+import com.puissance4.model.Player;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -117,7 +119,7 @@ public class NetworkComm {
     return null;
   }
 
-  public ArrayList<Object> getFriends() {
+  public ArrayList<Player> getFriends() {
 
     return null;
   }

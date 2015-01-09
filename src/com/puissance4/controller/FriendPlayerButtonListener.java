@@ -19,5 +19,8 @@ public class FriendPlayerButtonListener extends ActivityListener {
         if(GameConfiguration.USERNAME == null) {
             Toast.makeText(context, R.string.connectBeforePlay, Toast.LENGTH_SHORT).show();
         }
+        else {
+            //Start party
+        }
     }
 }
