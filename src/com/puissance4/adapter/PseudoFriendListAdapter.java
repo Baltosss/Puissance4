@@ -1,14 +1,12 @@
 package com.puissance4.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.example.Puissance4.R;
 import com.puissance4.server_handler.NetworkComm;
 import com.puissance4.view.FriendListActivity;
@@ -36,12 +34,15 @@ public class PseudoFriendListAdapter extends ArrayAdapter<String>{
         }
         final String friend = objects[position];
         if(friend != null) {
+            ImageView statusView = (ImageView) v.findViewById(R.id.imageFriendItem);
             TextView friendText = (TextView) v.findViewById(R.id.textFriendItem);
             Button deleteButton = (Button) v.findViewById(R.id.buttonFriendItem);
+            statusView.setImageResource(R.drawable.icon_red_dot);
             friendText.setText(friend);
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ((Activity)context).setContentView(R.layout.loading);
                     try {
                         ////////////////// REMOVE A FRIEND /////////////////////////////
                         NetworkComm.getInstance().connect();
@@ -53,6 +54,8 @@ public class PseudoFriendListAdapter extends ArrayAdapter<String>{
                     } catch (IOException e) {
                         e.printStackTrace();
                         Toast.makeText(context, R.string.connectCommunicationError, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, FriendListActivity.class);
+                        context.startActivity(intent);
                     }
                 }
             });

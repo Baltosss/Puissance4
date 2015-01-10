@@ -32,8 +32,8 @@ public class OnRegisterClickListener extends ActivityListener {
             Matcher matcherPassword = pattern.matcher(password);
             if (!matcherUsername.find() && !matcherPassword.find()) {
                 //////////////////////////////// REGISTRATION INSTRUCTIONS ////////////////////////
-                try {
-                    NetworkComm.getInstance().connect();
+                /*try {
+                    NetworkComm.getInstance().connect();*/
                     int result = NetworkComm.getInstance().makeAccount(username, password);
                     switch(result) {
                         case 0:
@@ -54,11 +54,11 @@ public class OnRegisterClickListener extends ActivityListener {
                             Toast.makeText(context, R.string.registrationUnhandledError, Toast.LENGTH_SHORT).show();
                             break;
                     }
-                    NetworkComm.getInstance().disconnect();
+                    /*NetworkComm.getInstance().disconnect();
                 } catch (IOException e) {
                     e.printStackTrace();
                     Toast.makeText(context, R.string.connectCommunicationError, Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         }
     }

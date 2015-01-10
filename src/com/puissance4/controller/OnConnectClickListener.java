@@ -1,18 +1,15 @@
 package com.puissance4.controller;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.Puissance4.R;
 import com.puissance4.server_handler.NetworkComm;
-import com.puissance4.view.GameConfiguration;
+import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.view.MainActivity;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,8 +30,8 @@ public class OnConnectClickListener extends ActivityListener {
             Matcher matcherPassword = pattern.matcher(password);
             if(!matcherUsername.find() && !matcherPassword.find()) {
                 /////////////////////// AUTHENTICATION INSTRUCTIONS //////////////////////////////////
-                try {
-                    NetworkComm.getInstance().connect();
+                /*try {
+                    NetworkComm.getInstance().connect();*/
                     int result = NetworkComm.getInstance().authenticate(username, password);
                     switch (result) {
                         case 0:
@@ -60,10 +57,10 @@ public class OnConnectClickListener extends ActivityListener {
                             Toast.makeText(context, R.string.authenticateUnhandledError, Toast.LENGTH_SHORT).show();
                             break;
                     }
-                } catch (IOException e) {
+                /*} catch (IOException e) {
                     e.printStackTrace();
                     Toast.makeText(context, R.string.connectCommunicationError, Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         }
     }

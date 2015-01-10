@@ -5,7 +5,7 @@ import android.view.OrientationEventListener;
 import android.widget.Toast;
 import com.example.Puissance4.R;
 import com.puissance4.view.GameActivity;
-import com.puissance4.view.GameConfiguration;
+import com.puissance4.configuration.GameConfiguration;
 
 /**
  * Created by fred on 04/01/15.

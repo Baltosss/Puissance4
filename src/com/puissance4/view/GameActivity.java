@@ -5,14 +5,11 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.*;
 import com.example.Puissance4.R;
+import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.controller.OnGameButtonClickListener;
-import com.puissance4.exceptions.*;
-import com.puissance4.model.Grid;
 import com.puissance4.model.Party;
-import com.puissance4.model.Player;
 
 import java.util.ArrayList;
 
@@ -72,11 +69,16 @@ public class GameActivity extends Activity {
 
     private void setupParty(Bundle savedInstanceState) {
         if(savedInstanceState == null) {
-            System.out.println("IT IS NULL --> TEST MODE");
-            String[] players = {"Fred", "Cyrille"};
-            party = new Party(players, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH);
+            if(getIntent().hasExtra("party")) { //GAME JUST STARTED
+                party = (Party)getIntent().getSerializableExtra("party");
+            }
+            else {  //TEST MODE
+                System.out.println("IT IS NULL --> TEST MODE");
+                String[] players = {"Fred", "Cyrille"};
+                party = new Party(players, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH);
+            }
         }
-        else {
+        else {  //GAME ALREADY STARTED
             party = (Party) savedInstanceState.getSerializable("party");
             if(party == null) {
                 String[] players = {savedInstanceState.getString("player1"), savedInstanceState.getString("player2")};
@@ -88,6 +90,7 @@ public class GameActivity extends Activity {
             }
         }
     }
+
     //Row and column are coordinates of the button in the screen grid, not the game one.
     private Button buildButton(final int row, final int column) {
         Button slot = new Button(this);

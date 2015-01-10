@@ -18,6 +18,10 @@
         <activity android:name="com.puissance4.view.SettingActivity"
                   android:label="@string/mainSettings"/>
         <activity android:name="com.puissance4.view.FriendListActivity"
-                  android:label="Friend List"/>
+                  android:label="@string/friendList"/>
+        <activity android:name="com.puissance4.view.FriendPickerActivity"
+                  android:label="@string/pickOpponent"/>
+        <activity android:name="com.puissance4.view.NearPlayerPickerActivity"
+                  android:label="@string/pickOpponent"/>
     </application>
 </manifest>

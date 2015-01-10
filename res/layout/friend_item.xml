@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:weightSum="10">
+    <ImageView android:id="@+id/imageFriendItem"
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"
+               android:layout_weight="1"
+               android:layout_marginRight="@dimen/margin_small"
+               android:layout_marginLeft="@dimen/margin_small"/>
+    <TextView android:id="@+id/textFriendItem"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="@dimen/small_text"
+              android:layout_weight="9" android:layout_gravity="center"/>
+    <Button android:id="@+id/buttonFriendItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:textSize="@dimen/small_text"
+            android:layout_weight="1"/>
+</LinearLayout>

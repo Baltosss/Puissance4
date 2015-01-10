@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/connection"
+                    android:textSize="@dimen/medium_text"/>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/padding_medium">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/username"
+                        android:textSize="@dimen/small_text"/>
+                <!--If not connected-->
+                <EditText
+                        android:id="@+id/editUsername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <requestFocus />
+                </EditText>
+                <!--If connected-->
+                <TextView
+                        android:id="@+id/textUsername"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/small_text"
+                        android:visibility="gone"/>
+                <TextView
+                        android:id="@+id/textPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/small_text"
+                        android:text="@string/password" />
+                <!--If not connected-->
+                <EditText
+                        android:id="@+id/editPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword" />
+                <CheckBox
+                        android:id="@+id/rememberCheck"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rememberPassword"/>
+                <LinearLayout
+                        android:id="@+id/connectButtonsLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <Button
+                            android:id="@+id/buttonConnect"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/connectButton"
+                            android:textSize="@dimen/small_text"/>
+                    <Button
+                            android:id="@+id/buttonRegister"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/small_text"
+                            android:text="@string/registerButton"/>
+                </LinearLayout>
+                <!--If connected-->
+                <Button
+                        android:id="@+id/buttonDisconnect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/disconnectButton"
+                        android:textSize="@dimen/small_text"
+                        android:visibility="gone"/>
+            </LinearLayout>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/medium_text"
+                    android:text="@string/gridSettings"/>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/padding_medium">
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textSize="@dimen/small_text"
+                            android:text="@string/heightGrid"/>
+                    <Spinner
+                            android:id="@+id/spinnerHeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textSize="@dimen/small_text"
+                            android:text="@string/widthGrid"/>
+                    <Spinner
+                            android:id="@+id/spinnerWidth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textSize="@dimen/small_text"
+                            android:text="@string/countShuffle"/>
+                    <Spinner
+                            android:id="@+id/spinnerShuffle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <Button
+                        android:id="@+id/buttonModify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/modifyButton"
+                        android:textSize="@dimen/small_text"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

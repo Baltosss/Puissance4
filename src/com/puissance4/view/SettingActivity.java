@@ -8,14 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import com.example.Puissance4.R;
+import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.controller.OnConnectClickListener;
 import com.puissance4.controller.OnDisconnectClickListener;
 import com.puissance4.controller.OnRegisterClickListener;
 import com.puissance4.server_handler.NetworkComm;
-
-import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by fred on 08/01/15.
@@ -36,6 +33,7 @@ public class SettingActivity extends Activity {
             buildDisconnectedSettings();
         }
         buildGridSettings();
+        GameConfiguration.USERNAME = "Fred";
     }
 
     private void getRememberedSettings() {
@@ -47,17 +45,16 @@ public class SettingActivity extends Activity {
                 GameConfiguration.USERNAME = username;
                 GameConfiguration.PASSWORD = password;
                 ////////////////////// CONNECTION TO SERVER INSTRUCTIONS///////////////////////
-                try {
-                    NetworkComm.getInstance().connect();
+                /*try {*/
                     int result = NetworkComm.getInstance().authenticate(GameConfiguration.USERNAME, GameConfiguration.PASSWORD);
                     if(result>0) {
                         GameConfiguration.USERNAME = null;
                         GameConfiguration.PASSWORD = null;
                     }
-                } catch (IOException e) {
+                /*} catch (IOException e) {
                     e.printStackTrace();
                     Toast.makeText(this, R.string.connectCommunicationError, Toast.LENGTH_SHORT);
-                }
+                }*/
             }
             else {
                 SharedPreferences.Editor editor = preferences.edit();

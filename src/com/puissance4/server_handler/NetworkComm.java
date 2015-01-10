@@ -72,6 +72,8 @@ public class NetworkComm {
     }
   }
 
+  public void unauthenticate() {}
+
   // 0 : success
   // 1 : uname taken
   // 2 : timeout
@@ -114,12 +116,12 @@ public class NetworkComm {
     return 0;
   }
 
-  public ArrayList<Object> getNearPlayers() {
+  public ArrayList<NetworkPlayer> getNearPlayers() {
 
     return null;
   }
 
-  public ArrayList<Player> getFriends() {
+  public ArrayList<NetworkPlayer> getFriends() {
 
     return null;
   }

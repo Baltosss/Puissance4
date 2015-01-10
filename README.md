@@ -14,6 +14,6 @@ Liens partie serveur :
 	+ SettingActivity
 
 Remarques : 
-- NetworkComm.getFriends() devrait renvoyer une ArrayList<Player> au lieu d'une ArrayList<Object>. Tu peux aussi faire ta propre classe NetworkPlayer.
-- Quand je m'inscris, je me déconnecte juste après. Est-ce que lors d'une inscription réussie l'utilisateur est automatiquement loggé?
+- NetworkComm.getFriends() devrait renvoyer une ArrayList\<Player\> au lieu d'une ArrayList\<Object\>. Tu peux aussi faire ta propre classe NetworkPlayer. ---> Classe NetworkPlayer
+- Quand je m'inscris, je me déconnecte juste après. Est-ce que lors d'une inscription réussie l'utilisateur est automatiquement loggé?	---> Non il faut s'authentifier derrière
 
