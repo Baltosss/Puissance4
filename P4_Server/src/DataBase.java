@@ -21,12 +21,9 @@ public class DataBase {
   }
 
   public synchronized void disconnectClient(Client client) {
-    System.out.println("AAA");
     if (client.isAuthenticated()) {
-    System.out.println("BBB");
       auth_clients.remove(client.getName());
     } else {
-    System.out.println("CCC");
       nonauth_clients.remove(client);
     }
   }
@@ -56,6 +53,11 @@ public class DataBase {
     }
   }
 
+  public synchronized void unauthenticate(Client client) {
+    auth_clients.remove(client.getName());
+    nonauth_clients.add(client);
+  }
+
   public synchronized Collection<Client> getConnectedClients() {
     ArrayList<Client> ret = new ArrayList<Client>(auth_clients.values());
     ret.addAll(nonauth_clients);
@@ -75,6 +77,11 @@ public class DataBase {
       registered_clients.get(friendName).getFriends().add(client.getName());
       return 0;
     }
+  }
+
+  public synchronized void removeFriend(Client client, String friendName) {
+    registered_clients.get(client.getName()).getFriends().remove(friendName);
+    registered_clients.get(friendName).getFriends().remove(client.getName());
   }
 
   public List<Client> getNearPlayers(Client client) {

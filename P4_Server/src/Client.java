@@ -52,6 +52,12 @@ public class Client {
     return Server.dataBase.authenticate(this);
   }
 
+  public void unauthenticate() {
+    Server.dataBase.unauthenticate(this);
+    authenticated = true;
+    currentState = ClientState.NAUTH;
+  }
+
   // 0 : success
   // 1 : uname nonexistant
   // 2 : already friends
@@ -143,11 +149,11 @@ public class Client {
                 String retnp = "NEARPLAYERS";
 
                 for (Client c : playerlist) {
-                  retnp += "_" + c.getName() + ";" + c.getLatitude() + ";" + c.getLongitude();
+                  retnp += "_" + c.getName() + ";" + c.getLatitude() + ";" + c.getLongitude() + ";";
                   if (!c.isAvailable()) {
-                    retnp += "BUSY";
+                    retnp += "1";
                   } else {
-                    retnp += "AVAILABLE";
+                    retnp += "0";
                   }
                 }
 
@@ -161,11 +167,11 @@ public class Client {
                 for (Client c : friendlist) {
                   retfr += "_" + c.getName() + ";" + c.getLatitude() + ";" + c.getLongitude() + ";";
                   if (!c.isAuthenticated()) {
-                    retfr += "DISCONNECTED";
+                    retfr += "2";
                   } else if (!c.isAvailable()) {
-                    retfr += "BUSY";
+                    retfr += "1";
                   } else {
-                    retfr += "AVAILABLE";
+                    retfr += "0";
                   }
                 }
 
@@ -174,43 +180,64 @@ public class Client {
 
               case "ADDFRIEND":
                 if (tokenizer.hasMoreTokens()) {
-                  // TODO
+                  String friendname = tokenizer.nextToken();
+
+                  switch (Server.dataBase.addFriend(this, friendname)) {
+                    case 0:
+                      send("SUCCESS");
+                      break;
+                    case 1:
+                      send("UNAMENONEXISTANT");
+                      break;
+                    case 2:
+                      send("ALREADYFRIENDS");
+                      break;
+                  }
+                } else {
+                  send("ERROR");
+                }
+                break;
+
+              case "REMFRIEND":
+                if (tokenizer.hasMoreTokens()) {
+                  String friendname = tokenizer.nextToken();
+                  Server.dataBase.removeFriend(this, friendname);
                 } else {
                   send("ERROR");
                 }
                 break;
 
               case "STARTGAME":
-                if (tokenizer.hasMoreTokens()) {
+                if (tokenizer.countTokens() >= 3) {
                   adversary = Server.dataBase.getConnectedClient(tokenizer.nextToken());
+                  int xcols = Integer.parseInt(tokenizer.nextToken());
+                  int ycols = Integer.parseInt(tokenizer.nextToken());
 
                   if (adversary == null || !adversary.isAvailable()) {
                     send("ERRORUNAVAILABLEPLAYER");
                   } else {
-                    Boolean response = adversary.propMatch(name);
-
-                    if (response) {
-                      Random random = new Random();
-                      Boolean firstPlayer = random.nextBoolean();
-
-                      if (firstPlayer) {
-                        send("STARTMATCH_0");
-                      } else {
-                        send("STARTMATCH_1");
-                      }
-
-                      currentState = ClientState.MATCH;
-                      adversary.sendFirstPlayer(!firstPlayer);
-                    } else {
-                      send("ERRORREFUSEDMATCH");
-                      adversary = null;
-                    }
+                    adversary.propMatch(name, xcols, ycols);
                   }
 
                 } else {
                   send("ERROR");
                 }
                 break;
+
+              case "PROPRESPONSE":
+                if (tokenizer.hasMoreTokens()) {
+                  Boolean response = Boolean.parseBoolean(tokenizer.nextToken());
+                  adversary.notifyMatchResponse(response);
+                  
+                  if(!response) {
+                    adversary = null;
+                  }
+                }
+
+              case "UNAUTH":
+                unauthenticate();
+                break;
+
 
               case "DISCONNECT":
                 Server.dataBase.disconnectClient(this);
@@ -226,9 +253,23 @@ public class Client {
           case MATCH:
             switch (token) {
               case "MOVE":
+                if (tokenizer.hasMoreTokens()) {
+                  if (adversary != null) {
+                    adversary.send(request);
+                  }
+                } else {
+                  send("ERROR");
+                }
                 break;
 
               case "RAND":
+                if (tokenizer.hasMoreTokens()) {
+                  if (adversary != null) {
+                    adversary.send(request);
+                  }
+                } else {
+                  send("ERROR");
+                }
                 break;
 
               case "WIN":
@@ -247,7 +288,6 @@ public class Client {
 
               case "DISCONNECT":
                 Server.dataBase.disconnectClient(this);
-                adversary = null;
                 close();
                 break;
 
@@ -278,10 +318,28 @@ public class Client {
     currentState = state;
   }
 
-  // Match proposé par name2, si l'utilisateur accepte, retourner true sinon false
-  public Boolean propMatch(String name2) {
+  public void propMatch(String advname, int xcols, int ycols) {
+    adversary = Server.dataBase.getConnectedClient(advname);
+    send("PROPMATCH_" + advname + "_" + xcols + "_" + ycols);
+  }
 
-    return null;
+  public void notifyMatchResponse(boolean response) {
+    if (response) {
+      Random random = new Random();
+      Boolean firstPlayer = random.nextBoolean();
+
+      if (firstPlayer) {
+        send("STARTMATCH_0");
+      } else {
+        send("STARTMATCH_1");
+      }
+
+      currentState = ClientState.MATCH;
+      adversary.sendFirstPlayer(!firstPlayer);
+    } else {
+      send("STARTMATCH_2"); // signifie un refus
+      adversary = null;
+    }
   }
 
   public boolean isAvailable() {
