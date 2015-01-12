@@ -2,6 +2,7 @@ package com.puissance4.view.activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 
 public class GameActivity extends Activity {
     private LinearLayout gameGrid;
-    private ArrayList<ArrayList<Button>> grid;
     private Party party;
     private SensorManager senSensorManager;
     private Sensor senAccelerometer;
@@ -50,22 +50,17 @@ public class GameActivity extends Activity {
     }
 
     public void buildGrid() {
-        grid = new ArrayList<ArrayList<Button>>();  //not necessary
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         gameGrid = (LinearLayout) findViewById(R.id.gamegrid);
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             gameGrid.setWeightSum(GameConfiguration.GRID_HEIGHT);
             for (int i = 0; i < GameConfiguration.GRID_HEIGHT; i++) {
-                grid.add(new ArrayList<Button>());
-                //LinearLayout row = (LinearLayout) inflater.inflate(R.layout.row, null);
                 LinearLayout row = new LinearLayout(this);
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
                 row.setWeightSum(GameConfiguration.GRID_WIDTH);
                 for (int j = 0; j < GameConfiguration.GRID_WIDTH; j++) {
-                    //Button slot = (Button) inflater.inflate(R.layout.button, null);
                     Button slot = buildButton(i, j);
                     row.addView(slot);
-                    grid.get(i).add(slot);
                 }
                 gameGrid.addView(row);
             }
@@ -73,14 +68,12 @@ public class GameActivity extends Activity {
         else {
             gameGrid.setWeightSum(GameConfiguration.GRID_WIDTH);
             for (int i = 0; i < GameConfiguration.GRID_WIDTH; i++) {
-                grid.add(new ArrayList<Button>());
                 LinearLayout row = new LinearLayout(this);
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
                 row.setWeightSum(GameConfiguration.GRID_HEIGHT);
                 for (int j = 0; j < GameConfiguration.GRID_HEIGHT; j++) {
                     Button slot = buildButton(i, j);
                     row.addView(slot);
-                    grid.get(i).add(slot);
                 }
                 gameGrid.addView(row);
             }
@@ -104,7 +97,8 @@ public class GameActivity extends Activity {
                 String[] players = {savedInstanceState.getString("player1"), savedInstanceState.getString("player2")};
                 if(players[0] == null || players[1] == null) {
                     Toast.makeText(getApplicationContext(), "Error while setting game",Toast.LENGTH_LONG);
-                    return; //HAS TO BE MODIFIED TO GO BACK ON MAIN SCREEN
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
                 }
                 party = new Party(players, GameConfiguration.GRID_HEIGHT-1, GameConfiguration.GRID_WIDTH-1);
             }
@@ -151,10 +145,6 @@ public class GameActivity extends Activity {
             slot.setEnabled(false);
         }
         return slot;
-    }
-
-    public ArrayList<ArrayList<Button>> getGrid() {
-        return grid;
     }
 
     @Override
