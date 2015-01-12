@@ -43,6 +43,8 @@
     <string name="friendListButton">Liste d\'amis</string>
     <string name="connectBeforeAccessFriends">Merci de vous connecter dans les paramètres avant d\'accéder à la liste d\'amis</string>
     <string name="gameRefused">Votre adversaire a refusé l\'invitation</string>
+    <string name="waitingPlayerAnswer">En attente de la réponse de l\'adversaire</string>
+
     <!--Toast Error Messages-->
     <string name="unknownUsername">Nom d\'utilisateur inconnu</string>
     <string name="connectCommunicationError">Erreur lors de la connexion au serveur</string>

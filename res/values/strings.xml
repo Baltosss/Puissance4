@@ -42,6 +42,7 @@
     <string name="connection">Connection</string>
     <string name="yellow">Yellow</string>
     <string name="red">Red</string>
+    <string name="waitingPlayerAnswer">Waiting for player\'s answer</string>
 
     <!--Toast Messages-->
     <string name="connected">Connected</string>

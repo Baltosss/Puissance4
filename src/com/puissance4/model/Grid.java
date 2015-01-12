@@ -1,6 +1,6 @@
 package com.puissance4.model;
 
-import com.puissance4.exceptions.*;
+import com.puissance4.model.exceptions.*;
 
 import java.util.Arrays;
 import java.util.Random;
