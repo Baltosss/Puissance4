@@ -38,7 +38,6 @@ public class SettingActivity extends Activity {
             buildDisconnectedSettings();
         }
         buildGridSettings();
-        GameConfiguration.USERNAME = "Fred";
     }
 
     private void getRememberedSettings() {
