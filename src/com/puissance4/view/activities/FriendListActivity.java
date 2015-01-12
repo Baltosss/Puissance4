@@ -6,6 +6,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.Puissance4.R;
+import com.puissance4.server_com.async_tasks.GetFriendListAsyncTask;
 import com.puissance4.view.adapters.FriendListAdapter;
 import com.puissance4.server_com.network_handlers.NetworkPlayer;
 import com.puissance4.server_com.network_handlers.NetworkComm;
@@ -20,13 +21,8 @@ public class FriendListActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading);
-        setContentView(R.layout.friend_list_settings);
         Toast.makeText(this, R.string.connectBeforePlay, Toast.LENGTH_SHORT).show();
         ///////////////////////////////// GET FRIEND LIST INSTRUCTIONS ///////////////////////////////
-        ArrayList<NetworkPlayer> friendList = NetworkComm.getInstance().getFriends();
-        setContentView(R.layout.friend_list_settings);
-        FriendListAdapter adapter = new FriendListAdapter(this, R.layout.friend_item, friendList);
-        ListView listView = (ListView) findViewById(R.id.friendList);
-        listView.setAdapter(adapter);
+        new GetFriendListAsyncTask(this).execute();
     }
 }

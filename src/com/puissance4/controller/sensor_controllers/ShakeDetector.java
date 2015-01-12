@@ -3,18 +3,9 @@ package com.puissance4.controller.sensor_controllers;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import com.puissance4.configuration.SensorConfiguration;
 
 public class ShakeDetector implements SensorEventListener {
-
-	// Minimum acceleration needed to count as a shake movement
-    private static final int MIN_SHAKE_ACCELERATION = 10;
-    
-    // Minimum number of movements to register a shake
-    private static final int MIN_MOVEMENTS = 2;
-    
-    // Maximum time (in milliseconds) for the whole shake to occur
-    private static final int MAX_SHAKE_DURATION = 500;
-
     // Arrays to store gravity and linear acceleration values
 	private float[] mGravity = { 0.0f, 0.0f, 0.0f };
 	private float[] mLinearAcceleration = { 0.0f, 0.0f, 0.0f };
@@ -36,17 +27,17 @@ public class ShakeDetector implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         setCurrentAcceleration(event);
         double currentLinearAcceleration = getCurrentLinearAcceleration();
-        if (currentLinearAcceleration > MIN_SHAKE_ACCELERATION) {
+        if (currentLinearAcceleration > SensorConfiguration.MIN_SHAKE_ACCELERATION) {
             long now = System.currentTimeMillis();
             if (startTime == 0) {
                 startTime = now;
             }
             long elapsedTime = now - startTime;
-            if (elapsedTime > MAX_SHAKE_DURATION) {
+            if (elapsedTime > SensorConfiguration.MAX_SHAKE_DURATION) {
                 resetShakeDetection();
             } else {
                 moveCount++;
-                if (moveCount > MIN_MOVEMENTS) {
+                if (moveCount > SensorConfiguration.MIN_MOVEMENTS) {
                     mShakeListener.onShake();
                     resetShakeDetection();
                 }

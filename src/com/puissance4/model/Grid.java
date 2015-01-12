@@ -9,7 +9,7 @@ import java.util.Random;
 public class Grid {
 	private static int LINE_SIZE_TO_WIN = 4;
 	public static int MAX_ALLOWED_RESHUFFLE = 10;
-	public static int MAX_ALLOWED_SUFFLE_REPLAY = 100;
+	public static int MAX_ALLOWED_SHUFFLE_REPLAY = 100;
 	private int width, height;
 	private int lastSlotRow, lastSlotColumn;
 	private int[][] grid;
@@ -436,7 +436,7 @@ public class Grid {
 						}
 					}
 					countRetries++;
-				}while((hasWon() || isNullGame()) && (countRetries<MAX_ALLOWED_SUFFLE_REPLAY));
+				}while((hasWon() || isNullGame()) && (countRetries<MAX_ALLOWED_SHUFFLE_REPLAY));
 			}
 			if(nextShuffledSlotState<countPlayers-1)
 			{
@@ -455,7 +455,7 @@ public class Grid {
 				reshuffle(countSlots, newSlotState, countMoves);
 			}
 		}
-		if(countRetries==MAX_ALLOWED_SUFFLE_REPLAY)
+		if(countRetries==MAX_ALLOWED_SHUFFLE_REPLAY)
 		{
 			countReshuffle ++;
 			if(countReshuffle < MAX_ALLOWED_RESHUFFLE)

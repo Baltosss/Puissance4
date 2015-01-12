@@ -15,12 +15,5 @@ public class NearPlayerPickerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading);
         new GetNearPlayersAsyncTask(this).execute();
-        /*
-        ArrayList<NetworkPlayer> nearPlayerList = NetworkComm.getInstance().getNearPlayers();
-        setContentView(R.layout.list_pick);
-        OpponentPickerAdapter adapter = new OpponentPickerAdapter(this, R.layout.friend_item, nearPlayerList);
-        ListView listView = (ListView) findViewById(R.id.pickList);
-        listView.setAdapter(adapter);
-        */
     }
 }

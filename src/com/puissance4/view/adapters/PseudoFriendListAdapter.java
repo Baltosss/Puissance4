@@ -42,21 +42,16 @@ public class PseudoFriendListAdapter extends ArrayAdapter<String>{
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((Activity)context).setContentView(R.layout.loading);
-                    try {
-                        ////////////////// REMOVE A FRIEND /////////////////////////////
-                        NetworkComm.getInstance().connect();
+                ((Activity)context).setContentView(R.layout.loading);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
                         NetworkComm.getInstance().removeFriend(friend);
-                        NetworkComm.getInstance().disconnect();
                         Toast.makeText(context, R.string.friendRemoved, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(context, FriendListActivity.class);
                         context.startActivity(intent);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Toast.makeText(context, R.string.connectCommunicationError, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(context, FriendListActivity.class);
-                        context.startActivity(intent);
                     }
+                }).start();
                 }
             });
         }

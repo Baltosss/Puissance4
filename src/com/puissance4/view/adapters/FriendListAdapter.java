@@ -53,18 +53,16 @@ public class FriendListAdapter extends ArrayNetworkPlayerAdapter {
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    try {
-                        ////////////////// REMOVE A FRIEND /////////////////////////////
-                        NetworkComm.getInstance().connect();
-                        NetworkComm.getInstance().removeFriend(friend.getName());
-                        NetworkComm.getInstance().disconnect();
-                        Toast.makeText(context, R.string.friendRemoved, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(context, FriendListActivity.class);
-                        context.startActivity(intent);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Toast.makeText(context, R.string.connectCommunicationError, Toast.LENGTH_SHORT).show();
-                    }
+                    ////////////////// REMOVE A FRIEND /////////////////////////////
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            NetworkComm.getInstance().removeFriend(friend.getName());
+                            Toast.makeText(context, R.string.friendRemoved, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(context, FriendListActivity.class);
+                            context.startActivity(intent);
+                        }
+                    }).start();
                 }
             });
         }

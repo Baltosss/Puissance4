@@ -20,7 +20,12 @@ public class OnDisconnectClickListener extends ActivityListener {
     @Override
     public void onClick(View view) {
         ////////////////////// DISCONNECTION INSTRUCTIONS ///////////
-        NetworkComm.getInstance().unauthenticate();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NetworkComm.getInstance().unauthenticate();
+            }
+        }).start();
         GameConfiguration.PASSWORD = null;
         GameConfiguration.USERNAME = null;
         SharedPreferences preferences = context.getPreferences(Context.MODE_PRIVATE);

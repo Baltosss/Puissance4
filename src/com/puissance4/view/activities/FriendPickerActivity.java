@@ -14,12 +14,5 @@ public class FriendPickerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading);
         new GetFriendPlayersAsyncTask(this).execute();
-        /*super.onCreate(savedInstanceState);
-        setContentView(R.layout.loading);
-        ArrayList<NetworkPlayer> friendList = NetworkComm.getInstance().getFriends();
-        setContentView(R.layout.list_pick);
-        OpponentPickerAdapter adapter = new OpponentPickerAdapter(this, R.layout.friend_item, friendList);
-        ListView listView = (ListView) findViewById(R.id.pickList);
-        listView.setAdapter(adapter);*/
     }
 }

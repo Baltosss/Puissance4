@@ -28,22 +28,34 @@ public class OnGameButtonClickListener extends ActivityListener {
     @Override
     public void onClick(View view) {
         try {
+            int gColumn = column -1;
             if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                party.nextMove(column - 1, 0);
-                /////////////////////////// SEND MOVE INSTRUCTIONS /////////////////////////////////////
-                NetworkComm.getInstance().sendMove(column - 1);
+                party.nextMove(gColumn, 0);
             }
             else {
                 party.nextMove(column - 1, 1);
-                NetworkComm.getInstance().sendMove(GameConfiguration.GRID_HEIGHT + column - 1);
+                gColumn = GameConfiguration.GRID_HEIGHT + gColumn;
             }
+            /////////////////////////// SEND MOVE INSTRUCTIONS /////////////////////////////////////
+            final int finalGColumn = gColumn;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    NetworkComm.getInstance().sendMove(finalGColumn);
+                }
+            }).start();
             context.setContentView(R.layout.puissance2);
             ((GameActivity)context).buildGrid();
             Player winner = party.getWinner();
             if(winner!=null) {
                 //////////////////////////// SEND WINNER INSTRUCTIONS (ONLY IF I WIN)////////////////////////////////
                 if(winner.equals(GameConfiguration.USERNAME)) {
-                    NetworkComm.getInstance().sendWin(true);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            NetworkComm.getInstance().sendWin(true);
+                        }
+                    }).start();
                 }
                 Toast.makeText(context.getApplicationContext(), winner.getName() + " has won", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(context, MainActivity.class);

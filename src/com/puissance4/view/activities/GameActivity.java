@@ -17,6 +17,7 @@ import com.puissance4.controller.button_controllers.OnGameButtonClickListener;
 import com.puissance4.controller.sensor_controllers.ShakeDetector;
 import com.puissance4.controller.sensor_controllers.ShakeListener;
 import com.puissance4.model.Party;
+import com.puissance4.server_com.network_handlers.NetworkComm;
 
 import java.util.ArrayList;
 
@@ -151,5 +152,16 @@ public class GameActivity extends Activity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putSerializable("party", party);
+    }
+
+    public void shuffle() {
+        party.shuffle();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NetworkComm.getInstance().sendRandom(party.getGrid().getGrid());
+                buildGrid();
+            }
+        }).start();
     }
 }
