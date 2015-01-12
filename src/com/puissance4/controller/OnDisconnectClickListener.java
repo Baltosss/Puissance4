@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
-import com.puissance4.server_handler.NetworkComm;
+import com.puissance4.network_handler.NetworkComm;
 import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.view.MainActivity;
 

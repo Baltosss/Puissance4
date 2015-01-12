@@ -1,6 +1,6 @@
 package com.puissance4.tests;
 
-import com.puissance4.server_handler.NetworkComm;
+import com.puissance4.network_handler.NetworkComm;
 
 import java.io.IOException;
 

@@ -81,9 +81,12 @@ public class Client {
       }
 
       if (token.equals("STILLALIVE")) {
-        setLastPing(System.currentTimeMillis());
-        latitude = Long.parseLong(token);
-        longitude = Long.parseLong(token);
+        if (tokenizer.countTokens() >= 2) {
+          setLastPing(System.currentTimeMillis());
+          latitude = Double.parseDouble(tokenizer.nextToken());
+          longitude = Double.parseDouble(tokenizer.nextToken());
+          System.out.println("Client " + name + " pinged at : " + latitude + " ; " + longitude);
+        }
 
       } else {
 
@@ -228,8 +231,8 @@ public class Client {
                 if (tokenizer.hasMoreTokens()) {
                   Boolean response = Boolean.parseBoolean(tokenizer.nextToken());
                   adversary.notifyMatchResponse(response);
-                  
-                  if(!response) {
+
+                  if (!response) {
                     adversary = null;
                   }
                 }

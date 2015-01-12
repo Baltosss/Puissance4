@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.example.Puissance4.R;
-import com.puissance4.server_handler.NetworkComm;
-import com.puissance4.server_handler.NetworkPlayer;
+import com.puissance4.network_handler.NetworkComm;
+import com.puissance4.network_handler.NetworkPlayer;
 import com.puissance4.view.FriendListActivity;
 
 import java.io.IOException;

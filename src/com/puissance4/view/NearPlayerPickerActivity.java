@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.widget.ListView;
 import com.example.Puissance4.R;
 import com.puissance4.adapter.OpponentPickerAdapter;
-import com.puissance4.server_handler.NetworkComm;
-import com.puissance4.server_handler.NetworkPlayer;
+import com.puissance4.network_handler.NetworkComm;
+import com.puissance4.network_handler.NetworkPlayer;
 
 import java.util.ArrayList;
 

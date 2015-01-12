@@ -1,38 +1,69 @@
 package com.puissance4.view;
 
 import android.app.Activity;
-import android.content.res.Configuration;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.view.View;
+import android.os.IBinder;
 import android.widget.Button;
-import android.widget.TextView;
+
 import com.example.Puissance4.R;
 import com.puissance4.controller.FriendListButtonListener;
 import com.puissance4.controller.FriendPlayerButtonListener;
 import com.puissance4.controller.NearPlayerButtonListener;
 import com.puissance4.controller.SettingsButtonListener;
-import com.puissance4.server_handler.NetworkComm;
+import com.puissance4.network_handler.NetworkComm;
+import com.puissance4.ping_service.PingService;
 
 /**
  * Created by fred on 08/01/15.
  */
 public class MainActivity extends Activity {
     private boolean isLoading;
+    private PingService pingService;
+    private boolean pingServiceBound = false;
+
+    private ServiceConnection pingServiceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            PingService.PingBinder binder = (PingService.PingBinder) service;
+            pingService = binder.getService();
+            pingServiceBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            pingServiceBound = false;
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        NetworkComm.getInstance();  //CONNECTION TO THE SERVER IF NEEDED
-        if(savedInstanceState != null) {
+
+        //CONNECTION TO THE SERVER IF NEEDED
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NetworkComm.getInstance();
+            }
+        }).start();
+
+        //PING SERVICE INIT
+        bindService(new Intent(this, PingService.class), pingServiceConnection, Context.BIND_AUTO_CREATE);
+
+        if (savedInstanceState != null) {
             isLoading = savedInstanceState.getBoolean("isLoading");
-        }
-        else {
+        } else {
             isLoading = false;
         }
-        if(isLoading) {
+        if (isLoading) {
             setContentView(R.layout.loading);
-        }
-        else {
+        } else {
             setContentView(R.layout.main);
             Button nearPlayerButton = (Button) findViewById(R.id.buttonPlayNearPlayer);
             Button friendPlayerButton = (Button) findViewById(R.id.buttonPlayFriend);
@@ -52,9 +83,29 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
-        NetworkComm.getInstance().disconnect();
+        if (pingServiceBound) {
+            unbindService(pingServiceConnection);
+            pingServiceBound = false;
+        }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NetworkComm.getInstance().disconnect();
+            }
+        }).start();
     }
 
     public boolean isLoading() {

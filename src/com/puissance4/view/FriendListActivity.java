@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.example.Puissance4.R;
 import com.puissance4.adapter.FriendListAdapter;
-import com.puissance4.adapter.PseudoFriendListAdapter;
-import com.puissance4.model.Player;
-import com.puissance4.server_handler.NetworkComm;
-import com.puissance4.server_handler.NetworkPlayer;
+import com.puissance4.network_handler.NetworkPlayer;
+import com.puissance4.network_handler.NetworkComm;
 
 import java.util.ArrayList;
 

@@ -2,7 +2,7 @@ package com.puissance4.adapter;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;
-import com.puissance4.server_handler.NetworkPlayer;
+import com.puissance4.network_handler.NetworkPlayer;
 
 import java.util.ArrayList;
 
