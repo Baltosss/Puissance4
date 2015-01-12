@@ -183,8 +183,8 @@ public class NetworkComm {
 
             if (elemTokenizer.countTokens() >= 3) {
                 String name = elemTokenizer.nextToken();
-                Long latitude = Long.parseLong(elemTokenizer.nextToken());
-                Long longitude = Long.parseLong(elemTokenizer.nextToken());
+                double latitude = Double.parseDouble(elemTokenizer.nextToken());
+                double longitude = Double.parseDouble(elemTokenizer.nextToken());
                 int status = Integer.parseInt(elemTokenizer.nextToken());
 
                 playerList.add(new NetworkPlayer(name, latitude, longitude, status));
@@ -219,8 +219,8 @@ public class NetworkComm {
 
             if (elemTokenizer.countTokens() >= 3) {
                 String name = elemTokenizer.nextToken();
-                Long latitude = Long.parseLong(elemTokenizer.nextToken());
-                Long longitude = Long.parseLong(elemTokenizer.nextToken());
+                Double latitude = Double.parseDouble(elemTokenizer.nextToken());
+                Double longitude = Double.parseDouble(elemTokenizer.nextToken());
                 int status = Integer.parseInt(elemTokenizer.nextToken());
 
                 playerList.add(new NetworkPlayer(name, latitude, longitude, status));

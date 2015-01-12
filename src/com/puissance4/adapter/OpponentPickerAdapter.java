@@ -6,13 +6,17 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.Puissance4.R;
+import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.model.Party;
 import com.puissance4.network_handler.NetworkComm;
 import com.puissance4.network_handler.NetworkPlayer;
 import com.puissance4.view.GameActivity;
-import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.view.MainActivity;
 
 import java.util.ArrayList;
@@ -25,7 +29,7 @@ public class OpponentPickerAdapter extends ArrayNetworkPlayerAdapter {
         super(context, resource, objects);
     }
 
-    @Override
+@Override
     public View getView(int position, final View convertView, ViewGroup parent) {
         View v = convertView;
         if (v == null) {

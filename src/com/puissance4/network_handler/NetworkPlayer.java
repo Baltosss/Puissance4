@@ -5,11 +5,11 @@ package com.puissance4.network_handler;
  */
 public class NetworkPlayer {
     private String name;
-    private Long latitude;
-    private Long longitude;
+    private Double latitude;
+    private Double longitude;
     private int status; // 0 : AVAILABLE, 1 : BUSY, 2 : DISCONNECTED (only for friends)
 
-    public NetworkPlayer(String name, Long latitude, Long longitude, int status) {
+    public NetworkPlayer(String name, Double latitude, Double longitude, int status) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -32,19 +32,19 @@ public class NetworkPlayer {
         this.name = name;
     }
 
-    public Long getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Long latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public Long getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Long longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 }
