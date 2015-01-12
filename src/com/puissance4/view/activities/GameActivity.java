@@ -19,16 +19,13 @@ import com.puissance4.model.Party;
 
 import java.util.ArrayList;
 
-public class GameActivity extends Activity implements SensorEventListener {
+public class GameActivity extends Activity {
     private LinearLayout gameGrid;
     private ArrayList<ArrayList<Button>> grid;
     private Party party;
     private SensorManager senSensorManager;
     private Sensor senAccelerometer;
     private ShakeDetector shakeDetector;
-    /*private long lastUpdate = 0;
-    private float last_x, last_y, last_z;
-    private static final int SHAKE_THRESHOLD = 600;*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,18 +35,18 @@ public class GameActivity extends Activity implements SensorEventListener {
         setupParty(savedInstanceState);
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        senSensorManager.registerListener(this, senAccelerometer , SensorManager.SENSOR_DELAY_GAME);
+        senSensorManager.registerListener(shakeDetector, senAccelerometer , SensorManager.SENSOR_DELAY_GAME);
         buildGrid();
     }
 
     public void onPause() {
         super.onPause();
-        senSensorManager.unregisterListener(this);
+        senSensorManager.unregisterListener(shakeDetector);
     }
 
     protected void onResume() {
         super.onResume();
-        senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_GAME);
+        senSensorManager.registerListener(shakeDetector, senAccelerometer, SensorManager.SENSOR_DELAY_GAME);
     }
 
     public void buildGrid() {
@@ -163,23 +160,6 @@ public class GameActivity extends Activity implements SensorEventListener {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        // Save UI state changes to the savedInstanceState.
-        // This bundle will be passed to onCreate if the process is
-        // killed and restarted.
         savedInstanceState.putSerializable("party", party);
-        // etc.
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent sensorEvent) {
-        Sensor mySensor = sensorEvent.sensor;
-        if (mySensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            shakeDetector.onSensorChanged(sensorEvent);
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-
     }
 }
