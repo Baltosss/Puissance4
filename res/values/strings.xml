@@ -52,6 +52,7 @@
     <string name="connectBeforePlay">Please connect in settings before playing</string>
     <string name="gameRefused">Your opponent has refused the invitation</string>
     <string name="connectBeforeAccessFriends">Please connect in settings before accessing to friend list</string>
+    <string name="shuffle">Shuffle !</string>
 
     <!--Toast Error Messages-->
     <string name="unknownUsername">Unknown username</string>
