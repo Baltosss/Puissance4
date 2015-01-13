@@ -15,7 +15,7 @@ import com.puissance4.view.activities.MainActivity;
 /**
  * Created by fred on 12/01/15.
  */
-public class StartGameAsyncTask extends AsyncTask<String, Void, Integer> {
+public class StartGameAsyncTask extends AsyncTask<Void, Void, Integer> {
     private Activity context;
     private NetworkPlayer opponent;
 
@@ -25,8 +25,8 @@ public class StartGameAsyncTask extends AsyncTask<String, Void, Integer> {
     }
 
     @Override
-    protected Integer doInBackground(String... params) {
-        return NetworkComm.getInstance().proposeGame(params[0], Integer.parseInt(params[1]), Integer.parseInt(params[2]));
+    protected Integer doInBackground(Void... params) {
+        return NetworkComm.getInstance().proposeGame(opponent.getName(), GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH);
     }
 
     @Override

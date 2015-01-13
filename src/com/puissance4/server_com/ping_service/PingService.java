@@ -71,6 +71,7 @@ public class PingService extends Service {
 
     @Override
     public void onCreate() {
+        System.out.println("AAAAAAAAAAAAA");
         setCoordinates(0, 0);
         NetworkComm.getInstance().setService(this);
 
