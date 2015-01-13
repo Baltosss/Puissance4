@@ -16,8 +16,9 @@ public class keepAliveListenerThread extends TimerTask {
           client.closeSocket();
         } catch (IOException e) {
           e.printStackTrace();
+        } finally {
+          Server.dataBase.disconnectClient(client);
         }
-        Server.dataBase.disconnectClient(client);
       }
     }
   }
