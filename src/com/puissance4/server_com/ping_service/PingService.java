@@ -1,6 +1,9 @@
 package com.puissance4.server_com.ping_service;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
@@ -13,8 +16,10 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
+import com.example.Puissance4.R;
 import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.server_com.network_handlers.NetworkComm;
+import com.puissance4.view.activities.StartGameActivity;
 
 public class PingService extends Service {
     private final IBinder binder = new PingBinder();
@@ -85,25 +90,29 @@ public class PingService extends Service {
         GameConfiguration.GRID_WIDTH = y;
 
         //DIALOGUE ET APPELER answerProposal();
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.slot_star)
                 .setContentTitle("Match")
                 .setContentText(advname + " vous propose de jouer !");
 
-        switch (NetworkComm.getInstance().answerProposal(true)) {
-            case 0:
-                startGame(true);
-                break;
-            case 1:
-                startGame(false);
-                break;
-            default:
-                //ERREUR
-                break;
-        }
-    }
+        Intent acceptGameIntent = new Intent(this, StartGameActivity.class);
+        acceptGameIntent.putExtra("ADVNAME", advname);
+        acceptGameIntent.putExtra("X", x);
+        acceptGameIntent.putExtra("Y", y);
 
-    public void startGame(boolean firstPlayer) {
-        //lancer l'activty de jeu
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(StartGameActivity.class);
+        stackBuilder.addNextIntent(acceptGameIntent);
+
+        PendingIntent acceptPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(acceptPendingIntent);
+
+        Intent refuseGameIntent = new Intent(this, RefuseGameReceiver.class);
+        PendingIntent refusePendingIntent = PendingIntent.getBroadcast(this, 0, refuseGameIntent, 0);
+        builder.setDeleteIntent(refusePendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, builder.build());
     }
 
     public synchronized void setCoordinates(double latitude, double longitude) {

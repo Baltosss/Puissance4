@@ -9,14 +9,13 @@
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
         <activity android:name="com.puissance4.view.activities.GameActivity"
                   android:label="@string/app_name">
+        </activity>
+        <activity android:name="com.puissance4.view.activities.MainActivity"
+                  android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity android:name="com.puissance4.view.activities.MainActivity"
-                  android:label="@string/app_name">
-
         </activity>
         <activity android:name="com.puissance4.view.activities.SettingActivity"
                   android:label="@string/mainSettings"/>
@@ -26,5 +25,6 @@
                   android:label="@string/pickOpponent"/>
         <activity android:name="com.puissance4.view.activities.NearPlayerPickerActivity"
                   android:label="@string/pickOpponent"/>
+        <receiver android:name="com.puissance4.server_com.ping_service.RefuseGameReceiver"/>
     </application>
 </manifest>
