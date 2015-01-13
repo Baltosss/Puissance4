@@ -85,7 +85,8 @@ public class Client {
           setLastPing(System.currentTimeMillis());
           latitude = Double.parseDouble(tokenizer.nextToken());
           longitude = Double.parseDouble(tokenizer.nextToken());
-          System.out.println("Client " + name + " pinged at : " + latitude + " ; " + longitude);
+          System.out.println("Client " + name + " pinged at : " + latitude + " ; " + longitude
+              + " STATUS : " + currentState.toString());
         }
 
       } else {
@@ -229,12 +230,15 @@ public class Client {
 
               case "PROPRESPONSE":
                 if (tokenizer.hasMoreTokens()) {
-                  Boolean response = Boolean.parseBoolean(tokenizer.nextToken());
-                  adversary.notifyMatchResponse(response);
+                  if (adversary != null) {
+                    Boolean response = Boolean.parseBoolean(tokenizer.nextToken());
+                    adversary.notifyMatchResponse(response);
 
-                  if (!response) {
-                    adversary = null;
+                    if (!response) {
+                      adversary = null;
+                    }
                   }
+                  break;
                 }
 
               case "UNAUTH":
