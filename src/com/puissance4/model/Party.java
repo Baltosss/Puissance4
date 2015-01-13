@@ -54,7 +54,7 @@ public class Party implements Serializable{
 			//throw new NotPlayerTurnException();
 			//return;
 		}
-		int resultMove;
+		int resultMove = -1;
 		if(orientation==0)
 		{
 			resultMove = grid.playAtColumn(columnId, currentPlayer);

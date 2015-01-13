@@ -26,7 +26,9 @@ public class PingService extends Service {
     private double latitude;
     private double longitude;
     private Handler pingHandler;
+    private Handler notificationExpirationHandler;
     private LocationManager locationManager;
+    private NotificationManager notificationManager;
     private Criteria criteria;
 
     private class pingLocationListener implements LocationListener {
@@ -71,7 +73,6 @@ public class PingService extends Service {
 
     @Override
     public void onCreate() {
-        System.out.println("AAAAAAAAAAAAA");
         setCoordinates(0, 0);
         NetworkComm.getInstance().setService(this);
 
@@ -82,6 +83,7 @@ public class PingService extends Service {
         criteria.setBearingRequired(false);
 
         pingHandler = new Handler();
+        notificationExpirationHandler = new Handler();
         pingHandler.post(pingRunnable);
     }
 
@@ -105,17 +107,17 @@ public class PingService extends Service {
         stackBuilder.addParentStack(StartGameActivity.class);
         stackBuilder.addNextIntent(acceptGameIntent);
 
-        PendingIntent acceptPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        //PendingIntent acceptPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent acceptPendingIntent = PendingIntent.getActivity(this, 0, acceptGameIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(acceptPendingIntent);
 
         Intent refuseGameIntent = new Intent(this, RefuseGameReceiver.class);
         PendingIntent refusePendingIntent = PendingIntent.getBroadcast(this, 0, refuseGameIntent, 0);
         builder.setDeleteIntent(refusePendingIntent);
 
-        final NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(5, builder.build());
 
-        Handler notificationExpirationHandler = new Handler();
         notificationExpirationHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -123,6 +125,12 @@ public class PingService extends Service {
                 NetworkComm.getInstance().answerProposal(false);
             }
         }, 60000);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        NetworkComm.getInstance().disconnect();
     }
 
     public synchronized void setCoordinates(double latitude, double longitude) {

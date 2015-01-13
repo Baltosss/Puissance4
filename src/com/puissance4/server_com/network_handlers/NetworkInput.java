@@ -75,6 +75,9 @@ public class NetworkInput {
                 case "LOSS":
                     NetworkComm.getInstance().winReceived(false);
                     break;
+                case "PLAYERDISCONNECTED":
+                    System.out.println("PLAYERDISCONNECTED");
+                    break;
                 default:
                     //result = response.substring(token.length());
                     result = response;

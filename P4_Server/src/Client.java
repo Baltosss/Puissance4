@@ -231,7 +231,7 @@ public class Client {
               case "PROPRESPONSE":
                 if (tokenizer.hasMoreTokens()) {
                   if (adversary != null) {
-                    Boolean response = Boolean.parseBoolean(tokenizer.nextToken());
+                    Boolean response = (Integer.parseInt(tokenizer.nextToken()) == 1);
                     adversary.notifyMatchResponse(response);
 
                     if (!response) {
@@ -310,6 +310,7 @@ public class Client {
       LOCK.unlock();
     }
 
+    Server.dataBase.disconnectClient(this);
     closeSocket();
   }
 

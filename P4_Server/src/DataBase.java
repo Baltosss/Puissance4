@@ -21,11 +21,8 @@ public class DataBase {
   }
 
   public synchronized void disconnectClient(Client client) {
-    if (client.isAuthenticated()) {
-      auth_clients.remove(client.getName());
-    } else {
-      nonauth_clients.remove(client);
-    }
+    auth_clients.remove(client.getName());
+    nonauth_clients.remove(client);
   }
 
   public synchronized void registerClient(Client client) {

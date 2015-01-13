@@ -1,6 +1,5 @@
 package com.puissance4.server_com.network_handlers;
 
-import android.content.Context;
 import android.content.Intent;
 
 import com.puissance4.server_com.ping_service.PingService;
@@ -253,7 +252,15 @@ public class NetworkComm {
             return 3;
         }
 
-        int result = Integer.parseInt(INPUT.getResult());
+        int result = 3;
+
+        StringTokenizer tokenizer = new StringTokenizer(INPUT.getResult(), "_");
+        if(tokenizer.countTokens()>=2) {
+            if(tokenizer.nextToken().equals("STARTMATCH")) {
+                result = Integer.parseInt(tokenizer.nextToken());
+            }
+        }
+
         return result;
     }
 
@@ -283,7 +290,15 @@ public class NetworkComm {
                 return 3;
             }
 
-            int result = Integer.parseInt(INPUT.getResult());
+            int result = 3;
+
+            StringTokenizer tokenizer = new StringTokenizer(INPUT.getResult(), "_");
+            if(tokenizer.countTokens()>=2) {
+                if(tokenizer.nextToken().equals("STARTMATCH")) {
+                    result = Integer.parseInt(tokenizer.nextToken());
+                }
+            }
+
             return result;
 
         } else {

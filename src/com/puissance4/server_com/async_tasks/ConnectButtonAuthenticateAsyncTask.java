@@ -1,6 +1,9 @@
 package com.puissance4.server_com.async_tasks;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.widget.CheckBox;
 import android.widget.Toast;
 import com.example.Puissance4.R;
 import com.puissance4.configuration.GameConfiguration;
@@ -32,6 +35,16 @@ public class ConnectButtonAuthenticateAsyncTask extends AuthenticateAsyncTask {
                 Toast.makeText(context, R.string.connected, Toast.LENGTH_SHORT).show();
                 GameConfiguration.USERNAME = tempUsername;
                 GameConfiguration.PASSWORD = tempPassword;
+
+                CheckBox checkBox = (CheckBox) context.findViewById(R.id.rememberCheck);
+                if(checkBox.isChecked()) {
+                    SharedPreferences preferences = context.getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("username", GameConfiguration.USERNAME);
+                    editor.putString("password", GameConfiguration.PASSWORD);
+                    editor.apply();
+                }
+
                 Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);
                 break;

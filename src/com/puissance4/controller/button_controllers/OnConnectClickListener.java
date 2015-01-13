@@ -31,8 +31,6 @@ public class OnConnectClickListener extends ActivityListener {
             Matcher matcherPassword = pattern.matcher(password);
             if (!matcherUsername.find() && !matcherPassword.find()) {
                 /////////////////////// AUTHENTICATION INSTRUCTIONS //////////////////////////////////
-                GameConfiguration.USERNAME = username;
-                GameConfiguration.PASSWORD = password;
                 new ConnectButtonAuthenticateAsyncTask((SettingActivity)context).execute(username, password);
             }
         }

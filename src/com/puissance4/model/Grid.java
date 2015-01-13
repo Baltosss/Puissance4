@@ -2,11 +2,12 @@ package com.puissance4.model;
 
 import com.puissance4.model.exceptions.*;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Random;
 
 
-public class Grid {
+public class Grid implements Serializable {
 	private static int LINE_SIZE_TO_WIN = 4;
 	public static int MAX_ALLOWED_RESHUFFLE = 10;
 	public static int MAX_ALLOWED_SHUFFLE_REPLAY = 100;

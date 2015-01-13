@@ -79,16 +79,10 @@ public class MainActivity extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        System.out.println("DEEEEEEESTROY");
         if (pingServiceBound) {
             unbindService(pingServiceConnection);
             pingServiceBound = false;
         }
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                NetworkComm.getInstance().disconnect();
-            }
-        }).start();
     }
 }

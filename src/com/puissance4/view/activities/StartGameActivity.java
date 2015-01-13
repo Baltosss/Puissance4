@@ -1,7 +1,9 @@
 package com.puissance4.view.activities;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -22,6 +24,9 @@ public class StartGameActivity extends Activity {
         quitOnResume = false;
 
         setContentView(R.layout.loading);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(5);
 
         Intent gameIntent = new Intent(this, GameActivity.class);
 
@@ -52,6 +57,7 @@ public class StartGameActivity extends Activity {
 
     @Override
     public void onResume() {
+        super.onResume();
         if(quitOnResume) {
             finish();
         } else {
