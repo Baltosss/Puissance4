@@ -210,7 +210,7 @@ public class Client {
                 }
                 break;
 
-              case "STARTGAME":
+              case "PROPMATCH":
                 if (tokenizer.countTokens() >= 3) {
                   adversary = Server.dataBase.getConnectedClient(tokenizer.nextToken());
                   int xcols = Integer.parseInt(tokenizer.nextToken());
