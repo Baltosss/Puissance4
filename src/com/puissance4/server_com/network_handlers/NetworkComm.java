@@ -245,7 +245,7 @@ public class NetworkComm {
         OUTPUT.send("PROPMATCH_" + adversary + "_" + x + "_" + y);
 
         try {
-            if (!LATCH.await(60, TimeUnit.SECONDS)) {
+            if (!LATCH.await(80, TimeUnit.SECONDS)) {
                 return 3;
             }
         } catch (InterruptedException e) {

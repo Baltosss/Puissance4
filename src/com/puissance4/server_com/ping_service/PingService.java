@@ -111,8 +111,17 @@ public class PingService extends Service {
         PendingIntent refusePendingIntent = PendingIntent.getBroadcast(this, 0, refuseGameIntent, 0);
         builder.setDeleteIntent(refusePendingIntent);
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0, builder.build());
+        final NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(5, builder.build());
+
+        Handler notificationExpirationHandler = new Handler();
+        notificationExpirationHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                notificationManager.cancel(5);
+                NetworkComm.getInstance().answerProposal(false);
+            }
+        }, 60000);
     }
 
     public synchronized void setCoordinates(double latitude, double longitude) {
