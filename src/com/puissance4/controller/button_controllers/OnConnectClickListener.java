@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.Puissance4.R;
+import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.server_com.async_tasks.ConnectButtonAuthenticateAsyncTask;
 import com.puissance4.view.activities.SettingActivity;
 
@@ -30,6 +31,8 @@ public class OnConnectClickListener extends ActivityListener {
             Matcher matcherPassword = pattern.matcher(password);
             if (!matcherUsername.find() && !matcherPassword.find()) {
                 /////////////////////// AUTHENTICATION INSTRUCTIONS //////////////////////////////////
+                GameConfiguration.USERNAME = username;
+                GameConfiguration.PASSWORD = password;
                 new ConnectButtonAuthenticateAsyncTask((SettingActivity)context).execute(username, password);
             }
         }

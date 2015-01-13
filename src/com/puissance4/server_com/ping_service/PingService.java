@@ -11,7 +11,9 @@ import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 
+import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.server_com.network_handlers.NetworkComm;
 
 public class PingService extends Service {
@@ -30,13 +32,16 @@ public class PingService extends Service {
         }
 
         @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {}
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
 
         @Override
-        public void onProviderEnabled(String provider) {}
+        public void onProviderEnabled(String provider) {
+        }
 
         @Override
-        public void onProviderDisabled(String provider) {}
+        public void onProviderDisabled(String provider) {
+        }
     }
 
     private Runnable pingRunnable = new Runnable() {
@@ -62,6 +67,7 @@ public class PingService extends Service {
     @Override
     public void onCreate() {
         setCoordinates(0, 0);
+        NetworkComm.getInstance().setService(this);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         criteria = new Criteria();
@@ -71,6 +77,33 @@ public class PingService extends Service {
 
         pingHandler = new Handler();
         pingHandler.post(pingRunnable);
+    }
+
+    public void proposalReceived(String advname, int x, int y) {
+        //A NE FAIRE QUE EN CAS DE REPONSE POSITIVE
+        GameConfiguration.GRID_HEIGHT = x;
+        GameConfiguration.GRID_WIDTH = y;
+
+        //DIALOGUE ET APPELER answerProposal();
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                .setContentTitle("Match")
+                .setContentText(advname + " vous propose de jouer !");
+
+        switch (NetworkComm.getInstance().answerProposal(true)) {
+            case 0:
+                startGame(true);
+                break;
+            case 1:
+                startGame(false);
+                break;
+            default:
+                //ERREUR
+                break;
+        }
+    }
+
+    public void startGame(boolean firstPlayer) {
+        //lancer l'activty de jeu
     }
 
     public synchronized void setCoordinates(double latitude, double longitude) {

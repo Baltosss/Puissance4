@@ -17,7 +17,7 @@ public class AuthenticateAsyncTask extends AsyncTask<String, Void, Integer> {
 
     @Override
     protected Integer doInBackground(String... params) {
-        return NetworkComm.getInstance().makeAccount(params[0], params[1]);
+        return NetworkComm.getInstance().authenticate(params[0], params[1]);
     }
 
     @Override

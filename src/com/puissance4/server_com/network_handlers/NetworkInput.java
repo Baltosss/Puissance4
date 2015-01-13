@@ -54,7 +54,7 @@ public class NetworkInput {
                         int xcols = Integer.parseInt(tokenizer.nextToken());
                         int ycols = Integer.parseInt(tokenizer.nextToken());
 
-                        int[][] grid = new int[xcols][ycols];
+                        Integer[][] grid = new Integer[xcols][ycols];
 
                         for (int x = 0; x < xcols; x++) {
                             for (int y = 0; y < ycols; y++) {

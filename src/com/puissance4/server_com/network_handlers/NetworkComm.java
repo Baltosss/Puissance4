@@ -1,5 +1,10 @@
 package com.puissance4.server_com.network_handlers;
 
+import android.content.Context;
+import android.content.Intent;
+
+import com.puissance4.server_com.ping_service.PingService;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,6 +25,7 @@ public class NetworkComm {
     protected NetworkInput INPUT;
     protected CountDownLatch LATCH;
     protected boolean isConnected;
+    protected PingService service;
 
     public static synchronized NetworkComm getInstance() {
         if (INSTANCE == null) {
@@ -252,7 +258,9 @@ public class NetworkComm {
     }
 
     public void proposalReceived(String advname, int x, int y) {
-        //faire des trucs et appeller answerProposal avec la réponse choisie
+        if(service!=null) {
+            service.proposalReceived(advname, x, y);
+        }
     }
 
     // BLOQUANT SI response = true
@@ -289,7 +297,11 @@ public class NetworkComm {
     }
 
     public void moveReceived(int x) {
-
+        Intent intent = new Intent("MOVE");
+        intent.putExtra("COL", x);
+        if(service!=null) {
+            service.sendBroadcast(intent);
+        }
     }
 
     public void sendRandom(int[][] grid) {
@@ -303,8 +315,12 @@ public class NetworkComm {
         OUTPUT.send(message);
     }
 
-    public void randomReceived(int[][] grid) {
-
+    public void randomReceived(Integer[][] grid) {
+        Intent intent = new Intent("RAND");
+        intent.putExtra("GRID", grid);
+        if(service!=null) {
+            service.sendBroadcast(intent);
+        }
     }
 
     public void sendWin(boolean winner) {
@@ -316,7 +332,11 @@ public class NetworkComm {
     }
 
     public void winReceived(boolean winner) {
-
+        Intent intent = new Intent("WIN");
+        intent.putExtra("ISWINNER", winner);
+        if(service!=null) {
+            service.sendBroadcast(intent);
+        }
     }
 
     public void notifyLatch() {
@@ -333,5 +353,9 @@ public class NetworkComm {
 
     public boolean isConnected() {
         return isConnected;
+    }
+
+    public void setService(PingService service) {
+        this.service = service;
     }
 }
