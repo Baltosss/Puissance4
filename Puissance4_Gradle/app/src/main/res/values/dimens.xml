@@ -1,0 +1,9 @@
+<resources>
+    <dimen name="title_text">40sp</dimen>
+    <dimen name="small_text">20sp</dimen>
+    <dimen name="medium_text">25sp</dimen>
+    <dimen name="margin_small">10dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
+    <dimen name="padding_small">10dp</dimen>
+    <dimen name="padding_medium">30dp</dimen>
+</resources>

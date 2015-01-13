@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/home/cyrille/AndroidStudioProjects/Puissance4/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="margin_large">16dp</dimen>
+    <dimen name="margin_small">10dp</dimen>
+    <dimen name="medium_text">25sp</dimen>
+    <dimen name="padding_medium">30dp</dimen>
+    <dimen name="padding_small">10dp</dimen>
+    <dimen name="small_text">20sp</dimen>
+    <dimen name="title_text">40sp</dimen>
+    <!-- From: file:/home/cyrille/AndroidStudioProjects/Puissance4/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="addFriend">Add a friend</string>
+    <string name="addFriendButton">Add</string>
+    <string name="app_name">4² In Row</string>
+    <string name="authenticateError">Error during authentication</string>
+    <string name="authenticateTimeout">Authentication request to server timed out</string>
+    <string name="authenticateUnhandledError">Unhandled error during authentication</string>
+    <string name="connectBeforeAccessFriends">Please connect in settings before accessing to friend list</string>
+    <string name="connectBeforePlay">Please connect in settings before playing</string>
+    <string name="connectButton">Connect</string>
+    <string name="connectCommunicationError">Error while connecting to server</string>
+    <string name="connected">Connected</string>
+    <string name="connection">Connection</string>
+    <string name="countShuffle">Number of shuffles : </string>
+    <string name="currentTurn">Current Turn : </string>
+    <string name="delete">Delete</string>
+    <string name="disconnectButton">Disconnect</string>
+    <string name="friendDeletionUnhandledError">Unhandled error during deletion of a friend</string>
+    <string name="friendList">Friend List</string>
+    <string name="friendListButton">Friend List</string>
+    <string name="friendRemoved">Friend removed</string>
+    <string name="friendSettings">Friend List Settings</string>
+    <string name="gameRefused">Your opponent has refused the invitation</string>
+    <string name="gridModified">Grid settings modified</string>
+    <string name="gridSettings">Grid settings</string>
+    <string name="heightGrid">Height : </string>
+    <string name="loading">LOADING...</string>
+    <string name="mainSettings">Settings</string>
+    <string name="modifyButton">Modify grid</string>
+    <string name="password">Password :</string>
+    <string name="pickOpponent">Pick an opponent</string>
+    <string name="playButton">Play</string>
+    <string name="playFriendButton">Play Against Friend</string>
+    <string name="playNearPlayerButton">Play Against Near Player</string>
+    <string name="proposeGameError">Error while proposing game to the opponent</string>
+    <string name="proposeGameUnhandledError">Unhandled error while proposing game to the opponent</string>
+    <string name="red">Red</string>
+    <string name="registerButton">Register</string>
+    <string name="registrationError">Error during registration</string>
+    <string name="registrationSuccess">Registered</string>
+    <string name="registrationTimeout">Registration request to server timed out</string>
+    <string name="registrationUnhandledError">Unhandled error during registration</string>
+    <string name="registrationUsernameTaken">Username already taken</string>
+    <string name="rememberPassword">Check to remember the password</string>
+    <string name="settingsButton">Settings</string>
+    <string name="shuffle">Shuffle !</string>
+    <string name="unknownUsername">Unknown username</string>
+    <string name="username">Username :</string>
+    <string name="waitingPlayerAnswer">Waiting for player\'s answer</string>
+    <string name="widthGrid">Width : </string>
+    <string name="wrongPassword">Wrong password</string>
+    <string name="yellow">Yellow</string>
+</resources>

@@ -1,0 +1,4 @@
+/home/cyrille/AndroidStudioProjects/Puissance4/app/build/intermediates/classes/debug
+/home/cyrille/AndroidStudioProjects/Puissance4/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-cf4abe1fe3ee9f971b0ebc72f419d281b36c68ab.jar
+/home/cyrille/AndroidStudioProjects/Puissance4/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-1576c0b5caf16c37a7f2b2a5c5d51e57cf9ce19f.jar
+/home/cyrille/AndroidStudioProjects/Puissance4/app/build/intermediates/pre-dexed/debug/classes-a4f6bb0aa3b86cf24a8914ec226fdd8f3ecec8c5.jar

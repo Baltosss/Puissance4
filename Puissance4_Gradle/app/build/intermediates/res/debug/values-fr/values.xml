@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/home/cyrille/AndroidStudioProjects/Puissance4/app/src/main/res/values-fr/strings.xml -->
+    <eat-comment/>
+    <string name="addFriend">Ajouter un ami</string>
+    <string name="addFriendButton">Ajouter</string>
+    <string name="app_name">Puissance 4²</string>
+    <string name="authenticateError">Erreur pendant l\'authentification</string>
+    <string name="authenticateTimeout">Demande d\'authentification au serveur trop longue</string>
+    <string name="authenticateUnhandledError">Erreur inconnue durant l\'authentification</string>
+    <string name="connectBeforeAccessFriends">Merci de vous connecter dans les paramètres avant d\'accéder à la liste d\'amis</string>
+    <string name="connectBeforePlay">Merci de vous connecter dans les paramètres avant de jouer</string>
+    <string name="connectButton">Connecter</string>
+    <string name="connectCommunicationError">Erreur lors de la connexion au serveur</string>
+    <string name="connected">Connecté</string>
+    <string name="connection">Connexion</string>
+    <string name="countShuffle">Nombre de mélanges : </string>
+    <string name="currentTurn">Tour en cours :</string>
+    <string name="delete">Supprimer</string>
+    <string name="disconnectButton">Déconnecter</string>
+    <string name="friendDeletionUnhandledError">Erreur inconnue durant la suppression d\'un ami</string>
+    <string name="friendList">Liste d\'amis</string>
+    <string name="friendListButton">Liste d\'amis</string>
+    <string name="friendRemoved">Ami supprimé</string>
+    <string name="friendSettings">Options de la liste d\'amis</string>
+    <string name="gameRefused">Votre adversaire a refusé l\'invitation</string>
+    <string name="gridModified">Paramètres de grille modifiés</string>
+    <string name="gridSettings">Paramètres de la grille</string>
+    <string name="heightGrid">Hauteur : </string>
+    <string name="loading">CHARGEMENT...</string>
+    <string name="mainSettings">Paramètres</string>
+    <string name="modifyButton">Modifier la grille</string>
+    <string name="password">Mot de passe :</string>
+    <string name="playButton">Jouer</string>
+    <string name="playFriendButton">Jouer contre un ami</string>
+    <string name="playNearPlayerButton">Jouer contre un adversaire proche</string>
+    <string name="proposeGameError">Erreur lors de la proposition de partie à l\'adversaire</string>
+    <string name="proposeGameUnhandledError">Erreur inconnue durant la proposition de partie à l\'adversaire</string>
+    <string name="red">Rouge</string>
+    <string name="registerButton">S\'inscrire</string>
+    <string name="registrationError">Erreur pendant l\'inscription</string>
+    <string name="registrationSuccess">Inscrit</string>
+    <string name="registrationTimeout">Demande d\'inscription au serveur trop longue</string>
+    <string name="registrationUnhandledError">Erreur inconnue durant l\'inscription</string>
+    <string name="registrationUsernameTaken">Nom d\'utilisateur déjà pris</string>
+    <string name="rememberPassword">Cocher pour se souvenir du mot de passe</string>
+    <string name="replay">Rejouer</string>
+    <string name="settingsButton">Paramètres</string>
+    <string name="shuffle">Mélange !</string>
+    <string name="unknownUsername">Nom d\'utilisateur inconnu</string>
+    <string name="username">Utilisateur :</string>
+    <string name="waitingPlayerAnswer">En attente de la réponse de l\'adversaire</string>
+    <string name="widthGrid">Largeur : </string>
+    <string name="wrongPassword">Mauvais mot de passe</string>
+    <string name="yellow">Jaune</string>
+</resources>
