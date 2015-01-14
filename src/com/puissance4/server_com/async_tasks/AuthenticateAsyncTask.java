@@ -1,6 +1,7 @@
 package com.puissance4.server_com.async_tasks;
 
 import android.os.AsyncTask;
+
 import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.server_com.network_handlers.NetworkComm;
 import com.puissance4.view.activities.SettingActivity;

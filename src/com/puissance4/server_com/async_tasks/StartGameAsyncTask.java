@@ -4,13 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
+
 import com.example.puissance4.R;
 import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.model.Party;
 import com.puissance4.server_com.network_handlers.NetworkComm;
 import com.puissance4.server_com.network_handlers.NetworkPlayer;
 import com.puissance4.view.activities.GameActivity;
-import com.puissance4.view.activities.MainActivity;
 
 /**
  * Created by fred on 12/01/15.

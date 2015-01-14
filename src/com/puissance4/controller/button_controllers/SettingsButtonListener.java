@@ -2,6 +2,7 @@ package com.puissance4.controller.button_controllers;
 
 import android.content.Intent;
 import android.view.View;
+
 import com.puissance4.view.activities.MainActivity;
 import com.puissance4.view.activities.SettingActivity;
 

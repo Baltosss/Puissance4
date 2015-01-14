@@ -64,4 +64,10 @@
     <string name="alreadyFriendError">Cet utilisateur est déjà votre ami</string>
     <string name="addFriendError">Erreur lors de l\'ajout d'un ami</string>
     <string name="addFriendTimeout">Demande d\'ajout d\'ami au serveur trop longue</string>
+    <string name="fullColumnError">Colonne remplie</string>
+    <string name="impossibleColumnPlayError">Erreur interne : Impossible de jouer dans cette colonne</string>
+    <string name="noneMoveError">Erreur interne : Joueur none a tenté un mouvement</string>
+    <string name="fullRowError">Ligne remplie</string>
+    <string name="impossibleRowPlayError">Erreur interne : Impossible de jouer dans cette ligne</string>
+    <string name="notYourTurnError">Attendez votre tour</string>
 </resources>

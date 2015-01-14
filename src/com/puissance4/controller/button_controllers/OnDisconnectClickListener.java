@@ -2,12 +2,11 @@ package com.puissance4.controller.button_controllers;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
-import com.puissance4.server_com.network_handlers.NetworkComm;
+
 import com.puissance4.configuration.GameConfiguration;
-import com.puissance4.view.activities.MainActivity;
+import com.puissance4.server_com.network_handlers.NetworkComm;
 
 /**
  * Created by fred on 08/01/15.

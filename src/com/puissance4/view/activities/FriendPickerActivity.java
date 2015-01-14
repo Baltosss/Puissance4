@@ -2,6 +2,7 @@ package com.puissance4.view.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+
 import com.example.puissance4.R;
 import com.puissance4.server_com.async_tasks.GetFriendPlayersAsyncTask;
 

@@ -1,6 +1,12 @@
 package com.puissance4.model;
 
-import com.puissance4.model.exceptions.*;
+import com.puissance4.model.exceptions.FullColumnException;
+import com.puissance4.model.exceptions.FullRowException;
+import com.puissance4.model.exceptions.ImpossibleColumnPlayException;
+import com.puissance4.model.exceptions.ImpossibleRowPlayException;
+import com.puissance4.model.exceptions.NoneMoveException;
+import com.puissance4.model.exceptions.NotPlayerTurnException;
+
 import java.io.Serializable;
 
 public class Party implements Serializable{

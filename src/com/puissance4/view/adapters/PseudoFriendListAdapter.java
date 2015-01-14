@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.puissance4.R;
 import com.puissance4.server_com.network_handlers.NetworkComm;
 import com.puissance4.view.activities.FriendListActivity;
-
-import java.io.IOException;
 
 /**
  * Created by fred on 09/01/15.

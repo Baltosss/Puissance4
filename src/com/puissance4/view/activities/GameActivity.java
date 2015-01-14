@@ -5,12 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import com.example.puissance4.R;
 import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.controller.button_controllers.OnGameButtonClickListener;
@@ -18,8 +19,6 @@ import com.puissance4.controller.sensor_controllers.ShakeDetector;
 import com.puissance4.controller.sensor_controllers.ShakeListener;
 import com.puissance4.model.Party;
 import com.puissance4.server_com.network_handlers.NetworkComm;
-
-import java.util.ArrayList;
 
 public class GameActivity extends Activity {
     private LinearLayout gameGrid;
@@ -168,6 +167,7 @@ public class GameActivity extends Activity {
             @Override
             public void run() {
                 NetworkComm.getInstance().sendRandom(party.getGrid().getGrid());
+                setContentView(R.layout.puissance2);
                 buildGrid();
             }
         }).start();

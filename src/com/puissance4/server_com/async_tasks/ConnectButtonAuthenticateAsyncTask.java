@@ -1,13 +1,12 @@
 package com.puissance4.server_com.async_tasks;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.CheckBox;
 import android.widget.Toast;
+
 import com.example.puissance4.R;
 import com.puissance4.configuration.GameConfiguration;
-import com.puissance4.view.activities.MainActivity;
 import com.puissance4.view.activities.SettingActivity;
 
 /**

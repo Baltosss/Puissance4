@@ -13,11 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.puissance4.R;
-import com.puissance4.server_com.async_tasks.AuthenticateAsyncTask;
 import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.controller.button_controllers.OnConnectClickListener;
 import com.puissance4.controller.button_controllers.OnDisconnectClickListener;
 import com.puissance4.controller.button_controllers.OnRegisterClickListener;
+import com.puissance4.server_com.async_tasks.AuthenticateAsyncTask;
 
 /**
  * Created by fred on 08/01/15.

@@ -3,6 +3,7 @@ package com.puissance4.controller.sensor_controllers;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+
 import com.puissance4.configuration.SensorConfiguration;
 
 public class ShakeDetector implements SensorEventListener {

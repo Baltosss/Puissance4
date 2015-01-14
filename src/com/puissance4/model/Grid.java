@@ -1,6 +1,12 @@
 package com.puissance4.model;
 
-import com.puissance4.model.exceptions.*;
+import com.puissance4.model.exceptions.FullColumnException;
+import com.puissance4.model.exceptions.FullRowException;
+import com.puissance4.model.exceptions.ImpossibleColumnPlayException;
+import com.puissance4.model.exceptions.ImpossibleRowPlayException;
+import com.puissance4.model.exceptions.NoneMoveException;
+import com.puissance4.model.exceptions.WrongHeightException;
+import com.puissance4.model.exceptions.WrongWidthException;
 
 import java.io.Serializable;
 import java.util.Arrays;

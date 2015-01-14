@@ -2,6 +2,7 @@ package com.puissance4.controller.button_controllers;
 
 import android.view.View;
 import android.widget.EditText;
+
 import com.example.puissance4.R;
 import com.puissance4.server_com.async_tasks.MakeAccountAsyncTask;
 import com.puissance4.view.activities.SettingActivity;

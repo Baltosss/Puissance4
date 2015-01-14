@@ -1,11 +1,10 @@
 package com.puissance4.server_com.async_tasks;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
+
 import com.example.puissance4.R;
 import com.puissance4.server_com.network_handlers.NetworkComm;
-import com.puissance4.view.activities.MainActivity;
 import com.puissance4.view.activities.SettingActivity;
 
 /**
