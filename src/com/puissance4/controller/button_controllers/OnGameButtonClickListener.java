@@ -40,31 +40,35 @@ public class OnGameButtonClickListener extends ActivityListener {
                 party.nextMove(column - 1, 1);
                 gColumn = GameConfiguration.GRID_HEIGHT + gColumn;
             }
-            /////////////////////////// SEND MOVE INSTRUCTIONS /////////////////////////////////////
-            final int finalGColumn = gColumn;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    NetworkComm.getInstance().sendMove(finalGColumn);
-                }
-            }).start();
+            if(!((GameActivity)context).isTestMode()) {
+                /////////////////////////// SEND MOVE INSTRUCTIONS /////////////////////////////////////
+                final int finalGColumn = gColumn;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        NetworkComm.getInstance().sendMove(finalGColumn);
+                    }
+                }).start();
+            }
             context.setContentView(R.layout.puissance2);
-            ((GameActivity)context).buildGrid();
+            ((GameActivity) context).buildGrid();
             Player winner = party.getWinner();
-            if(winner!=null) {
+            if (winner != null) {
                 //////////////////////////// SEND WINNER INSTRUCTIONS (ONLY IF I WIN)////////////////////////////////
-                if(winner.equals(GameConfiguration.USERNAME)) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            NetworkComm.getInstance().sendWin(true);
-                        }
-                    }).start();
+                if (winner.equals(GameConfiguration.USERNAME) && !((GameActivity) context).isTestMode()) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                NetworkComm.getInstance().sendWin(true);
+                            }
+                        }).start();
                 }
                 Toast.makeText(context.getApplicationContext(), winner.getName() + " has won", Toast.LENGTH_LONG).show();
                 /*Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);*/
-                context.finish();
+                if(!((GameActivity) context).isTestMode()) {
+                    context.finish();
+                }
             }
         } catch (FullColumnException e) {
             e.printStackTrace();

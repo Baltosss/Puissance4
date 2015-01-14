@@ -15,10 +15,11 @@ public class Party implements Serializable{
 	private int userId;
 	private Player[] players;
 	private int currentPlayer;
-	
+	private boolean isManagingTurns;
 	
 	public Party(String[] playerNames, int userId, int height, int width)
 	{
+        isManagingTurns = true;
 		this.userId = userId;
 		countPlayers = playerNames.length;
 		if(countPlayers>0)
@@ -36,6 +37,7 @@ public class Party implements Serializable{
 
 	public Party(String[] playerNames, int height, int width)
 	{
+        isManagingTurns = false; //TEST MODE
 		countPlayers = playerNames.length;
 		if(countPlayers>0)
 		{
@@ -52,10 +54,8 @@ public class Party implements Serializable{
 
 	//orientation = 0 for regular phone orientation, 1 otherwise
 	public void nextMove(int columnId, int orientation) throws FullColumnException, ImpossibleColumnPlayException, NoneMoveException, FullRowException, ImpossibleRowPlayException, NotPlayerTurnException {
-		if(userId != currentPlayer)
-		{
+		if(isManagingTurns && userId != currentPlayer) {
 			throw new NotPlayerTurnException();
-			//return;
 		}
 		playMove(columnId, orientation);
 	}
@@ -68,7 +68,7 @@ public class Party implements Serializable{
                 break;
             }
         }
-        if(opponentId != currentPlayer)
+        if(opponentId != currentPlayer || !isManagingTurns)
         {
             throw new NotPlayerTurnException();
         }
@@ -76,29 +76,25 @@ public class Party implements Serializable{
     }
 
     public void playMove(int columnId, int orientation) throws FullColumnException, ImpossibleColumnPlayException, NoneMoveException, FullRowException, ImpossibleRowPlayException, NotPlayerTurnException {
-        int resultMove = -1;
         if(orientation==0)
         {
-            resultMove = grid.playAtColumn(columnId, currentPlayer);
+            grid.playAtColumn(columnId, currentPlayer);
         }
         else
         {
-            resultMove = grid.playAtRow(columnId, currentPlayer);
+            grid.playAtRow(columnId, currentPlayer);
         }
-        if(resultMove == 0)
+        if(grid.hasWon())
         {
-            if(grid.hasWon())
-            {
-                System.out.println("Le joueur "+players[currentPlayer]+" a gagné");
-            }
-            else
-            {
-                changeCurrentPlayer();
-            }
+            System.out.println("Le joueur "+players[currentPlayer]+" a gagné");
+        }
+        else
+        {
+            changeCurrentPlayer();
         }
     }
 
-        private void changeCurrentPlayer()
+    private void changeCurrentPlayer()
 	{
 		if(currentPlayer<countPlayers-1)
 		{
@@ -141,6 +137,10 @@ public class Party implements Serializable{
 		grid.shuffle(currentPlayer);
 		changeCurrentPlayer();
 	}
+
+    public Player[] getPlayers() {
+        return players;
+    }
 
 	public Grid getGrid() {
 		return grid;

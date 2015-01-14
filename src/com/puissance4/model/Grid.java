@@ -45,12 +45,7 @@ public class Grid implements Serializable {
 		lastSlotRow = lastSlotColumn = -1;
 	}
 
-	/*renvoie : 
-	 * 0 -> coups joué
-	 * 1 -> colonne pleine
-	 * 2 -> erreur dans les données
-	 */
-	public int playAtRow(int row, int newSlotState) throws FullRowException, ImpossibleRowPlayException, NoneMoveException
+	public void playAtRow(int row, int newSlotState) throws FullRowException, ImpossibleRowPlayException, NoneMoveException
 	{
 		if(newSlotState != -1)
 		{
@@ -74,7 +69,6 @@ public class Grid implements Serializable {
 					grid[column - 1][row] = newSlotState;
 					lastSlotColumn = column - 1;
 					lastSlotRow = row;
-					return 0;
 				}
 				else
 				{
@@ -90,13 +84,8 @@ public class Grid implements Serializable {
 			throw new NoneMoveException();
 		}
 	}
-	
-	/*renvoie : 
-	 * 0 -> coups joué
-	 * 1 -> colonne pleine
-	 * 2 -> erreur dans les données
-	 */
-	public int playAtColumn(int column, int newSlotState) throws FullColumnException, ImpossibleColumnPlayException, NoneMoveException
+
+	public void playAtColumn(int column, int newSlotState) throws FullColumnException, ImpossibleColumnPlayException, NoneMoveException
 	{
 		if(newSlotState != -1)
 		{
@@ -120,7 +109,6 @@ public class Grid implements Serializable {
 					grid[column][row - 1]=newSlotState;
 					lastSlotColumn = column;
 					lastSlotRow = row - 1;
-					return 0;
 				}
 				else 
 				{

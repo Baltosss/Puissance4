@@ -26,6 +26,7 @@ public class GameActivity extends Activity {
     private SensorManager senSensorManager;
     private Sensor senAccelerometer;
     private ShakeDetector shakeDetector;
+    private boolean testMode = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,7 @@ public class GameActivity extends Activity {
             else {  //TEST MODE
                 System.out.println("IT IS NULL --> TEST MODE");
                 String[] players = {"Fred", "Cyrille"};
+                testMode = true;
                 party = new Party(players, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH);
             }
         }
@@ -171,5 +173,20 @@ public class GameActivity extends Activity {
                 buildGrid();
             }
         }).start();
+    }
+
+    public boolean isTestMode() {
+        return testMode;
+    }
+
+    public void setTestMode(boolean testMode) {
+        this.testMode = testMode;
+    }
+
+    public void opponentMove(int columnId) {
+        int orientation = 0;
+        if(columnId >= GameConfiguration.GRID_WIDTH) {
+            columnId = columnId - GameConfiguration.GRID_WIDTH;
+        }
     }
 }
