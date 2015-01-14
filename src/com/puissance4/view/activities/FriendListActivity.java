@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.Puissance4.R;
+import com.example.puissance4.R;
 import com.puissance4.server_com.async_tasks.GetFriendListAsyncTask;
 import com.puissance4.view.adapters.FriendListAdapter;
 import com.puissance4.server_com.network_handlers.NetworkPlayer;

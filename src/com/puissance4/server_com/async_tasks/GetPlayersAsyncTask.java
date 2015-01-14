@@ -7,7 +7,7 @@ package com.puissance4.server_com.async_tasks;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.ListView;
-import com.example.Puissance4.R;
+import com.example.puissance4.R;
 import com.puissance4.view.adapters.OpponentPickerAdapter;
 import com.puissance4.server_com.network_handlers.NetworkPlayer;
 

@@ -11,7 +11,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.*;
-import com.example.Puissance4.R;
+import com.example.puissance4.R;
 import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.controller.button_controllers.OnGameButtonClickListener;
 import com.puissance4.controller.sensor_controllers.ShakeDetector;
@@ -101,7 +101,15 @@ public class GameActivity extends Activity {
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                 }
-                party = new Party(players, GameConfiguration.GRID_HEIGHT-1, GameConfiguration.GRID_WIDTH-1);
+                int userId = -1;
+                for(int i=0; i<players.length; i++) {
+                    if(players[i].equals(GameConfiguration.USERNAME)) {
+                        userId = i;
+                    }
+                }
+                if(userId != -1) {
+                    party = new Party(players, userId, GameConfiguration.GRID_HEIGHT - 1, GameConfiguration.GRID_WIDTH - 1);
+                }
             }
         }
     }

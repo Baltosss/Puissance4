@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.Puissance4.R;
+import com.example.puissance4.R;
 import com.puissance4.server_com.async_tasks.StartGameAsyncTask;
 import com.puissance4.server_com.network_handlers.NetworkPlayer;
 

@@ -1,7 +1,7 @@
 package com.puissance4.controller.sensor_controllers;
 
 import android.widget.Toast;
-import com.example.Puissance4.R;
+import com.example.puissance4.R;
 import com.puissance4.configuration.SensorConfiguration;
 import com.puissance4.view.activities.GameActivity;
 

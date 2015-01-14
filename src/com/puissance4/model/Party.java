@@ -1,7 +1,6 @@
 package com.puissance4.model;
 
 import com.puissance4.model.exceptions.*;
-
 import java.io.Serializable;
 
 public class Party implements Serializable{
@@ -10,12 +9,11 @@ public class Party implements Serializable{
 	private int userId;
 	private Player[] players;
 	private int currentPlayer;
-	private boolean firstPlayer;
 	
 	
 	public Party(String[] playerNames, int userId, int height, int width)
 	{
-		//this.userId = userId; Useless
+		this.userId = userId;
 		countPlayers = playerNames.length;
 		if(countPlayers>0)
 		{
@@ -47,36 +45,54 @@ public class Party implements Serializable{
 	}
 
 	//orientation = 0 for regular phone orientation, 1 otherwise
-	public void nextMove(int columnId, int orientation) throws FullColumnException, ImpossibleColumnPlayException, NoneMoveException, FullRowException, ImpossibleRowPlayException
-	{
+	public void nextMove(int columnId, int orientation) throws FullColumnException, ImpossibleColumnPlayException, NoneMoveException, FullRowException, ImpossibleRowPlayException, NotPlayerTurnException {
 		if(userId != currentPlayer)
 		{
-			//throw new NotPlayerTurnException();
+			throw new NotPlayerTurnException();
 			//return;
 		}
-		int resultMove = -1;
-		if(orientation==0)
-		{
-			resultMove = grid.playAtColumn(columnId, currentPlayer);
-		}
-		else
-		{
-			resultMove = grid.playAtRow(columnId, currentPlayer);
-		}
-		if(resultMove == 0)
-		{
-			if(grid.hasWon())
-			{
-				System.out.println("Le joueur "+players[currentPlayer]+" a gagné");
-			}
-			else
-			{
-				changeCurrentPlayer();
-			}
-		}
+		playMove(columnId, orientation);
 	}
-	
-	private void changeCurrentPlayer()
+
+    public void nextOpponentMove(int columnId, int orientation, Player opponent) throws FullColumnException, ImpossibleColumnPlayException, NoneMoveException, FullRowException, ImpossibleRowPlayException, NotPlayerTurnException {
+        int opponentId = -1;
+        for(int i=0; i<players.length; i++) {
+            if(players[i].getName().equals(opponent.getName())) {
+                opponentId = i;
+                break;
+            }
+        }
+        if(opponentId != currentPlayer)
+        {
+            throw new NotPlayerTurnException();
+        }
+        playMove(columnId, orientation);
+    }
+
+    public void playMove(int columnId, int orientation) throws FullColumnException, ImpossibleColumnPlayException, NoneMoveException, FullRowException, ImpossibleRowPlayException, NotPlayerTurnException {
+        int resultMove = -1;
+        if(orientation==0)
+        {
+            resultMove = grid.playAtColumn(columnId, currentPlayer);
+        }
+        else
+        {
+            resultMove = grid.playAtRow(columnId, currentPlayer);
+        }
+        if(resultMove == 0)
+        {
+            if(grid.hasWon())
+            {
+                System.out.println("Le joueur "+players[currentPlayer]+" a gagné");
+            }
+            else
+            {
+                changeCurrentPlayer();
+            }
+        }
+    }
+
+        private void changeCurrentPlayer()
 	{
 		if(currentPlayer<countPlayers-1)
 		{

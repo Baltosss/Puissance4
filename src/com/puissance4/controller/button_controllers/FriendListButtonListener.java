@@ -3,10 +3,10 @@ package com.puissance4.controller.button_controllers;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
-import com.example.Puissance4.R;
 import com.puissance4.view.activities.FriendListActivity;
 import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.view.activities.MainActivity;
+import com.example.puissance4.R;
 
 /**
  * Created by fred on 09/01/15.

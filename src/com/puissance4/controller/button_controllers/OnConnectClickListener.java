@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.Puissance4.R;
 import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.server_com.async_tasks.ConnectButtonAuthenticateAsyncTask;
 import com.puissance4.view.activities.SettingActivity;
+import com.example.puissance4.R;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

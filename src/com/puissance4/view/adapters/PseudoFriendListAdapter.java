@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import com.example.Puissance4.R;
+import com.example.puissance4.R;
 import com.puissance4.server_com.network_handlers.NetworkComm;
 import com.puissance4.view.activities.FriendListActivity;
 

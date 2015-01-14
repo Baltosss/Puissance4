@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.view.View;
 import android.widget.Toast;
-import com.example.Puissance4.R;
+import com.example.puissance4.R;
 import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.model.exceptions.*;
 import com.puissance4.model.Party;
@@ -70,6 +70,8 @@ public class OnGameButtonClickListener extends ActivityListener {
         } catch (FullRowException e) {
             e.printStackTrace();
         } catch (ImpossibleRowPlayException e) {
+            e.printStackTrace();
+        } catch (NotPlayerTurnException e) {
             e.printStackTrace();
         }
     }

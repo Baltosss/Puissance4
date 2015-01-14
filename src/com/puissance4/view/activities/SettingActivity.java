@@ -12,7 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.Puissance4.R;
+import com.example.puissance4.R;
 import com.puissance4.server_com.async_tasks.AuthenticateAsyncTask;
 import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.controller.button_controllers.OnConnectClickListener;

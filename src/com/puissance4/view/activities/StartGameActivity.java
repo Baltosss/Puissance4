@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.Puissance4.R;
+import com.example.puissance4.R;
 import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.model.Party;
 import com.puissance4.server_com.network_handlers.NetworkComm;

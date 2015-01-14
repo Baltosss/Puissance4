@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
-import com.example.Puissance4.R;
+import com.example.puissance4.R;
 import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.model.Party;
 import com.puissance4.server_com.network_handlers.NetworkComm;
@@ -38,7 +38,7 @@ public class StartGameAsyncTask extends AsyncTask<Void, Void, Integer> {
                 Intent gameIntent = new Intent(context, GameActivity.class);
                 players[0] = GameConfiguration.USERNAME;
                 players[1] = opponent.getName();
-                gameIntent.putExtra("party", new Party(players, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH));
+                gameIntent.putExtra("party", new Party(players, 0, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH));
                 context.startActivity(gameIntent);
                 break;
             case 1:
@@ -46,7 +46,7 @@ public class StartGameAsyncTask extends AsyncTask<Void, Void, Integer> {
                 Intent gameIntent1 = new Intent(context, GameActivity.class);
                 players[1] = GameConfiguration.USERNAME;
                 players[0] = opponent.getName();
-                gameIntent1.putExtra("party", new Party(players, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH));
+                gameIntent1.putExtra("party", new Party(players, 1, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH));
                 context.startActivity(gameIntent1);
                 break;
             case 2:

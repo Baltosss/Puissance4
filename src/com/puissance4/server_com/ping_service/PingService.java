@@ -16,7 +16,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
-import com.example.Puissance4.R;
+import com.example.puissance4.R;
 import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.server_com.network_handlers.NetworkComm;
 import com.puissance4.view.activities.StartGameActivity;

@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.widget.Button;
 
-import com.example.Puissance4.R;
+import com.example.puissance4.R;
 import com.puissance4.controller.button_controllers.FriendListButtonListener;
 import com.puissance4.controller.button_controllers.FriendPlayerButtonListener;
 import com.puissance4.controller.button_controllers.NearPlayerButtonListener;
