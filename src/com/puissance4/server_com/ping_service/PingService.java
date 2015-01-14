@@ -1,5 +1,6 @@
 package com.puissance4.server_com.ping_service;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -102,7 +103,11 @@ public class PingService extends Service {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.slot_red_star)
                 .setContentTitle(advname + " vous propose de jouer !")
-                .setContentText("Cliquez pour accepter.");
+                .setTicker(advname + " vous propose de jouer !")
+                .setContentText("Cliquez pour accepter.")
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setCategory(Notification.CATEGORY_SOCIAL)
+                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
 
         Intent acceptGameIntent = new Intent(this, MainActivity.class);
         acceptGameIntent.putExtra("ADVNAME", advname);
