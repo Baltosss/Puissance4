@@ -62,7 +62,7 @@
     <string name="proposeGameError">Erreur lors de la proposition de partie à l\'adversaire</string>
     <string name="proposeGameUnhandledError">Erreur inconnue durant la proposition de partie à l\'adversaire</string>
     <string name="alreadyFriendError">Cet utilisateur est déjà votre ami</string>
-    <string name="addFriendError">Erreur lors de l\'ajout d'un ami</string>
+    <string name="addFriendError">Erreur lors de l\'ajout d\'un ami</string>
     <string name="addFriendTimeout">Demande d\'ajout d\'ami au serveur trop longue</string>
     <string name="fullColumnError">Colonne remplie</string>
     <string name="impossibleColumnPlayError">Erreur interne : Impossible de jouer dans cette colonne</string>
