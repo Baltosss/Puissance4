@@ -100,9 +100,9 @@ public class PingService extends Service {
 
         //DIALOGUE ET APPELER answerProposal();
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.slot_star)
-                .setContentTitle("Match")
-                .setContentText(advname + " vous propose de jouer !");
+                .setSmallIcon(R.drawable.slot_red_star)
+                .setContentTitle(advname + " vous propose de jouer !")
+                .setContentText("Cliquez pour accepter.");
 
         Intent acceptGameIntent = new Intent(this, MainActivity.class);
         acceptGameIntent.putExtra("ADVNAME", advname);

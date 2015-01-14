@@ -81,15 +81,11 @@ public class MainActivity extends Activity {
             GameConfiguration.GRID_HEIGHT = getIntent().getIntExtra("X", 0);
             GameConfiguration.GRID_WIDTH = getIntent().getIntExtra("Y", 0);
 
-            switch (NetworkComm.getInstance().answerProposal(true)) {
+            int firstPlayer = NetworkComm.getInstance().answerProposal(true);
+            switch (firstPlayer) {
                 case 0:
-                    //CREATE PARTY WITH SELF AS FIRST PLAYER
-                    gameIntent.putExtra("party", new Party(players, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH));
-                    startActivity(gameIntent);
-                    break;
                 case 1:
-                    //CREATE PARTY WITH SELF AS SECOND PLAYER
-                    gameIntent.putExtra("party", new Party(players, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH));
+                    gameIntent.putExtra("party", new Party(players, firstPlayer, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH));
                     startActivity(gameIntent);
                     break;
                 default:
