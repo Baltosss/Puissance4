@@ -71,12 +71,12 @@ public class GameActivity extends Activity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         gameGrid = (LinearLayout) findViewById(R.id.gamegrid);
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            gameGrid.setWeightSum(GameConfiguration.GRID_HEIGHT);
-            for (int i = 0; i < GameConfiguration.GRID_HEIGHT; i++) {
+            gameGrid.setWeightSum(GameConfiguration.GRID_HEIGHT+1);
+            for (int i = 0; i < (GameConfiguration.GRID_HEIGHT+1); i++) {
                 LinearLayout row = new LinearLayout(this);
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
-                row.setWeightSum(GameConfiguration.GRID_WIDTH);
-                for (int j = 0; j < GameConfiguration.GRID_WIDTH; j++) {
+                row.setWeightSum(GameConfiguration.GRID_WIDTH+1);
+                for (int j = 0; j < (GameConfiguration.GRID_WIDTH+1); j++) {
                     Button slot = buildButton(i, j);
                     row.addView(slot);
                 }
@@ -84,11 +84,11 @@ public class GameActivity extends Activity {
             }
         } else {
             gameGrid.setWeightSum(GameConfiguration.GRID_WIDTH);
-            for (int i = 0; i < GameConfiguration.GRID_WIDTH; i++) {
+            for (int i = 0; i < (GameConfiguration.GRID_WIDTH+1); i++) {
                 LinearLayout row = new LinearLayout(this);
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
                 row.setWeightSum(GameConfiguration.GRID_HEIGHT);
-                for (int j = 0; j < GameConfiguration.GRID_HEIGHT; j++) {
+                for (int j = 0; j < (GameConfiguration.GRID_HEIGHT+1); j++) {
                     Button slot = buildButton(i, j);
                     row.addView(slot);
                 }
@@ -125,7 +125,7 @@ public class GameActivity extends Activity {
                     }
                 }
                 if (userId != -1) {
-                    party = new Party(players, userId, GameConfiguration.GRID_HEIGHT - 1, GameConfiguration.GRID_WIDTH - 1);
+                    party = new Party(players, userId, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH);
                 }
             }
         }
@@ -210,12 +210,12 @@ public class GameActivity extends Activity {
         if (isInGame) {
             int orientation = 0;
             int opponentId = 0;
+            if (party.getPlayers()[0].getName().equals(GameConfiguration.USERNAME)) {
+                opponentId = 1;
+            }
             if (columnId >= GameConfiguration.GRID_WIDTH) {
                 columnId = columnId - GameConfiguration.GRID_WIDTH;
                 orientation = 1;
-            }
-            if (party.getPlayers()[0].getName().equals(GameConfiguration.USERNAME)) {
-                opponentId = 1;
             }
             try {
                 party.nextOpponentMove(columnId, orientation, party.getPlayers()[opponentId]);
