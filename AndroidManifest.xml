@@ -26,8 +26,7 @@
                   android:label="@string/pickOpponent"/>
         <activity android:name="com.puissance4.view.activities.NearPlayerPickerActivity"
                   android:label="@string/pickOpponent"/>
-        <activity android:name="com.puissance4.view.activities.StartGameActivity"
-                  android:label="Start game from a notification"/>
+
         <service android:name="com.puissance4.server_com.ping_service.PingService"/>
         <receiver android:name="com.puissance4.server_com.ping_service.RefuseGameReceiver"/>
     </application>
