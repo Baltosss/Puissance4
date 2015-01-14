@@ -46,6 +46,8 @@
     <string name="waitingPlayerAnswer">En attente de la réponse de l\'adversaire</string>
     <string name="shuffle">Mélange !</string>
     <string name="friendAdded">Ami ajouté</string>
+    <string name="partyNull">Egalité !</string>
+    <string name="hasWon"> a gagné</string>
 
     <!--Toast Error Messages-->
     <string name="unknownUsername">Nom d\'utilisateur inconnu</string>
@@ -71,4 +73,5 @@
     <string name="impossibleRowPlayError">Erreur interne : Impossible de jouer dans cette ligne</string>
     <string name="notYourTurnError">Attendez votre tour</string>
     <string name="impossibleOpponentMove">Erreur interne : Mouvement adverse impossible</string>
+    <string name="partySettingError">Erreur lors de la création de la partie</string>
 </resources>
