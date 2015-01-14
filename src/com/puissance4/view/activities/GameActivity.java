@@ -34,7 +34,7 @@ public class GameActivity extends Activity {
     private Sensor senAccelerometer;
     private ShakeDetector shakeDetector;
     private boolean testMode = false;
-    private boolean isInGame;
+    private boolean isInGame = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
