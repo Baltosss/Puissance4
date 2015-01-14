@@ -1,9 +1,11 @@
 package com.puissance4.server_com.async_tasks;
 
 import android.os.AsyncTask;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.puissance4.R;
+import com.puissance4.controller.button_controllers.AddFriendButtonListener;
 import com.puissance4.server_com.network_handlers.NetworkComm;
 import com.puissance4.server_com.network_handlers.NetworkPlayer;
 import com.puissance4.view.activities.FriendListActivity;
@@ -29,6 +31,8 @@ public class GetFriendListAsyncTask extends AsyncTask<Void, Void, ArrayList<Netw
     @Override
     protected void onPostExecute(ArrayList<NetworkPlayer> friendList) {
         context.setContentView(R.layout.friend_list_settings);
+        Button addFriendButton = (Button) context.findViewById(R.id.addFriendButton);
+        addFriendButton.setOnClickListener(new AddFriendButtonListener(context));
         FriendListAdapter adapter = new FriendListAdapter(context, R.layout.friend_item, friendList);
         ListView listView = (ListView) context.findViewById(R.id.friendList);
         listView.setAdapter(adapter);

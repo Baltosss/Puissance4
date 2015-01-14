@@ -21,8 +21,6 @@ public class FriendListActivity extends Activity {
     }
 
     public void buildFriendList() {
-        Button addFriendButton = (Button) findViewById(R.id.addFriendButton);
-        addFriendButton.setOnClickListener(new AddFriendButtonListener(this));
         ///////////////////////////////// GET FRIEND LIST INSTRUCTIONS ///////////////////////////////
         new GetFriendListAsyncTask(this).execute();
     }
