@@ -83,7 +83,7 @@ public class GameActivity extends Activity {
                 gameGrid.addView(row);
             }
         } else {
-            gameGrid.setWeightSum(GameConfiguration.GRID_WIDTH);
+            gameGrid.setWeightSum(GameConfiguration.GRID_WIDTH+1);
             for (int i = 0; i < (GameConfiguration.GRID_WIDTH+1); i++) {
                 LinearLayout row = new LinearLayout(this);
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
