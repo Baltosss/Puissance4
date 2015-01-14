@@ -3,10 +3,12 @@ package com.puissance4.view.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -19,13 +21,8 @@ import com.puissance4.controller.sensor_controllers.ShakeDetector;
 import com.puissance4.controller.sensor_controllers.ShakeListener;
 import com.puissance4.model.Party;
 import com.puissance4.model.Player;
-import com.puissance4.model.exceptions.FullColumnException;
-import com.puissance4.model.exceptions.FullRowException;
-import com.puissance4.model.exceptions.ImpossibleColumnPlayException;
-import com.puissance4.model.exceptions.ImpossibleRowPlayException;
-import com.puissance4.model.exceptions.NoneMoveException;
-import com.puissance4.model.exceptions.NotPlayerTurnException;
 import com.puissance4.server_com.network_handlers.NetworkComm;
+import com.puissance4.server_com.ping_service.AdversaryMessagesReceiver;
 
 public class GameActivity extends Activity {
     private LinearLayout gameGrid;
@@ -35,11 +32,15 @@ public class GameActivity extends Activity {
     private ShakeDetector shakeDetector;
     private boolean testMode = false;
     private boolean isInGame = true;
+    private AdversaryMessagesReceiver adversaryMessagesReceiver;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.puissance2);
+        adversaryMessagesReceiver = new AdversaryMessagesReceiver();
+        adversaryMessagesReceiver.setView(this);
+        LocalBroadcastManager.getInstance(this).registerReceiver(adversaryMessagesReceiver, new IntentFilter("ADVMESS"));
         shakeDetector = new ShakeDetector(new ShakeListener(this));
         setupParty(savedInstanceState);
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -48,20 +49,28 @@ public class GameActivity extends Activity {
         buildGrid();
     }
 
+    @Override
     public void onPause() {
         super.onPause();
         senSensorManager.unregisterListener(shakeDetector);
     }
 
+    @Override
     protected void onResume() {
         super.onResume();
         senSensorManager.registerListener(shakeDetector, senAccelerometer, SensorManager.SENSOR_DELAY_GAME);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(adversaryMessagesReceiver);
+    }
+
     public void buildGrid() {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         gameGrid = (LinearLayout) findViewById(R.id.gamegrid);
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             gameGrid.setWeightSum(GameConfiguration.GRID_HEIGHT);
             for (int i = 0; i < GameConfiguration.GRID_HEIGHT; i++) {
                 LinearLayout row = new LinearLayout(this);
@@ -73,8 +82,7 @@ public class GameActivity extends Activity {
                 }
                 gameGrid.addView(row);
             }
-        }
-        else {
+        } else {
             gameGrid.setWeightSum(GameConfiguration.GRID_WIDTH);
             for (int i = 0; i < GameConfiguration.GRID_WIDTH; i++) {
                 LinearLayout row = new LinearLayout(this);
@@ -90,34 +98,32 @@ public class GameActivity extends Activity {
     }
 
     private void setupParty(Bundle savedInstanceState) {
-        if(savedInstanceState == null) {
-            if(getIntent().hasExtra("party")) { //GAME JUST STARTED
-                party = (Party)getIntent().getSerializableExtra("party");
-            }
-            else {  //TEST MODE
+        if (savedInstanceState == null) {
+            if (getIntent().hasExtra("party")) { //GAME JUST STARTED
+                party = (Party) getIntent().getSerializableExtra("party");
+            } else {  //TEST MODE
                 System.out.println("IT IS NULL --> TEST MODE");
                 String[] players = {"Fred", "Cyrille"};
                 testMode = true;
                 party = new Party(players, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH);
             }
-        }
-        else {  //GAME ALREADY STARTED
+        } else {  //GAME ALREADY STARTED
             party = (Party) savedInstanceState.getSerializable("party");
             isInGame = savedInstanceState.getBoolean("isInGame", true);
-            if(party == null) {
+            if (party == null) {
                 String[] players = {savedInstanceState.getString("player1"), savedInstanceState.getString("player2")};
-                if(players[0] == null || players[1] == null) {
-                    Toast.makeText(getApplicationContext(), "Error while setting game",Toast.LENGTH_LONG);
+                if (players[0] == null || players[1] == null) {
+                    Toast.makeText(getApplicationContext(), "Error while setting game", Toast.LENGTH_LONG);
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                 }
                 int userId = -1;
-                for(int i=0; i<players.length; i++) {
-                    if(players[i].equals(GameConfiguration.USERNAME)) {
+                for (int i = 0; i < players.length; i++) {
+                    if (players[i].equals(GameConfiguration.USERNAME)) {
                         userId = i;
                     }
                 }
-                if(userId != -1) {
+                if (userId != -1) {
                     party = new Party(players, userId, GameConfiguration.GRID_HEIGHT - 1, GameConfiguration.GRID_WIDTH - 1);
                 }
             }
@@ -141,14 +147,12 @@ public class GameActivity extends Activity {
             slot.setEnabled(false);
         } else {
             int slotValue;
-            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-            {
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 slotValue = party.getGrid().getGrid()[column - 1][row - 1];
-            }
-            else {
+            } else {
                 slotValue = party.getGrid().getGrid()[row - 1][column - 1];
             }
-            switch(slotValue) {
+            switch (slotValue) {
                 case -2:
                     slot.setBackground(getResources().getDrawable(R.drawable.slot_black));
                 case -1:
@@ -202,7 +206,7 @@ public class GameActivity extends Activity {
     }
 
     public void opponentMove(int columnId) {
-        if(isInGame) {
+        if (isInGame) {
             int orientation = 0;
             int opponentId = 0;
             if (columnId >= GameConfiguration.GRID_WIDTH) {
