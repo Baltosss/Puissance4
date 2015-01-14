@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.puissance4.R;
+import com.puissance4.server_com.async_tasks.RemoveFriendAsyncTask;
 import com.puissance4.server_com.network_handlers.NetworkComm;
 import com.puissance4.server_com.network_handlers.NetworkPlayer;
 import com.puissance4.view.activities.FriendListActivity;
@@ -57,15 +58,7 @@ public class FriendListAdapter extends ArrayNetworkPlayerAdapter {
                 @Override
                 public void onClick(View view) {
                     ////////////////// REMOVE A FRIEND /////////////////////////////
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            NetworkComm.getInstance().removeFriend(friend.getName());
-                            Toast.makeText(context, R.string.friendRemoved, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(context, FriendListActivity.class);
-                            context.startActivity(intent);
-                        }
-                    }).start();
+                    new RemoveFriendAsyncTask((FriendListActivity)context).execute(friend.getName());
                 }
             });
         }
