@@ -29,7 +29,7 @@ public class AddFriendAsyncTask extends AsyncTask<String, Void, Integer> {
             case 0:
                 //FRIEND ADDED, REBUILD PAGE
                 Toast.makeText(context, R.string.friendAdded, Toast.LENGTH_SHORT);
-                context.setContentView(R.layout.friend_list_settings);
+                context.setContentView(R.layout.loading);
                 context.buildFriendList();
                 break;
             case 1:

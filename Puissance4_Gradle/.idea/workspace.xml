@@ -18,7 +18,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="530f9dff-9965-4988-ac43-57a36e651f15" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/example/puissance4/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/example/puissance4/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/AddFriendAsyncTask.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/AddFriendAsyncTask.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Puissance4.iws" />
@@ -45,41 +45,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
-              <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-              <folding>
-                <element signature="e#605#623#0" expanded="true" />
-                <element signature="e#771#789#0" expanded="true" />
-                <element signature="e#920#938#0" expanded="true" />
-                <element signature="e#1273#1295#0" expanded="true" />
-                <element signature="e#1413#1433#0" expanded="true" />
-                <element signature="e#1553#1575#0" expanded="true" />
-                <element signature="e#1699#1721#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="TestModel.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/tests/TestModel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="2331" max-vertical-offset="3435">
               <caret line="25" column="21" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/view/activities/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="499" max-vertical-offset="1665">
-              <caret line="46" column="19" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -100,10 +70,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameActivity.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="GameActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/view/activities/GameActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.7005076" vertical-offset="2786" max-vertical-offset="3450">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2786" max-vertical-offset="3450">
               <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -112,6 +82,48 @@
                 <element signature="e#8200#8201#0" expanded="true" />
                 <element signature="e#8240#8241#0" expanded="true" />
                 <element signature="e#9779#9810#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FriendListActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/view/activities/FriendListActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.66339064" vertical-offset="0" max-vertical-offset="407">
+              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GetFriendListAsyncTask.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/GetFriendListAsyncTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="58" max-vertical-offset="495">
+              <caret line="34" column="78" selection-start-line="34" selection-start-column="78" selection-end-line="34" selection-end-column="78" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddFriendButtonListener.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/controller/button_controllers/AddFriendButtonListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddFriendAsyncTask.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/AddFriendAsyncTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="825">
+              <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -142,26 +154,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="726" max-vertical-offset="1170">
               <caret line="90" column="9" selection-start-line="52" selection-start-column="12" selection-end-line="90" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="R.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/example/puissance4/R.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.0" vertical-offset="0" max-vertical-offset="2355">
-              <caret line="10" column="30" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NetworkComm.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/network_handlers/NetworkComm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4260" max-vertical-offset="5385">
-              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1185,7 +1177,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/model/exceptions/WrongWidthException.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/model/Player.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/AuthenticateAsyncTask.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/GetFriendListAsyncTask.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/GetFriendPlayersAsyncTask.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/MakeAccountAsyncTask.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/GetPlayersAsyncTask.java" />
@@ -1202,8 +1193,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/StartGameAsyncTask.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/controller/button_controllers/OnDisconnectClickListener.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/friend_list_settings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/view/activities/FriendListActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/AddFriendAsyncTask.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/controller/button_controllers/AddFriendButtonListener.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/model/Grid.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/tests/TestModel.java" />
@@ -1213,6 +1202,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/view/activities/GameActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-fr/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/view/activities/FriendListActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/GetFriendListAsyncTask.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/AddFriendAsyncTask.java" />
       </list>
     </option>
   </component>
@@ -1862,6 +1854,44 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="server_com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="async_tasks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Puissance4" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Puissance4_Gradle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="puissance4" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="model" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -2248,7 +2278,11 @@
       <created>1421245247304</created>
       <updated>1421245247304</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fusion des commits précédents">
+      <created>1421245798427</created>
+      <updated>1421245798427</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -2313,7 +2347,8 @@
     <MESSAGE value="Modification du modèle pour la gestion des tours de jeu. Ajout dans GameActivity d'un mode de test pour pouvoir lancer l'activité seule. Test du chat effectué avec succès sur la GameActivity en mode Test : il n'y a plus d'incohérence de tour de jeu ni de victoire anormale." />
     <MESSAGE value="Modification du modèle pour la gestion des tours de jeu. Ajout dans GameActivity d'un mode de test pour pouvoir lancer l'activité seule. Test du chat effectué avec succès sur la GameActivity en mode Test : il n'y a plus d'incohérence de tour de jeu ni de victoire anormale. Ajout d'une classe Tests.TestModel de test du modèle" />
     <MESSAGE value="Implémentation de GameActivity::opponentMove() pour mettre à jour le modèle et la vue après un coup adverse." />
-    <option name="LAST_COMMIT_MESSAGE" value="Implémentation de GameActivity::opponentMove() pour mettre à jour le modèle et la vue après un coup adverse." />
+    <MESSAGE value="Fusion des commits précédents" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fusion des commits précédents" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2545,14 +2580,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/GetFriendListAsyncTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="58" max-vertical-offset="465">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/ConnectButtonAuthenticateAsyncTask.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="483" max-vertical-offset="1125">
@@ -2592,47 +2619,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/view/activities/FriendListActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="23" max-vertical-offset="510">
-          <caret line="19" column="23" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/AddFriendAsyncTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="855">
-          <caret line="11" column="58" selection-start-line="11" selection-start-column="58" selection-end-line="11" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#535#536#0" expanded="true" />
-            <element signature="e#573#574#0" expanded="true" />
-            <element signature="e#913#933#0" expanded="true" />
-            <element signature="e#1188#1212#0" expanded="true" />
-            <element signature="e#1351#1378#0" expanded="true" />
-            <element signature="e#1484#1509#0" expanded="true" />
-            <element signature="e#1639#1662#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/controller/button_controllers/FriendListButtonListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
           <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/controller/button_controllers/AddFriendButtonListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="e#497#498#0" expanded="true" />
-            <element signature="e#527#528#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2759,7 +2750,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/view/activities/GameActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.7005076" vertical-offset="2786" max-vertical-offset="3450">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2786" max-vertical-offset="3450">
           <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -2769,6 +2760,40 @@
             <element signature="e#8240#8241#0" expanded="true" />
             <element signature="e#9779#9810#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/GetFriendListAsyncTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="58" max-vertical-offset="495">
+          <caret line="34" column="78" selection-start-line="34" selection-start-column="78" selection-end-line="34" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/controller/button_controllers/AddFriendButtonListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/server_com/async_tasks/AddFriendAsyncTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="825">
+          <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/puissance4/view/activities/FriendListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.66339064" vertical-offset="0" max-vertical-offset="407">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
