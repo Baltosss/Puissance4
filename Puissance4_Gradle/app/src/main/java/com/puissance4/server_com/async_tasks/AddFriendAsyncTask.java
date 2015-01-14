@@ -4,12 +4,12 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.example.puissance4.R;
-import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.server_com.network_handlers.NetworkComm;
 import com.puissance4.view.activities.FriendListActivity;
 
 /**
  * Created by fred on 14/01/15.
+ * Asynchronous task to add a friend in FriendListActivity
  */
 public class AddFriendAsyncTask extends AsyncTask<String, Void, Integer> {
     private FriendListActivity context;
@@ -29,6 +29,8 @@ public class AddFriendAsyncTask extends AsyncTask<String, Void, Integer> {
             case 0:
                 //FRIEND ADDED, REBUILD PAGE
                 Toast.makeText(context, R.string.friendAdded, Toast.LENGTH_SHORT);
+                context.setContentView(R.layout.friend_list_settings);
+                context.buildFriendList();
                 break;
             case 1:
                 //UNKNOWN USERNAME

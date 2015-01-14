@@ -72,4 +72,10 @@
     <string name="alreadyFriendError">This user is already your friend</string>
     <string name="addFriendError">Error while adding friend</string>
     <string name="addFriendTimeout">Add friend request timed out</string>
+    <string name="fullColumnError">Full column</string>
+    <string name="impossibleColumnPlayError">Internal error : Impossible to play in this column</string>
+    <string name="noneMoveError">Internal error : None player tried to make a move</string>
+    <string name="fullRowError">Full row</string>
+    <string name="impossibleRowPlayError">Internal error : Impossible to play in this row</string>
+    <string name="notYourTurnError">Wait your turn</string>
 </resources>
