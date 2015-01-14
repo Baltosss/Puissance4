@@ -47,6 +47,7 @@
     <string name="shuffle">Mélange !</string>
     <string name="friendAdded">Ami ajouté</string>
     <string name="partyNull">Egalité !</string>
+    <string name="hasWon"> a gagné</string>
 
     <!--Toast Error Messages-->
     <string name="unknownUsername">Nom d\'utilisateur inconnu</string>

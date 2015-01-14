@@ -3,12 +3,10 @@ package com.puissance4.view.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -28,7 +26,6 @@ import com.puissance4.model.exceptions.ImpossibleRowPlayException;
 import com.puissance4.model.exceptions.NoneMoveException;
 import com.puissance4.model.exceptions.NotPlayerTurnException;
 import com.puissance4.server_com.network_handlers.NetworkComm;
-import com.puissance4.server_com.ping_service.AdversaryMessagesReceiver;
 
 public class GameActivity extends Activity {
     private LinearLayout gameGrid;
@@ -37,40 +34,28 @@ public class GameActivity extends Activity {
     private Sensor senAccelerometer;
     private ShakeDetector shakeDetector;
     private boolean testMode = false;
-    private AdversaryMessagesReceiver adversaryMessagesReceiver;
     private boolean isInGame;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adversaryMessagesReceiver = new AdversaryMessagesReceiver();
-        adversaryMessagesReceiver.setView(this);
-        LocalBroadcastManager.getInstance(this).registerReceiver(adversaryMessagesReceiver, new IntentFilter("ADVMESS"));
         setContentView(R.layout.puissance2);
         shakeDetector = new ShakeDetector(new ShakeListener(this));
         setupParty(savedInstanceState);
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        senSensorManager.registerListener(shakeDetector, senAccelerometer, SensorManager.SENSOR_DELAY_GAME);
+        senSensorManager.registerListener(shakeDetector, senAccelerometer , SensorManager.SENSOR_DELAY_GAME);
         buildGrid();
     }
 
-    @Override
     public void onPause() {
         super.onPause();
         senSensorManager.unregisterListener(shakeDetector);
     }
 
-    @Override
     protected void onResume() {
         super.onResume();
         senSensorManager.registerListener(shakeDetector, senAccelerometer, SensorManager.SENSOR_DELAY_GAME);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(adversaryMessagesReceiver);
     }
 
     public void buildGrid() {
@@ -205,7 +190,7 @@ public class GameActivity extends Activity {
     }
 
     public boolean isInGame(boolean isInGame) {
-        this.isInGame = isInGame;
+        return this.isInGame = isInGame;
     }
 
     public boolean isTestMode() {
@@ -240,13 +225,11 @@ public class GameActivity extends Activity {
                             NetworkComm.getInstance().sendWin(1);
                         }
                     }).start();
-                    Toast.makeText(getApplicationContext(), winner.getName() + " has won", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), winner.getName() + R.string.hasWon, Toast.LENGTH_LONG).show();
                     /*Intent intent = new Intent(context, MainActivity.class);
                     context.startActivity(intent);*/
                     isInGame = false;
-                    if (!testMode) {
-                        //finish();   //MUST BE MODIFIED TO DISPLAY WIN SCREEN
-                    }
+                    //finish();   //MUST BE MODIFIED TO DISPLAY WIN SCREEN
                 }
                 if (party.isPartyNull()) {
                     Toast.makeText(this, R.string.partyNull, Toast.LENGTH_SHORT);
@@ -263,18 +246,5 @@ public class GameActivity extends Activity {
                 Toast.makeText(this, R.string.impossibleOpponentMove, Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    //Réception d'un random du joueur adverse
-    public void opponentRandom(Integer[][] grid) {
-
-    }
-
-    //Réception d'une désignation de gagnant du joueur adverse
-    //result = 0 : this a perdu
-    //result = 1 : this a gagné
-    //result = 2 : egalité
-    public void opponentWin(int result) {
-
     }
 }

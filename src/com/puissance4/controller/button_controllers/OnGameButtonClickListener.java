@@ -32,42 +32,35 @@ public class OnGameButtonClickListener extends ActivityListener {
     @Override
     public void onClick(View view) {
         try {
-            int gColumn = column -1;
-            if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                party.nextMove(gColumn, 0);
-            }
-            else {
-                party.nextMove(column - 1, 1);
-                gColumn = GameConfiguration.GRID_WIDTH + gColumn;
-            }
-            if(!((GameActivity)context).isTestMode()) {
-                /////////////////////////// SEND MOVE INSTRUCTIONS /////////////////////////////////////
-                final int finalGColumn = gColumn;
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        NetworkComm.getInstance().sendMove(finalGColumn);
-                    }
-                }).start();
-            }
-            context.setContentView(R.layout.puissance2);
-            ((GameActivity) context).buildGrid();
-            Player winner = party.getWinner();
-            if (winner != null) {
-                //////////////////////////// SEND WINNER INSTRUCTIONS (ONLY IF I WIN)////////////////////////////////
-                if (winner.equals(GameConfiguration.USERNAME) && !((GameActivity) context).isTestMode()) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                NetworkComm.getInstance().sendWin(1);
-                            }
-                        }).start();
+            if(((GameActivity)context).isInGame()) {
+                int gColumn = column - 1;
+                if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    party.nextMove(gColumn, 0);
+                } else {
+                    party.nextMove(column - 1, 1);
+                    gColumn = GameConfiguration.GRID_WIDTH + gColumn;
                 }
-                Toast.makeText(context.getApplicationContext(), winner.getName() + " has won", Toast.LENGTH_LONG).show();
-                /*Intent intent = new Intent(context, MainActivity.class);
-                context.startActivity(intent);*/
-                if(!((GameActivity) context).isTestMode()) {
-                    context.finish();
+                if (!((GameActivity) context).isTestMode()) {
+                    /////////////////////////// SEND MOVE INSTRUCTIONS /////////////////////////////////////
+                    final int finalGColumn = gColumn;
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            NetworkComm.getInstance().sendMove(finalGColumn);
+                        }
+                    }).start();
+                }
+                context.setContentView(R.layout.puissance2);
+                ((GameActivity) context).buildGrid();
+                Player winner = party.getWinner();
+                if (winner != null) {
+                    Toast.makeText(context.getApplicationContext(), winner.getName() + R.string.hasWon, Toast.LENGTH_LONG).show();
+                    /*Intent intent = new Intent(context, MainActivity.class);
+                    context.startActivity(intent);*/
+                    ((GameActivity) context).isInGame(false);
+                } else if (party.isPartyNull()) {
+                    Toast.makeText(context, R.string.partyNull, Toast.LENGTH_SHORT);
+                    ((GameActivity) context).isInGame(false);
                 }
             }
         } catch (FullColumnException e) {
