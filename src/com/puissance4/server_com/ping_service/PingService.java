@@ -14,6 +14,7 @@ import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 
 import com.example.puissance4.R;
@@ -29,6 +30,8 @@ public class PingService extends Service {
     private Handler notificationExpirationHandler;
     private LocationManager locationManager;
     private NotificationManager notificationManager;
+    private PowerManager powerManager;
+    private PowerManager.WakeLock wakeLock;
     private Criteria criteria;
 
     private class pingLocationListener implements LocationListener {
@@ -75,6 +78,10 @@ public class PingService extends Service {
     public void onCreate() {
         setCoordinates(0, 0);
         NetworkComm.getInstance().setService(this);
+
+        powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Tag");
+        wakeLock.acquire();
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         criteria = new Criteria();
@@ -125,6 +132,7 @@ public class PingService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        wakeLock.release();
         NetworkComm.getInstance().disconnect();
     }
 
