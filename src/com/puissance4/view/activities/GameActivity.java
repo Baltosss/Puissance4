@@ -44,7 +44,7 @@ public class GameActivity extends Activity {
         setupParty(savedInstanceState);
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        senSensorManager.registerListener(shakeDetector, senAccelerometer , SensorManager.SENSOR_DELAY_GAME);
+        senSensorManager.registerListener(shakeDetector, senAccelerometer, SensorManager.SENSOR_DELAY_GAME);
         buildGrid();
     }
 
@@ -246,5 +246,17 @@ public class GameActivity extends Activity {
                 Toast.makeText(this, R.string.impossibleOpponentMove, Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    //réception d'un random de l'adversaire
+    public void opponentRandom(Integer[][] grid) {
+    }
+
+    //réception d'une notification de victoire ou non
+    //0 : perdu
+    //1 : gagné
+    //2 : égalité
+    public void opponentWin(int result) {
+
     }
 }
