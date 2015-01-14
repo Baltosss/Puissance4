@@ -37,7 +37,8 @@ public class OnDisconnectClickListener extends ActivityListener {
             }
             editor.apply();
         }
-        Intent intent = new Intent(context, MainActivity.class);
-        context.startActivity(intent);
+        /*Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);*/
+        context.finish();
     }
 }

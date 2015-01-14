@@ -52,19 +52,22 @@ public class StartGameAsyncTask extends AsyncTask<Void, Void, Integer> {
             case 2:
                 //RETURN TO MAIN ACTIVITY
                 Toast.makeText(context, R.string.gameRefused, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context, MainActivity.class);
-                context.startActivity(intent);
+                /*Intent intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);*/
+                context.finish();
                 break;
             case 3:
                 //RETURN TO MAIN ACTIVITY
                 Toast.makeText(context, R.string.proposeGameError, Toast.LENGTH_SHORT).show();
-                Intent intent1 = new Intent(context, MainActivity.class);
-                context.startActivity(intent1);
+                /*Intent intent1 = new Intent(context, MainActivity.class);
+                context.startActivity(intent1);*/
+                context.finish();
             default:
                 //RETURN TO MAIN ACTIVITY
                 Toast.makeText(context, R.string.proposeGameUnhandledError, Toast.LENGTH_SHORT).show();
-                Intent intent2 = new Intent(context, MainActivity.class);
-                context.startActivity(intent2);
+                /*Intent intent2 = new Intent(context, MainActivity.class);
+                context.startActivity(intent2);*/
+                context.finish();
         }
     }
 }

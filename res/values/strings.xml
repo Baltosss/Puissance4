@@ -53,6 +53,7 @@
     <string name="gameRefused">Your opponent has refused the invitation</string>
     <string name="connectBeforeAccessFriends">Please connect in settings before accessing to friend list</string>
     <string name="shuffle">Shuffle !</string>
+    <string name="friendAdded">Friend added</string>
 
     <!--Toast Error Messages-->
     <string name="unknownUsername">Unknown username</string>
@@ -68,4 +69,7 @@
     <string name="friendDeletionUnhandledError">Unhandled error during deletion of a friend</string>
     <string name="proposeGameError">Error while proposing game to the opponent</string>
     <string name="proposeGameUnhandledError">Unhandled error while proposing game to the opponent</string>
+    <string name="alreadyFriendError">This user is already your friend</string>
+    <string name="addFriendError">Error while adding friend</string>
+    <string name="addFriendTimeout">Add friend request timed out</string>
 </resources>
