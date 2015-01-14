@@ -22,7 +22,9 @@ public class Grid implements Serializable {
 	private int[][] grid;
 	private int countPlayers;
 	private int countReshuffle;
-	
+	private WinningLineDirection winDirection = WinningLineDirection.none;
+    private int[] winLengthFromLastMove;
+
 	public Grid(int height, int width, int countPlayers) {
 		if(height <= 3) {
 			this.height = 10;
@@ -43,10 +45,11 @@ public class Grid implements Serializable {
 		}
 		initializeGrid();
 		lastSlotRow = lastSlotColumn = -1;
+        winDirection = WinningLineDirection.none;
+        winLengthFromLastMove = new int[2];
 	}
 
-	public void playAtRow(int row, int newSlotState) throws FullRowException, ImpossibleRowPlayException, NoneMoveException
-	{
+	public void playAtRow(int row, int newSlotState) throws FullRowException, ImpossibleRowPlayException, NoneMoveException {
 		if(newSlotState != -1)
 		{
 			if(row>=0 && row<height)
@@ -85,8 +88,7 @@ public class Grid implements Serializable {
 		}
 	}
 
-	public void playAtColumn(int column, int newSlotState) throws FullColumnException, ImpossibleColumnPlayException, NoneMoveException
-	{
+	public void playAtColumn(int column, int newSlotState) throws FullColumnException, ImpossibleColumnPlayException, NoneMoveException {
 		if(newSlotState != -1)
 		{
 			if(column>=0 && column<width)
@@ -130,53 +132,56 @@ public class Grid implements Serializable {
 		int diagHRDL=0;	//Diagonal high right to down left corner
 		int horizontalLine=0;
 		int verticalLine=0;
-		if((lastSlotRow > 0) && (lastSlotColumn > 0))
+		if((lastSlotRow > 0) && (lastSlotColumn > 0))   //Diagonal high left to down right corner
 		{
-			diagHLDR = diagonalHLSize(lastSlotRow-1, lastSlotColumn-1);
+            winLengthFromLastMove[0] = diagonalHLSize(lastSlotRow-1, lastSlotColumn-1);
 		}
 		if((lastSlotRow < height-1) && (lastSlotColumn < width-1))
 		{
-			diagHLDR += diagonalDRSize(lastSlotRow+1, lastSlotColumn+1);
+            winLengthFromLastMove[1] = diagonalDRSize(lastSlotRow+1, lastSlotColumn+1);
 		}
-		if(diagHLDR>=LINE_SIZE_TO_WIN-1)
+		if((winLengthFromLastMove[0] + winLengthFromLastMove[1])>=LINE_SIZE_TO_WIN-1)
 		{
+            winDirection = WinningLineDirection.upLeftDiagonal;
 			return true;
 		}
-		if((lastSlotRow > 0) && (lastSlotColumn < width-1))
+		if((lastSlotRow > 0) && (lastSlotColumn < width-1)) //Diagonal high right to down left corner
 		{
-			diagHRDL = diagonalHRSize(lastSlotRow-1, lastSlotColumn+1);
+            winLengthFromLastMove[0] = diagonalHRSize(lastSlotRow-1, lastSlotColumn+1);
 		}
 		if((lastSlotRow < height-1) && (lastSlotColumn > 0))
 		{
-			diagHRDL += diagonalDLSize(lastSlotRow+1, lastSlotColumn-1);
+            winLengthFromLastMove[1] = diagonalDLSize(lastSlotRow+1, lastSlotColumn-1);
 		}
-		if(diagHRDL >= LINE_SIZE_TO_WIN-1)
+		if((winLengthFromLastMove[0] + winLengthFromLastMove[1]) >= LINE_SIZE_TO_WIN-1)
 		{
+            winDirection = WinningLineDirection.upRightDiagonal;
 			return true;
 		}
-		if(lastSlotColumn > 0)
+		if(lastSlotColumn > 0)  //Horizontal
 		{
-			horizontalLine = lineToLeftSize(lastSlotColumn-1);
+            winLengthFromLastMove[0] = lineToLeftSize(lastSlotColumn-1);
 		}
 		if(lastSlotColumn < width-1)
 		{
-			horizontalLine += lineToRightSize(lastSlotColumn+1);
+            winLengthFromLastMove[1] = lineToRightSize(lastSlotColumn+1);
 		}
-		if(horizontalLine >= LINE_SIZE_TO_WIN-1)
+		if((winLengthFromLastMove[0] + winLengthFromLastMove[1]) >= LINE_SIZE_TO_WIN-1)
 		{
+            winDirection = WinningLineDirection.horizontal;
 			return true;
 		}
-		if(lastSlotRow > 0)
+		if(lastSlotRow > 0) //Vertical
 		{
-			verticalLine = lineToHighSize(lastSlotRow-1);
+            winLengthFromLastMove[0] = lineToHighSize(lastSlotRow-1);
 		}
 		if(lastSlotRow < height-1)
 		{
-			verticalLine += lineToDownSize(lastSlotRow+1);
+            winLengthFromLastMove[1] = lineToDownSize(lastSlotRow+1);
 		}
-		if(verticalLine >= LINE_SIZE_TO_WIN-1)
+		if((winLengthFromLastMove[0] + winLengthFromLastMove[1]) >= LINE_SIZE_TO_WIN-1)
 		{
-			System.out.println(verticalLine);
+			winDirection = WinningLineDirection.vertical;
 			return true;
 		}
 		return false;
@@ -371,8 +376,7 @@ public class Grid implements Serializable {
 		}
 	}
 	
-	public void reshuffle(int[] countSlots, int newSlotState, int countMoves)
-	{
+	public void reshuffle(int[] countSlots, int newSlotState, int countMoves) {
 		int nextShuffledSlotState = 0;
 		int countRetries = 0;
 		initializeGrid();
@@ -497,4 +501,9 @@ public class Grid implements Serializable {
 		}
 		return true;
 	}
+
+    public int[] getWinLengthFromLastMove() {
+        return winLengthFromLastMove;
+    }
 }
+

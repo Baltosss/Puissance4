@@ -145,4 +145,16 @@ public class Party implements Serializable{
 	public Grid getGrid() {
 		return grid;
 	}
+
+    public int getLastSlotRow() {
+        return grid.getLastSlotRow();
+    }
+
+    public int getLastSlotColumn() {
+        return grid.getLastSlotColumn();
+    }
+
+    public int[] getWinLengthFromLastMove() {
+        return grid.getWinLengthFromLastMove();
+    }
 }

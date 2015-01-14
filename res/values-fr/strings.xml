@@ -46,6 +46,7 @@
     <string name="waitingPlayerAnswer">En attente de la réponse de l\'adversaire</string>
     <string name="shuffle">Mélange !</string>
     <string name="friendAdded">Ami ajouté</string>
+    <string name="partyNull">Egalité !</string>
 
     <!--Toast Error Messages-->
     <string name="unknownUsername">Nom d\'utilisateur inconnu</string>

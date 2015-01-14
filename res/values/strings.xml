@@ -54,6 +54,7 @@
     <string name="connectBeforeAccessFriends">Please connect in settings before accessing to friend list</string>
     <string name="shuffle">Shuffle !</string>
     <string name="friendAdded">Friend added</string>
+    <string name="partyNull">Draw !</string>
 
     <!--Toast Error Messages-->
     <string name="unknownUsername">Unknown username</string>
