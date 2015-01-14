@@ -137,7 +137,7 @@ public class NetworkComm {
     // 4 : error
     public int addFriend(String friendName) {
         LATCH = new CountDownLatch(1);
-        OUTPUT.send("ADDFRIEND" + friendName);
+        OUTPUT.send("ADDFRIEND_" + friendName);
 
         try {
             if (!LATCH.await(20, TimeUnit.SECONDS)) {
