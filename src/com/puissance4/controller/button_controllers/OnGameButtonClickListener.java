@@ -38,7 +38,7 @@ public class OnGameButtonClickListener extends ActivityListener {
             }
             else {
                 party.nextMove(column - 1, 1);
-                gColumn = GameConfiguration.GRID_HEIGHT + gColumn;
+                gColumn = GameConfiguration.GRID_WIDTH + gColumn;
             }
             if(!((GameActivity)context).isTestMode()) {
                 /////////////////////////// SEND MOVE INSTRUCTIONS /////////////////////////////////////

@@ -18,6 +18,13 @@ import com.puissance4.controller.button_controllers.OnGameButtonClickListener;
 import com.puissance4.controller.sensor_controllers.ShakeDetector;
 import com.puissance4.controller.sensor_controllers.ShakeListener;
 import com.puissance4.model.Party;
+import com.puissance4.model.Player;
+import com.puissance4.model.exceptions.FullColumnException;
+import com.puissance4.model.exceptions.FullRowException;
+import com.puissance4.model.exceptions.ImpossibleColumnPlayException;
+import com.puissance4.model.exceptions.ImpossibleRowPlayException;
+import com.puissance4.model.exceptions.NoneMoveException;
+import com.puissance4.model.exceptions.NotPlayerTurnException;
 import com.puissance4.server_com.network_handlers.NetworkComm;
 
 public class GameActivity extends Activity {
@@ -185,8 +192,39 @@ public class GameActivity extends Activity {
 
     public void opponentMove(int columnId) {
         int orientation = 0;
+        int opponentId = 0;
         if(columnId >= GameConfiguration.GRID_WIDTH) {
             columnId = columnId - GameConfiguration.GRID_WIDTH;
+            orientation = 1;
+        }
+        if(party.getPlayers()[0].getName().equals(GameConfiguration.USERNAME)) {
+            opponentId = 1;
+        }
+        try {
+            party.nextOpponentMove(columnId, orientation, party.getPlayers()[opponentId]);
+            setContentView(R.layout.puissance2);
+            buildGrid();
+            Player winner = party.getWinner();
+            if (winner != null) {
+                //////////////////////////// SEND WINNER INSTRUCTIONS (ONLY IF I WIN)////////////////////////////////
+                if (winner.equals(GameConfiguration.USERNAME) && !testMode) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            NetworkComm.getInstance().sendWin(true);
+                        }
+                    }).start();
+                }
+                Toast.makeText(getApplicationContext(), winner.getName() + " has won", Toast.LENGTH_LONG).show();
+                /*Intent intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);*/
+                if(!testMode) {
+                    finish();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, R.string.impossibleOpponentMove, Toast.LENGTH_SHORT).show();
         }
     }
 }
