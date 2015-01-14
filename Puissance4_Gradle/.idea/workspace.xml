@@ -17,10 +17,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.example.Puissance4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="530f9dff-9965-4988-ac43-57a36e651f15" name="Default" comment="Implémentation de">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-fr/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-fr/strings.xml" />
+    <list default="true" id="530f9dff-9965-4988-ac43-57a36e651f15" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Puissance4.iws" />
@@ -2242,7 +2239,11 @@
       <created>1421242597948</created>
       <updated>1421242597948</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Implémentation de GameActivity::opponentMove() pour mettre à jour le modèle et la vue après un coup adverse.">
+      <created>1421245190892</created>
+      <updated>1421245190892</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -2306,7 +2307,8 @@
     <MESSAGE value="Modification de l'ajout d'un ami pour recharger la liste d'amis. Ajout de messages d'erreur lors d'un mauvais coup joué en partie. Optimisation des imports." />
     <MESSAGE value="Modification du modèle pour la gestion des tours de jeu. Ajout dans GameActivity d'un mode de test pour pouvoir lancer l'activité seule. Test du chat effectué avec succès sur la GameActivity en mode Test : il n'y a plus d'incohérence de tour de jeu ni de victoire anormale." />
     <MESSAGE value="Modification du modèle pour la gestion des tours de jeu. Ajout dans GameActivity d'un mode de test pour pouvoir lancer l'activité seule. Test du chat effectué avec succès sur la GameActivity en mode Test : il n'y a plus d'incohérence de tour de jeu ni de victoire anormale. Ajout d'une classe Tests.TestModel de test du modèle" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modification du modèle pour la gestion des tours de jeu. Ajout dans GameActivity d'un mode de test pour pouvoir lancer l'activité seule. Test du chat effectué avec succès sur la GameActivity en mode Test : il n'y a plus d'incohérence de tour de jeu ni de victoire anormale. Ajout d'une classe Tests.TestModel de test du modèle" />
+    <MESSAGE value="Implémentation de GameActivity::opponentMove() pour mettre à jour le modèle et la vue après un coup adverse." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implémentation de GameActivity::opponentMove() pour mettre à jour le modèle et la vue après un coup adverse." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
