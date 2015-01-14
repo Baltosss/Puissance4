@@ -205,7 +205,7 @@ public class Client {
               case "REMFRIEND":
                 if (tokenizer.hasMoreTokens()) {
                   String friendname = tokenizer.nextToken();
-                  if(Server.dataBase.removeFriend(this, friendname)) {
+                  if (Server.dataBase.removeFriend(this, friendname)) {
                     send("SUCCESS");
                   } else {
                     send("ERROR");
@@ -285,14 +285,21 @@ public class Client {
 
               case "WIN":
                 send("WIN");
-                adversary.sendWin(false);
+                adversary.sendWin(0);
                 adversary = null;
                 currentState = ClientState.STDBY;
                 break;
 
               case "LOSS":
                 send("LOSS");
-                adversary.sendWin(true);
+                adversary.sendWin(1);
+                adversary = null;
+                currentState = ClientState.STDBY;
+                break;
+
+              case "TIE":
+                send("TIE");
+                adversary.sendWin(2);
                 adversary = null;
                 currentState = ClientState.STDBY;
                 break;
@@ -390,12 +397,21 @@ public class Client {
     LOCK.unlock();
   }
 
-  public void sendWin(boolean win) {
+  public void sendWin(int win) {
     LOCK.lock();
-    if (win) {
-      send("WIN");
-    } else {
-      send("LOSS");
+
+    switch (win) {
+      case 0:
+        send("LOSS");
+        break;
+      case 1:
+        send("WIN");
+        break;
+      case 2:
+        send("TIE");
+        break;
+      default:
+        break;
     }
 
     currentState = ClientState.STDBY;
