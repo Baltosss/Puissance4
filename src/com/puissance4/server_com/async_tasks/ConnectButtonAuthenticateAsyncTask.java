@@ -45,8 +45,11 @@ public class ConnectButtonAuthenticateAsyncTask extends AuthenticateAsyncTask {
                     editor.apply();
                 }
 
+                /*
                 Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);
+                */
+                context.finish();
                 break;
             case 1:
                 Toast.makeText(context, R.string.unknownUsername, Toast.LENGTH_SHORT).show();

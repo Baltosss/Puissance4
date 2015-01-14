@@ -27,8 +27,11 @@ public class MakeAccountAsyncTask extends AsyncTask<String, Void, Integer> {
         switch(result) {
             case 0:
                 Toast.makeText(context, R.string.registrationSuccess, Toast.LENGTH_SHORT).show();
+                /*
                 Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);
+                */
+                context.finish();
                 break;
             case 1:
                 Toast.makeText(context, R.string.registrationUsernameTaken, Toast.LENGTH_SHORT).show();

@@ -28,19 +28,23 @@ public class NetworkComm {
 
     public static synchronized NetworkComm getInstance() {
         if (INSTANCE == null) {
-            try {
                 INSTANCE = new NetworkComm();
+        }
+
+        if(!INSTANCE.isConnected()) {
+            try {
+                INSTANCE.connect();
             } catch (IOException e) {
+                INSTANCE.setIsConnected(false);
                 e.printStackTrace();
-                INSTANCE = null;
             }
         }
 
         return INSTANCE;
     }
 
-    private NetworkComm() throws IOException {
-        connect();
+    private NetworkComm() {
+        isConnected = false;
     }
 
     public void connect() throws UnknownHostException, IOException {
@@ -308,7 +312,7 @@ public class NetworkComm {
     }
 
     public void sendMove(int x) {
-        OUTPUT.send(Integer.toString(x));
+        OUTPUT.send("MOVE_" + Integer.toString(x));
     }
 
     public void moveReceived(int x) {
@@ -372,5 +376,9 @@ public class NetworkComm {
 
     public void setService(PingService service) {
         this.service = service;
+    }
+
+    public void setIsConnected(boolean isConnected) {
+        this.isConnected = isConnected;
     }
 }
