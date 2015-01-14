@@ -70,4 +70,5 @@
     <string name="fullRowError">Ligne remplie</string>
     <string name="impossibleRowPlayError">Erreur interne : Impossible de jouer dans cette ligne</string>
     <string name="notYourTurnError">Attendez votre tour</string>
+    <string name="impossibleOpponentMove">Erreur interne : Mouvement adverse impossible</string>
 </resources>

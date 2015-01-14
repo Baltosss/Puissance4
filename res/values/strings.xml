@@ -78,4 +78,5 @@
     <string name="fullRowError">Full row</string>
     <string name="impossibleRowPlayError">Internal error : Impossible to play in this row</string>
     <string name="notYourTurnError">Wait your turn</string>
+    <string name="impossibleOpponentMove">Internal error : Impossible opponent move</string>
 </resources>
