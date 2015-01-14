@@ -65,7 +65,9 @@ public class DataBase {
   // 1 : uname nonexistant
   // 2 : already friends
   public synchronized int addFriend(Client client, String friendName) {
-    if (!registered_clients.containsKey(friendName)) {
+    if (friendName.equals(client.getName())) {
+      return 2;
+    } else if (!registered_clients.containsKey(friendName)) {
       return 1;
     } else if (registered_clients.get(client.getName()).getFriends().contains(friendName)) {
       return 2;
@@ -76,14 +78,17 @@ public class DataBase {
     }
   }
 
-  public synchronized void removeFriend(Client client, String friendName) {
+  public synchronized boolean removeFriend(Client client, String friendName) {
     registered_clients.get(client.getName()).getFriends().remove(friendName);
     registered_clients.get(friendName).getFriends().remove(client.getName());
+    return true;
   }
 
   public List<Client> getNearPlayers(Client client) {
-    // TODO Auto-generated method stub
-    return new ArrayList<Client>(auth_clients.values());
+    //TODO coordonées
+    ArrayList<Client> ret = new ArrayList<Client>(auth_clients.values());
+    ret.remove(client);
+    return ret;
   }
 
   public List<Client> getFriends(Client client) {

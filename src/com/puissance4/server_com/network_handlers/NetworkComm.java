@@ -162,8 +162,28 @@ public class NetworkComm {
         }
     }
 
-    public void removeFriend(String friendName) {
+    // Bloquant, false si erreur, true sinon
+    public boolean removeFriend(String friendName) {
+        LATCH = new CountDownLatch(1);
         OUTPUT.send("REMFRIEND_" + friendName);
+
+        try {
+            if (!LATCH.await(20, TimeUnit.SECONDS)) {
+                return false;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        String result = INPUT.getResult();
+
+        switch (result) {
+            case "SUCCESS":
+                return true;
+            default:
+                return false;
+        }
     }
 
     // retourne null en cas d'erreur/timeout

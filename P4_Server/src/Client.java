@@ -205,7 +205,11 @@ public class Client {
               case "REMFRIEND":
                 if (tokenizer.hasMoreTokens()) {
                   String friendname = tokenizer.nextToken();
-                  Server.dataBase.removeFriend(this, friendname);
+                  if(Server.dataBase.removeFriend(this, friendname)) {
+                    send("SUCCESS");
+                  } else {
+                    send("ERROR");
+                  }
                 } else {
                   send("ERROR");
                 }
