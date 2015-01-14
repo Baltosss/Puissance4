@@ -81,4 +81,5 @@
     <string name="impossibleRowPlayError">Internal error : Impossible to play in this row</string>
     <string name="notYourTurnError">Wait your turn</string>
     <string name="impossibleOpponentMove">Internal error : Impossible opponent move</string>
+    <string name="partySettingError">Error while setting game</string>
 </resources>

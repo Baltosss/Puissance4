@@ -73,4 +73,5 @@
     <string name="impossibleRowPlayError">Erreur interne : Impossible de jouer dans cette ligne</string>
     <string name="notYourTurnError">Attendez votre tour</string>
     <string name="impossibleOpponentMove">Erreur interne : Mouvement adverse impossible</string>
+    <string name="partySettingError">Erreur lors de la création de la partie</string>
 </resources>
