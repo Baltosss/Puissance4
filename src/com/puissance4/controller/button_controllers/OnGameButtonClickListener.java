@@ -52,24 +52,6 @@ public class OnGameButtonClickListener extends ActivityListener {
             }
             context.setContentView(R.layout.puissance2);
             ((GameActivity) context).buildGrid();
-            Player winner = party.getWinner();
-            if (winner != null) {
-                //////////////////////////// SEND WINNER INSTRUCTIONS (ONLY IF I WIN)////////////////////////////////
-                if (winner.equals(GameConfiguration.USERNAME) && !((GameActivity) context).isTestMode()) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                NetworkComm.getInstance().sendWin(true);
-                            }
-                        }).start();
-                }
-                Toast.makeText(context.getApplicationContext(), winner.getName() + " has won", Toast.LENGTH_LONG).show();
-                /*Intent intent = new Intent(context, MainActivity.class);
-                context.startActivity(intent);*/
-                if(!((GameActivity) context).isTestMode()) {
-                    context.finish();
-                }
-            }
         } catch (FullColumnException e) {
             e.printStackTrace();
             Toast.makeText(context, R.string.fullColumnError, Toast.LENGTH_SHORT).show();

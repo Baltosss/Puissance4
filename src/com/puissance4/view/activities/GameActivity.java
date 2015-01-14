@@ -34,6 +34,7 @@ public class GameActivity extends Activity {
     private Sensor senAccelerometer;
     private ShakeDetector shakeDetector;
     private boolean testMode = false;
+    private boolean isInGame;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -102,6 +103,7 @@ public class GameActivity extends Activity {
         }
         else {  //GAME ALREADY STARTED
             party = (Party) savedInstanceState.getSerializable("party");
+            isInGame = savedInstanceState.getBoolean("isInGame", true);
             if(party == null) {
                 String[] players = {savedInstanceState.getString("player1"), savedInstanceState.getString("player2")};
                 if(players[0] == null || players[1] == null) {
@@ -168,6 +170,7 @@ public class GameActivity extends Activity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putSerializable("party", party);
+        savedInstanceState.putBoolean("isInGame", isInGame);
     }
 
     public void shuffle() {
@@ -182,6 +185,14 @@ public class GameActivity extends Activity {
         }).start();
     }
 
+    public boolean isInGame() {
+        return isInGame;
+    }
+
+    public boolean isInGame(boolean isInGame) {
+        this.isInGame = isInGame;
+    }
+
     public boolean isTestMode() {
         return testMode;
     }
@@ -191,40 +202,51 @@ public class GameActivity extends Activity {
     }
 
     public void opponentMove(int columnId) {
-        int orientation = 0;
-        int opponentId = 0;
-        if(columnId >= GameConfiguration.GRID_WIDTH) {
-            columnId = columnId - GameConfiguration.GRID_WIDTH;
-            orientation = 1;
-        }
-        if(party.getPlayers()[0].getName().equals(GameConfiguration.USERNAME)) {
-            opponentId = 1;
-        }
-        try {
-            party.nextOpponentMove(columnId, orientation, party.getPlayers()[opponentId]);
-            setContentView(R.layout.puissance2);
-            buildGrid();
-            Player winner = party.getWinner();
-            if (winner != null) {
-                //////////////////////////// SEND WINNER INSTRUCTIONS (ONLY IF I WIN)////////////////////////////////
-                if (winner.equals(GameConfiguration.USERNAME) && !testMode) {
+        if(isInGame) {
+            int orientation = 0;
+            int opponentId = 0;
+            if (columnId >= GameConfiguration.GRID_WIDTH) {
+                columnId = columnId - GameConfiguration.GRID_WIDTH;
+                orientation = 1;
+            }
+            if (party.getPlayers()[0].getName().equals(GameConfiguration.USERNAME)) {
+                opponentId = 1;
+            }
+            try {
+                party.nextOpponentMove(columnId, orientation, party.getPlayers()[opponentId]);
+                setContentView(R.layout.puissance2);
+                buildGrid();
+                Player winner = party.getWinner();
+                if (winner != null) {
+                    //////////////////////////// SEND WINNER INSTRUCTIONS (ONLY IF OPPONENT WIN)////////////////////////////////
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            NetworkComm.getInstance().sendWin(true);
+                            NetworkComm.getInstance().sendWin(1);
+                        }
+                    }).start();
+                    Toast.makeText(getApplicationContext(), winner.getName() + " has won", Toast.LENGTH_LONG).show();
+                    /*Intent intent = new Intent(context, MainActivity.class);
+                    context.startActivity(intent);*/
+                    isInGame = false;
+                    if (!testMode) {
+                        //finish();   //MUST BE MODIFIED TO DISPLAY WIN SCREEN
+                    }
+                }
+                if (party.isPartyNull()) {
+                    Toast.makeText(this, R.string.partyNull, Toast.LENGTH_SHORT);
+                    isInGame = false;
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            NetworkComm.getInstance().sendWin(2);
                         }
                     }).start();
                 }
-                Toast.makeText(getApplicationContext(), winner.getName() + " has won", Toast.LENGTH_LONG).show();
-                /*Intent intent = new Intent(context, MainActivity.class);
-                context.startActivity(intent);*/
-                if(!testMode) {
-                    finish();
-                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, R.string.impossibleOpponentMove, Toast.LENGTH_SHORT).show();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, R.string.impossibleOpponentMove, Toast.LENGTH_SHORT).show();
         }
     }
 }
