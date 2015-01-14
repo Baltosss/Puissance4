@@ -10,12 +10,8 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.widget.Button;
 
-<<<<<<< HEAD
 import com.example.puissance4.R;
-=======
-import com.example.Puissance4.R;
 import com.puissance4.configuration.GameConfiguration;
->>>>>>> c23ccb20ea7ea724eb8c0b5a2195c00984c990a3
 import com.puissance4.controller.button_controllers.FriendListButtonListener;
 import com.puissance4.controller.button_controllers.FriendPlayerButtonListener;
 import com.puissance4.controller.button_controllers.NearPlayerButtonListener;
