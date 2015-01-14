@@ -59,7 +59,7 @@ public class OnGameButtonClickListener extends ActivityListener {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                NetworkComm.getInstance().sendWin(true);
+                                NetworkComm.getInstance().sendWin(1);
                             }
                         }).start();
                 }

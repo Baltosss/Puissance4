@@ -70,10 +70,13 @@ public class NetworkInput {
                     }
                     break;
                 case "WIN":
-                    NetworkComm.getInstance().winReceived(true);
+                    NetworkComm.getInstance().winReceived(1);
                     break;
                 case "LOSS":
-                    NetworkComm.getInstance().winReceived(false);
+                    NetworkComm.getInstance().winReceived(0);
+                    break;
+                case "TIE":
+                    NetworkComm.getInstance().winReceived(2);
                     break;
                 case "PLAYERDISCONNECTED":
                     System.out.println("PLAYERDISCONNECTED");

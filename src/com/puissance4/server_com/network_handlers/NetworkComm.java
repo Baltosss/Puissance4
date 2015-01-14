@@ -1,6 +1,7 @@
 package com.puissance4.server_com.network_handlers;
 
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.puissance4.server_com.ping_service.PingService;
 
@@ -28,10 +29,10 @@ public class NetworkComm {
 
     public static synchronized NetworkComm getInstance() {
         if (INSTANCE == null) {
-                INSTANCE = new NetworkComm();
+            INSTANCE = new NetworkComm();
         }
 
-        if(!INSTANCE.isConnected()) {
+        if (!INSTANCE.isConnected()) {
             try {
                 INSTANCE.connect();
             } catch (IOException e) {
@@ -279,8 +280,8 @@ public class NetworkComm {
         int result = 3;
 
         StringTokenizer tokenizer = new StringTokenizer(INPUT.getResult(), "_");
-        if(tokenizer.countTokens()>=2) {
-            if(tokenizer.nextToken().equals("STARTMATCH")) {
+        if (tokenizer.countTokens() >= 2) {
+            if (tokenizer.nextToken().equals("STARTMATCH")) {
                 result = Integer.parseInt(tokenizer.nextToken());
             }
         }
@@ -289,7 +290,7 @@ public class NetworkComm {
     }
 
     public void proposalReceived(String advname, int x, int y) {
-        if(service!=null) {
+        if (service != null) {
             service.proposalReceived(advname, x, y);
         }
     }
@@ -317,8 +318,8 @@ public class NetworkComm {
             int result = 3;
 
             StringTokenizer tokenizer = new StringTokenizer(INPUT.getResult(), "_");
-            if(tokenizer.countTokens()>=2) {
-                if(tokenizer.nextToken().equals("STARTMATCH")) {
+            if (tokenizer.countTokens() >= 2) {
+                if (tokenizer.nextToken().equals("STARTMATCH")) {
                     result = Integer.parseInt(tokenizer.nextToken());
                 }
             }
@@ -336,10 +337,11 @@ public class NetworkComm {
     }
 
     public void moveReceived(int x) {
-        Intent intent = new Intent("MOVE");
-        intent.putExtra("COL", x);
-        if(service!=null) {
-            service.sendBroadcast(intent);
+        Intent intent = new Intent("ADVMESS");
+        intent.putExtra("ACTION", "MOVE");
+        intent.putExtra("COLUMN", x);
+        if (service != null) {
+            LocalBroadcastManager.getInstance(service).sendBroadcast(intent);
         }
     }
 
@@ -355,26 +357,39 @@ public class NetworkComm {
     }
 
     public void randomReceived(Integer[][] grid) {
-        Intent intent = new Intent("RAND");
+        Intent intent = new Intent("ADVMESS");
+        intent.putExtra("ACTION", "RAND");
         intent.putExtra("GRID", grid);
-        if(service!=null) {
-            service.sendBroadcast(intent);
+        if (service != null) {
+            LocalBroadcastManager.getInstance(service).sendBroadcast(intent);
         }
     }
 
-    public void sendWin(boolean winner) {
-        if (winner) {
-            OUTPUT.send("WIN");
-        } else {
-            OUTPUT.send("LOSS");
+    // 0 : loss
+    // 1 : win
+    // 2 : tie
+    public void sendWin(int winner) {
+        switch(winner) {
+            case 0:
+                OUTPUT.send("LOSS");
+                break;
+            case 1:
+                OUTPUT.send("WIN");
+                break;
+            case 2:
+                OUTPUT.send("TIE");
+                break;
+            default:
+                break;
         }
     }
 
-    public void winReceived(boolean winner) {
-        Intent intent = new Intent("WIN");
-        intent.putExtra("ISWINNER", winner);
-        if(service!=null) {
-            service.sendBroadcast(intent);
+    public void winReceived(int winner) {
+        Intent intent = new Intent("ADVMESS");
+        intent.putExtra("ACTION", "WIN");
+        intent.putExtra("WINCODE", winner);
+        if (service != null) {
+            LocalBroadcastManager.getInstance(service).sendBroadcast(intent);
         }
     }
 
