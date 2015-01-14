@@ -2,25 +2,25 @@
 <items version="2" >
 
     <item
-        jar="/home/cyrille/AndroidStudioProjects/Puissance4/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="/home/cyrille/AndroidStudioProjects/Puissance4/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-1576c0b5caf16c37a7f2b2a5c5d51e57cf9ce19f.jar" />
-    </item>
-    <item
-        jar="/home/cyrille/AndroidStudioProjects/Puissance4/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="/home/cyrille/AndroidStudioProjects/Puissance4/app/build/intermediates/pre-dexed/debug/classes-a4f6bb0aa3b86cf24a8914ec226fdd8f3ecec8c5.jar" />
-    </item>
-    <item
-        jar="/home/cyrille/android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jar="/home/fred/android-sdks/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="/home/cyrille/AndroidStudioProjects/Puissance4/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-cf4abe1fe3ee9f971b0ebc72f419d281b36c68ab.jar" />
+        <dex dex="/home/fred/puissance4/Puissance4/Puissance4_Gradle/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-b91cb6816fb846f5fd159fe66476341044f81a45.jar" />
+    </item>
+    <item
+        jar="/home/fred/puissance4/Puissance4/Puissance4_Gradle/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/home/fred/puissance4/Puissance4/Puissance4_Gradle/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-84d8d8ed053ae0dfd06ad90d511ebbf11f7b530a.jar" />
+    </item>
+    <item
+        jar="/home/fred/puissance4/Puissance4/Puissance4_Gradle/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/home/fred/puissance4/Puissance4/Puissance4_Gradle/app/build/intermediates/pre-dexed/debug/classes-3a0219b091d8b4dc520fe8d48b7d60f03314bfb7.jar" />
     </item>
 
 </items>

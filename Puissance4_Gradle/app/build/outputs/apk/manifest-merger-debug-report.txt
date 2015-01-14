@@ -1,6 +1,8 @@
 -- Merging decision tree log ---
 manifest
 ADDED from AndroidManifest.xml:2:1
+	xmlns:android
+		ADDED from AndroidManifest.xml:2:11
 	package
 		ADDED from AndroidManifest.xml:3:11
 		INJECTED from AndroidManifest.xml:0:0
@@ -11,8 +13,6 @@ ADDED from AndroidManifest.xml:2:1
 		ADDED from AndroidManifest.xml:4:11
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
-	xmlns:android
-		ADDED from AndroidManifest.xml:2:11
 uses-sdk
 ADDED from AndroidManifest.xml:6:5
 MERGED from com.android.support:support-v4:21.0.3:15:5
@@ -86,3 +86,13 @@ ADDED from AndroidManifest.xml:26:9
 		ADDED from AndroidManifest.xml:27:19
 	android:name
 		ADDED from AndroidManifest.xml:26:19
+activity#com.puissance4.view.activities.StartGameActivity
+ADDED from AndroidManifest.xml:28:9
+	android:label
+		ADDED from AndroidManifest.xml:29:19
+	android:name
+		ADDED from AndroidManifest.xml:28:19
+receiver#com.puissance4.server_com.ping_service.RefuseGameReceiver
+ADDED from AndroidManifest.xml:30:9
+	android:name
+		ADDED from AndroidManifest.xml:30:19

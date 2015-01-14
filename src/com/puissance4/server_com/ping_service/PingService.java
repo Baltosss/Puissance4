@@ -19,7 +19,7 @@ import android.support.v4.app.NotificationCompat;
 import com.example.puissance4.R;
 import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.server_com.network_handlers.NetworkComm;
-import com.puissance4.view.activities.StartGameActivity;
+import com.puissance4.view.activities.MainActivity;
 
 public class PingService extends Service {
     private final IBinder binder = new PingBinder();
@@ -98,16 +98,11 @@ public class PingService extends Service {
                 .setContentTitle("Match")
                 .setContentText(advname + " vous propose de jouer !");
 
-        Intent acceptGameIntent = new Intent(this, StartGameActivity.class);
+        Intent acceptGameIntent = new Intent(this, MainActivity.class);
         acceptGameIntent.putExtra("ADVNAME", advname);
         acceptGameIntent.putExtra("X", x);
         acceptGameIntent.putExtra("Y", y);
 
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addParentStack(StartGameActivity.class);
-        stackBuilder.addNextIntent(acceptGameIntent);
-
-        //PendingIntent acceptPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent acceptPendingIntent = PendingIntent.getActivity(this, 0, acceptGameIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(acceptPendingIntent);
 
