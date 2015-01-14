@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
         friendListButton.setOnClickListener(new FriendListButtonListener(this));
         settingsButton.setOnClickListener(new SettingsButtonListener(this));
 
-        if(getIntent().hasExtra("ADVNAME")) {
+        if (getIntent().hasExtra("ADVNAME")) {
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.cancel(5);
 
@@ -84,8 +84,15 @@ public class MainActivity extends Activity {
             int firstPlayer = NetworkComm.getInstance().answerProposal(true);
             switch (firstPlayer) {
                 case 0:
+                    players[0] = GameConfiguration.USERNAME;
+                    players[1] = getIntent().getStringExtra("ADVNAME");
+                    gameIntent.putExtra("party", new Party(players, 0, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH));
+                    startActivity(gameIntent);
+                    break;
                 case 1:
-                    gameIntent.putExtra("party", new Party(players, firstPlayer, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH));
+                    players[0] = getIntent().getStringExtra("ADVNAME");
+                    players[1] = GameConfiguration.USERNAME;
+                    gameIntent.putExtra("party", new Party(players, 1, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH));
                     startActivity(gameIntent);
                     break;
                 default:

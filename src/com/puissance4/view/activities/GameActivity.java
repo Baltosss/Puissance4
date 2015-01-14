@@ -98,16 +98,17 @@ public class GameActivity extends Activity {
     }
 
     private void setupParty(Bundle savedInstanceState) {
-        if (savedInstanceState == null) {
-            if (getIntent().hasExtra("party")) { //GAME JUST STARTED
-                party = (Party) getIntent().getSerializableExtra("party");
-            } else {  //TEST MODE
-                System.out.println("IT IS NULL --> TEST MODE");
-                String[] players = {"Fred", "Cyrille"};
-                testMode = true;
-                party = new Party(players, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH);
-            }
-        } else {  //GAME ALREADY STARTED
+        //if (savedInstanceState == null) {
+        if (getIntent().hasExtra("party")) { //GAME JUST STARTED
+            party = (Party) getIntent().getSerializableExtra("party");
+        } else {  //TEST MODE
+            System.out.println("IT IS NULL --> TEST MODE");
+            String[] players = {"Fred", "Cyrille"};
+            testMode = true;
+            party = new Party(players, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH);
+        }
+//        } else {  //GAME ALREADY STARTED
+        if (party == null) {
             party = (Party) savedInstanceState.getSerializable("party");
             isInGame = savedInstanceState.getBoolean("isInGame", true);
             if (party == null) {
