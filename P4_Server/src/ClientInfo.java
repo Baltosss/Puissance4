@@ -1,7 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class ClientInfo {
+public class ClientInfo implements Serializable {
+  private static final long serialVersionUID = 8604414346866884332L;
   protected String password;
   protected ArrayList<String> friends;
 
