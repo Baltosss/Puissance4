@@ -50,6 +50,7 @@
     <string name="hasWon">a gagné</string>
     <string name="opponentDisconnected">L\'adversaire a été déconnecté</string>
     <string name="opponentShuffle">Mélange adverse !</string>
+    <string name="noMoreShuffles">Plus de mélanges restants</string>
 
     <!--Toast Error Messages-->
     <string name="unknownUsername">Nom d\'utilisateur inconnu</string>

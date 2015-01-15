@@ -38,6 +38,7 @@ public class GameActivity extends Activity {
     private boolean isInGame = true;
     private boolean isEndGameScreen = false;
     private boolean receiverRegistered = false;
+    private int nbShufflesRemaining = GameConfiguration.COUNT_SHUFFLE;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -127,7 +128,7 @@ public class GameActivity extends Activity {
             isInGame = savedInstanceState.getBoolean("isInGame", true);
             isEndGameScreen = savedInstanceState.getBoolean("isEndGameScreen", false);
             testMode = savedInstanceState.getBoolean("testMode", false);
-
+            nbShufflesRemaining = savedInstanceState.getInt("nbShufflesRemaining", GameConfiguration.COUNT_SHUFFLE);
         }
         if (getIntent().hasExtra("party")) { //GAME JUST STARTED
             party = (Party) getIntent().getSerializableExtra("party");
@@ -361,6 +362,7 @@ public class GameActivity extends Activity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("nbShufflesRemaining", nbShufflesRemaining);
         savedInstanceState.putBoolean("testMode", testMode);
         savedInstanceState.putSerializable("party", party);
         savedInstanceState.putBoolean("isInGame", isInGame);
@@ -375,22 +377,28 @@ public class GameActivity extends Activity {
     }
 
     public void shuffle() {
-        try {
-            party.shuffle();
-        } catch (NotPlayerTurnException e) {
-            e.printStackTrace();
-            Toast.makeText(this, R.string.notYourTurnError, Toast.LENGTH_SHORT);
-        }
-        if (!testMode) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    NetworkComm.getInstance().sendRandom(party.getGrid().getGrid());
+        if(nbShufflesRemaining > 0) {
+            try {
+                party.shuffle();
+                nbShufflesRemaining--;
+                if (!testMode) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            NetworkComm.getInstance().sendRandom(party.getGrid().getGrid());
+                        }
+                    }).start();
                 }
-            }).start();
+                setContentView(R.layout.puissance2);
+                buildGrid();
+            } catch (NotPlayerTurnException e) {
+                e.printStackTrace();
+                Toast.makeText(this, R.string.notYourTurnError, Toast.LENGTH_SHORT);
+            }
         }
-        setContentView(R.layout.puissance2);
-        buildGrid();
+        else {
+            Toast.makeText(this, R.string.noMoreShuffles, Toast.LENGTH_SHORT);
+        }
     }
 
     public boolean isInGame() {
