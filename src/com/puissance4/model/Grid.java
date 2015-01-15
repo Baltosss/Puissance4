@@ -112,10 +112,11 @@ public class Grid implements Serializable {
         if ((lastSlotRow < height - 1) && (lastSlotColumn < width - 1)) {
             winLengthFromLastMove[1] = diagonalDRSize(lastSlotRow + 1, lastSlotColumn + 1);
         }
-        if ((winLengthFromLastMove[0] + winLengthFromLastMove[1]) >= LINE_SIZE_TO_WIN - 1) {
+        if ((winLengthFromLastMove[0] + winLengthFromLastMove[1]) >= (LINE_SIZE_TO_WIN - 1)) {
             winDirection = WinningLineDirection.upLeftDiagonal;
             return true;
         }
+        winLengthFromLastMove[0] = winLengthFromLastMove[1] = 0;
         if ((lastSlotRow > 0) && (lastSlotColumn < width - 1)) //Diagonal high right to down left corner
         {
             winLengthFromLastMove[0] = diagonalHRSize(lastSlotRow - 1, lastSlotColumn + 1);
@@ -123,10 +124,11 @@ public class Grid implements Serializable {
         if ((lastSlotRow < height - 1) && (lastSlotColumn > 0)) {
             winLengthFromLastMove[1] = diagonalDLSize(lastSlotRow + 1, lastSlotColumn - 1);
         }
-        if ((winLengthFromLastMove[0] + winLengthFromLastMove[1]) >= LINE_SIZE_TO_WIN - 1) {
+        if ((winLengthFromLastMove[0] + winLengthFromLastMove[1]) >= (LINE_SIZE_TO_WIN - 1)) {
             winDirection = WinningLineDirection.upRightDiagonal;
             return true;
         }
+        winLengthFromLastMove[0] = winLengthFromLastMove[1] = 0;
         if (lastSlotColumn > 0)  //Horizontal
         {
             winLengthFromLastMove[0] = lineToLeftSize(lastSlotColumn - 1);
@@ -134,10 +136,11 @@ public class Grid implements Serializable {
         if (lastSlotColumn < width - 1) {
             winLengthFromLastMove[1] = lineToRightSize(lastSlotColumn + 1);
         }
-        if ((winLengthFromLastMove[0] + winLengthFromLastMove[1]) >= LINE_SIZE_TO_WIN - 1) {
+        if ((winLengthFromLastMove[0] + winLengthFromLastMove[1]) >= (LINE_SIZE_TO_WIN - 1)) {
             winDirection = WinningLineDirection.horizontal;
             return true;
         }
+        winLengthFromLastMove[0] = winLengthFromLastMove[1] = 0;
         if (lastSlotRow > 0) //Vertical
         {
             winLengthFromLastMove[0] = lineToHighSize(lastSlotRow - 1);
@@ -145,7 +148,7 @@ public class Grid implements Serializable {
         if (lastSlotRow < height - 1) {
             winLengthFromLastMove[1] = lineToDownSize(lastSlotRow + 1);
         }
-        if ((winLengthFromLastMove[0] + winLengthFromLastMove[1]) >= LINE_SIZE_TO_WIN - 1) {
+        if ((winLengthFromLastMove[0] + winLengthFromLastMove[1]) >= (LINE_SIZE_TO_WIN - 1)) {
             winDirection = WinningLineDirection.vertical;
             return true;
         }
