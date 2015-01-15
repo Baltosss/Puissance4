@@ -65,6 +65,16 @@ public class GameActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        if(isInGame) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    NetworkComm.getInstance().leaveGame();
+                }
+            }).start();
+        }
+
         LocalBroadcastManager.getInstance(this).unregisterReceiver(adversaryMessagesReceiver);
     }
 
@@ -284,5 +294,10 @@ public class GameActivity extends Activity {
     //2 : égalité
     public void opponentWin(int result) {
 
+    }
+
+    public void adversaryDisconnected() {
+        Toast.makeText(this, "Opponent disconnected!", Toast.LENGTH_SHORT);
+        isInGame = false;
     }
 }

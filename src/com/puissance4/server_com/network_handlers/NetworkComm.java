@@ -139,6 +139,10 @@ public class NetworkComm {
         OUTPUT.send("DISCONNECT");
     }
 
+    public void leaveGame() {
+        OUTPUT.send("LEAVEGAME");
+    }
+
 
     // 0 : success
     // 1 : uname nonexistant
@@ -397,6 +401,14 @@ public class NetworkComm {
         Intent intent = new Intent("ADVMESS");
         intent.putExtra("ACTION", "WIN");
         intent.putExtra("WINCODE", winner);
+        if (service != null) {
+            LocalBroadcastManager.getInstance(service).sendBroadcast(intent);
+        }
+    }
+
+    public void playerDisconnected() {
+        Intent intent = new Intent("ADVMESS");
+        intent.putExtra("ACTION", "DISCONNECT");
         if (service != null) {
             LocalBroadcastManager.getInstance(service).sendBroadcast(intent);
         }

@@ -38,6 +38,9 @@ public class AdversaryMessagesReceiver extends BroadcastReceiver {
                         view.opponentWin(result);
                     }
                     break;
+                case "DISCONNECT":
+                    view.adversaryDisconnected();
+                    break;
                 default:
                     break;
             }

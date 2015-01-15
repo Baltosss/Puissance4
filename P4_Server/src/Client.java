@@ -304,6 +304,11 @@ public class Client {
                 currentState = ClientState.STDBY;
                 break;
 
+              case "LEAVEGAME":
+                adversary.notifyDisconnect();
+                adversary = null;
+                currentState = ClientState.STDBY;
+                break;
               case "DISCONNECT":
                 Server.dataBase.disconnectClient(this);
                 close();
