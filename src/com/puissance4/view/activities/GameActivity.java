@@ -23,7 +23,7 @@ import com.puissance4.controller.sensor_controllers.ShakeListener;
 import com.puissance4.model.Party;
 import com.puissance4.model.Player;
 import com.puissance4.server_com.network_handlers.NetworkComm;
-import com.puissance4.server_com.ping_service.AdversaryMessagesReceiver;
+import com.puissance4.server_com.network_service.AdversaryMessagesReceiver;
 
 public class GameActivity extends Activity {
     private LinearLayout gameGrid;
@@ -74,24 +74,24 @@ public class GameActivity extends Activity {
         TextView currentTurnText = (TextView) findViewById(R.id.currentTurnText);
         currentTurnText.setText(party.getCurrentPlayer().getName());
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            gameGrid.setWeightSum(GameConfiguration.GRID_HEIGHT+1);
-            for (int i = 0; i < (GameConfiguration.GRID_HEIGHT+1); i++) {
+            gameGrid.setWeightSum(GameConfiguration.GRID_HEIGHT + 1);
+            for (int i = 0; i < (GameConfiguration.GRID_HEIGHT + 1); i++) {
                 LinearLayout row = new LinearLayout(this);
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
-                row.setWeightSum(GameConfiguration.GRID_WIDTH+1);
-                for (int j = 0; j < (GameConfiguration.GRID_WIDTH+1); j++) {
+                row.setWeightSum(GameConfiguration.GRID_WIDTH + 1);
+                for (int j = 0; j < (GameConfiguration.GRID_WIDTH + 1); j++) {
                     Button slot = buildButton(i, j);
                     row.addView(slot);
                 }
                 gameGrid.addView(row);
             }
         } else {
-            gameGrid.setWeightSum(GameConfiguration.GRID_WIDTH+1);
-            for (int i = 0; i < (GameConfiguration.GRID_WIDTH+1); i++) {
+            gameGrid.setWeightSum(GameConfiguration.GRID_WIDTH + 1);
+            for (int i = 0; i < (GameConfiguration.GRID_WIDTH + 1); i++) {
                 LinearLayout row = new LinearLayout(this);
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
                 row.setWeightSum(GameConfiguration.GRID_HEIGHT);
-                for (int j = 0; j < (GameConfiguration.GRID_HEIGHT+1); j++) {
+                for (int j = 0; j < (GameConfiguration.GRID_HEIGHT + 1); j++) {
                     Button slot = buildButton(i, j);
                     row.addView(slot);
                 }
@@ -153,10 +153,10 @@ public class GameActivity extends Activity {
         } else {
             int slotValue;
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                isLastMove = ((party.getLastSlotColumn() == (column-1)) && (party.getLastSlotRow() == (row-1)));
+                isLastMove = ((party.getLastSlotColumn() == (column - 1)) && (party.getLastSlotRow() == (row - 1)));
                 slotValue = party.getGrid().getGrid()[column - 1][row - 1];
             } else {
-                isLastMove = ((party.getLastSlotColumn() == row-1) && (party.getLastSlotRow() == column-1));
+                isLastMove = ((party.getLastSlotColumn() == row - 1) && (party.getLastSlotRow() == column - 1));
                 slotValue = party.getGrid().getGrid()[row - 1][column - 1];
             }
             switch (slotValue) {
@@ -166,18 +166,16 @@ public class GameActivity extends Activity {
                     slot.setBackground(getResources().getDrawable(R.drawable.slot_white));
                     break;
                 case 0:
-                    if(isLastMove) {
+                    if (isLastMove) {
                         slot.setBackground(getResources().getDrawable(R.drawable.slot_last_red));
-                    }
-                    else {
+                    } else {
                         slot.setBackground(getResources().getDrawable(R.drawable.slot_red));
                     }
                     break;
                 case 1:
-                    if(isLastMove) {
+                    if (isLastMove) {
                         slot.setBackground(getResources().getDrawable(R.drawable.slot_last_yellow));
-                    }
-                    else {
+                    } else {
                         slot.setBackground(getResources().getDrawable(R.drawable.slot_yellow));
                     }
                     break;

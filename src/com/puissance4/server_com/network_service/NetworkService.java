@@ -1,4 +1,4 @@
-package com.puissance4.server_com.ping_service;
+package com.puissance4.server_com.network_service;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -22,7 +22,7 @@ import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.server_com.network_handlers.NetworkComm;
 import com.puissance4.view.activities.MainActivity;
 
-public class PingService extends Service {
+public class NetworkService extends Service {
     private final IBinder binder = new PingBinder();
     private double latitude;
     private double longitude;
@@ -64,8 +64,8 @@ public class PingService extends Service {
     };
 
     public class PingBinder extends Binder {
-        public PingService getService() {
-            return PingService.this;
+        public NetworkService getService() {
+            return NetworkService.this;
         }
     }
 
@@ -76,8 +76,29 @@ public class PingService extends Service {
 
     @Override
     public void onCreate() {
+        System.out.println("CREATESERVICE");
         setCoordinates(0, 0);
         NetworkComm.getInstance().setService(this);
+
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.slot_red_star)
+                .setContentTitle("Puissance4")
+                .setContentText("Puissance4 est en cours d'exécution.");
+
+        Intent openIntent = new Intent(getApplicationContext(), MainActivity.class);
+        openIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent openPendingIntent = PendingIntent.getActivity(this, 1, openIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        builder.addAction(new NotificationCompat.Action(R.drawable.icon_green_dot, "Ouvrir", openPendingIntent));
+
+        Intent closeIntent = new Intent(getApplicationContext(), MainActivity.class);
+        closeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        closeIntent.putExtra("CLOSEAPP", true);
+        PendingIntent closePendingIntent = PendingIntent.getActivity(this, 2, closeIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        builder.addAction(new NotificationCompat.Action(R.drawable.icon_red_dot, "Quitter", closePendingIntent));
+
+        startForeground(6, builder.build());
 
         powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Tag");
@@ -121,7 +142,6 @@ public class PingService extends Service {
         PendingIntent refusePendingIntent = PendingIntent.getBroadcast(this, 0, refuseGameIntent, 0);
         builder.setDeleteIntent(refusePendingIntent);
 
-        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(5, builder.build());
 
         notificationExpirationHandler.postDelayed(new Runnable() {

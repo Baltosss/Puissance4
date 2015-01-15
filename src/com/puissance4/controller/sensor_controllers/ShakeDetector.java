@@ -8,20 +8,20 @@ import com.puissance4.configuration.SensorConfiguration;
 
 public class ShakeDetector implements SensorEventListener {
     // Arrays to store gravity and linear acceleration values
-	private float[] mGravity = { 0.0f, 0.0f, 0.0f };
-	private float[] mLinearAcceleration = { 0.0f, 0.0f, 0.0f };
+    private float[] mGravity = {0.0f, 0.0f, 0.0f};
+    private float[] mLinearAcceleration = {0.0f, 0.0f, 0.0f};
 
-	// OnShakeListener that will be notified when the shake is detected
-	private ShakeListener mShakeListener;
-	
-	// Start time for the shake detection
-	long startTime = 0;
-	
-	// Counter for shake movements
-	int moveCount = 0;
+    // OnShakeListener that will be notified when the shake is detected
+    private ShakeListener mShakeListener;
+
+    // Start time for the shake detection
+    long startTime = 0;
+
+    // Counter for shake movements
+    int moveCount = 0;
 
     public ShakeDetector(ShakeListener shakeListener) {
-    	mShakeListener = shakeListener;
+        mShakeListener = shakeListener;
     }
 
     @Override
@@ -48,11 +48,11 @@ public class ShakeDetector implements SensorEventListener {
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-  	    // Intentionally blank
+        // Intentionally blank
     }
-    
+
     private void setCurrentAcceleration(SensorEvent event) {
-    	// alpha is calculated as t / (t + dT)
+        // alpha is calculated as t / (t + dT)
         // with t, the low-pass filter's time-constant
         // and dT, the event delivery rate
         final float alpha = 0.8f;
@@ -63,17 +63,17 @@ public class ShakeDetector implements SensorEventListener {
         mLinearAcceleration[1] = event.values[1] - mGravity[1];
         mLinearAcceleration[2] = event.values[2] - mGravity[2];
     }
-    
+
     private double getCurrentLinearAcceleration() {
-    	return Math.sqrt(((double) (
-                                mLinearAcceleration[0]*mLinearAcceleration[0]+
-                                mLinearAcceleration[1]*mLinearAcceleration[1]+
-                                mLinearAcceleration[2]*mLinearAcceleration[2]
-                        )));
+        return Math.sqrt(((double) (
+                mLinearAcceleration[0] * mLinearAcceleration[0] +
+                        mLinearAcceleration[1] * mLinearAcceleration[1] +
+                        mLinearAcceleration[2] * mLinearAcceleration[2]
+        )));
     }
-    
+
     private void resetShakeDetection() {
-    	startTime = 0;
-    	moveCount = 0;
+        startTime = 0;
+        moveCount = 0;
     }
 }

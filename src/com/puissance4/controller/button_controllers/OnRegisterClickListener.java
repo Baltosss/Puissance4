@@ -22,15 +22,15 @@ public class OnRegisterClickListener extends ActivityListener {
 
     @Override
     public void onClick(View view) {
-        String username = ((EditText)context.findViewById(R.id.editUsername)).getText().toString();
-        String password = ((EditText)context.findViewById(R.id.editPassword)).getText().toString();
-        if(!username.equals("") && !password.equals("")) {
+        String username = ((EditText) context.findViewById(R.id.editUsername)).getText().toString();
+        String password = ((EditText) context.findViewById(R.id.editPassword)).getText().toString();
+        if (!username.equals("") && !password.equals("")) {
             Pattern pattern = Pattern.compile("\\s");
             Matcher matcherUsername = pattern.matcher(username);
             Matcher matcherPassword = pattern.matcher(password);
             if (!matcherUsername.find() && !matcherPassword.find()) {
                 //////////////////////////////// REGISTRATION INSTRUCTIONS ////////////////////////
-                new MakeAccountAsyncTask((SettingActivity)context).execute(username, password);
+                new MakeAccountAsyncTask((SettingActivity) context).execute(username, password);
             }
         }
     }

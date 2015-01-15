@@ -2,10 +2,8 @@ package com.puissance4.view.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.Button;
 
 import com.example.puissance4.R;
-import com.puissance4.controller.button_controllers.AddFriendButtonListener;
 import com.puissance4.server_com.async_tasks.GetFriendListAsyncTask;
 
 /**

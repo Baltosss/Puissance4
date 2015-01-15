@@ -16,6 +16,7 @@ public class MakeAccountAsyncTask extends AsyncTask<String, Void, Integer> {
     public MakeAccountAsyncTask(SettingActivity context) {
         this.context = context;
     }
+
     @Override
     protected Integer doInBackground(String... params) {
         return NetworkComm.getInstance().makeAccount(params[0], params[1]);
@@ -23,7 +24,7 @@ public class MakeAccountAsyncTask extends AsyncTask<String, Void, Integer> {
 
     @Override
     protected void onPostExecute(Integer result) {
-        switch(result) {
+        switch (result) {
             case 0:
                 Toast.makeText(context, R.string.registrationSuccess, Toast.LENGTH_SHORT).show();
                 /*

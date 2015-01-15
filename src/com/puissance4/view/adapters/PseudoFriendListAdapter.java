@@ -19,9 +19,10 @@ import com.puissance4.view.activities.FriendListActivity;
 /**
  * Created by fred on 09/01/15.
  */
-public class PseudoFriendListAdapter extends ArrayAdapter<String>{
+public class PseudoFriendListAdapter extends ArrayAdapter<String> {
     private String[] objects;
     private Context context;
+
     public PseudoFriendListAdapter(Context context, int textViewResourceId, String[] objects) {
         super(context, textViewResourceId, objects);
         this.objects = objects;
@@ -36,7 +37,7 @@ public class PseudoFriendListAdapter extends ArrayAdapter<String>{
             v = inflater.inflate(R.layout.friend_item, null);
         }
         final String friend = objects[position];
-        if(friend != null) {
+        if (friend != null) {
             ImageView statusView = (ImageView) v.findViewById(R.id.imageFriendItem);
             TextView friendText = (TextView) v.findViewById(R.id.textFriendItem);
             Button deleteButton = (Button) v.findViewById(R.id.buttonFriendItem);
@@ -45,16 +46,16 @@ public class PseudoFriendListAdapter extends ArrayAdapter<String>{
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                ((Activity)context).setContentView(R.layout.loading);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        NetworkComm.getInstance().removeFriend(friend);
-                        Toast.makeText(context, R.string.friendRemoved, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(context, FriendListActivity.class);
-                        context.startActivity(intent);
-                    }
-                }).start();
+                    ((Activity) context).setContentView(R.layout.loading);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            NetworkComm.getInstance().removeFriend(friend);
+                            Toast.makeText(context, R.string.friendRemoved, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(context, FriendListActivity.class);
+                            context.startActivity(intent);
+                        }
+                    }).start();
                 }
             });
         }

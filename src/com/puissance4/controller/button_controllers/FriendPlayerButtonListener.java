@@ -19,10 +19,9 @@ public class FriendPlayerButtonListener extends ActivityListener {
 
     @Override
     public void onClick(View view) {
-        if(GameConfiguration.USERNAME == null) {
+        if (GameConfiguration.USERNAME == null) {
             Toast.makeText(context, R.string.connectBeforePlay, Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             Intent intent = new Intent(context, FriendPickerActivity.class);
             context.startActivity(intent);
         }

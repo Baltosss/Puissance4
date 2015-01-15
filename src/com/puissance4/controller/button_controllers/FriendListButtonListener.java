@@ -19,10 +19,9 @@ public class FriendListButtonListener extends ActivityListener {
 
     @Override
     public void onClick(View view) {
-        if(GameConfiguration.USERNAME == null) {
+        if (GameConfiguration.USERNAME == null) {
             Toast.makeText(context, R.string.connectBeforeAccessFriends, Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             Intent intent = new Intent(context, FriendListActivity.class);
             context.startActivity(intent);
         }

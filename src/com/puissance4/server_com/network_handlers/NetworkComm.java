@@ -3,7 +3,7 @@ package com.puissance4.server_com.network_handlers;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
-import com.puissance4.server_com.ping_service.PingService;
+import com.puissance4.server_com.network_service.NetworkService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class NetworkComm {
     protected NetworkInput INPUT;
     protected CountDownLatch LATCH;
     protected boolean isConnected;
-    protected PingService service;
+    protected NetworkService service;
 
     public static synchronized NetworkComm getInstance() {
         if (INSTANCE == null) {
@@ -33,18 +33,25 @@ public class NetworkComm {
         }
 
         if (!INSTANCE.isConnected()) {
-            try {
-                INSTANCE.connect();
-            } catch (IOException e) {
-                INSTANCE.setIsConnected(false);
-                e.printStackTrace();
-            }
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        INSTANCE.connect();
+                    } catch (IOException e) {
+                        INSTANCE.setIsConnected(false);
+                        e.printStackTrace();
+                    }
+
+                }
+            }).start();
         }
 
         return INSTANCE;
     }
 
     private NetworkComm() {
+        System.out.println("CREATENETWORKCOM");
         isConnected = false;
     }
 
@@ -57,7 +64,9 @@ public class NetworkComm {
     }
 
     public void sendPing(double latitude, double longitude) {
-        OUTPUT.send("STILLALIVE_" + latitude + "_" + longitude);
+        if (OUTPUT != null) {
+            OUTPUT.send("STILLALIVE_" + latitude + "_" + longitude);
+        }
     }
 
     // 0 : success
@@ -369,7 +378,7 @@ public class NetworkComm {
     // 1 : win
     // 2 : tie
     public void sendWin(int winner) {
-        switch(winner) {
+        switch (winner) {
             case 0:
                 OUTPUT.send("LOSS");
                 break;
@@ -409,7 +418,7 @@ public class NetworkComm {
         return isConnected;
     }
 
-    public void setService(PingService service) {
+    public void setService(NetworkService service) {
         this.service = service;
     }
 

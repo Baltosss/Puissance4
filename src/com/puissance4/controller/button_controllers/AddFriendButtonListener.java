@@ -18,7 +18,7 @@ public class AddFriendButtonListener extends ActivityListener {
 
     @Override
     public void onClick(View v) {
-        String friendName = ((EditText)context.findViewById(R.id.editFriendUsername)).getText().toString();
-        new AddFriendAsyncTask((FriendListActivity)context).execute(friendName);
+        String friendName = ((EditText) context.findViewById(R.id.editFriendUsername)).getText().toString();
+        new AddFriendAsyncTask((FriendListActivity) context).execute(friendName);
     }
 }

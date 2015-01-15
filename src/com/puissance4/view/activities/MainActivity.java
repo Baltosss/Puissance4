@@ -2,12 +2,9 @@ package com.puissance4.view.activities;
 
 import android.app.Activity;
 import android.app.NotificationManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.widget.Button;
 
 import com.example.puissance4.R;
@@ -18,46 +15,17 @@ import com.puissance4.controller.button_controllers.NearPlayerButtonListener;
 import com.puissance4.controller.button_controllers.SettingsButtonListener;
 import com.puissance4.model.Party;
 import com.puissance4.server_com.network_handlers.NetworkComm;
-import com.puissance4.server_com.ping_service.PingService;
+import com.puissance4.server_com.network_service.NetworkService;
 
 /**
  * Created by fred on 08/01/15.
  */
 public class MainActivity extends Activity {
-    private PingService pingService;
-    private boolean pingServiceBound = false;
-
-    private ServiceConnection pingServiceConnection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName className,
-                                       IBinder service) {
-            PingService.PingBinder binder = (PingService.PingBinder) service;
-            pingService = binder.getService();
-            pingServiceBound = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName arg0) {
-            pingServiceBound = false;
-        }
-    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //CONNECTION TO THE SERVER IF NEEDED
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                NetworkComm.getInstance();
-            }
-        }).start();
-
-        //PING SERVICE INIT
-        bindService(new Intent(this, PingService.class), pingServiceConnection, Context.BIND_AUTO_CREATE);
-
+        startService(new Intent(this, NetworkService.class));
         setContentView(R.layout.main);
         Button nearPlayerButton = (Button) findViewById(R.id.buttonPlayNearPlayer);
         Button friendPlayerButton = (Button) findViewById(R.id.buttonPlayFriend);
@@ -68,7 +36,11 @@ public class MainActivity extends Activity {
         friendListButton.setOnClickListener(new FriendListButtonListener(this));
         settingsButton.setOnClickListener(new SettingsButtonListener(this));
 
-        if (getIntent().hasExtra("ADVNAME")) {
+        if (getIntent().getBooleanExtra("CLOSEAPP", false)) {
+            stopService(new Intent(this, NetworkService.class));
+            finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+        } else if (getIntent().hasExtra("ADVNAME")) {
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.cancel(5);
 
@@ -103,6 +75,7 @@ public class MainActivity extends Activity {
         }
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -116,9 +89,5 @@ public class MainActivity extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (pingServiceBound) {
-            unbindService(pingServiceConnection);
-            pingServiceBound = false;
-        }
     }
 }

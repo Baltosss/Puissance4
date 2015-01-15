@@ -1,4 +1,4 @@
-package com.puissance4.server_com.ping_service;
+package com.puissance4.server_com.network_service;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

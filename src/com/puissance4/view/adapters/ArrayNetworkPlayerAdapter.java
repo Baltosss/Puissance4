@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public abstract class ArrayNetworkPlayerAdapter extends ArrayAdapter<NetworkPlayer> {
     protected ArrayList<NetworkPlayer> objects;
     protected Context context;
+
     public ArrayNetworkPlayerAdapter(Context context, int resource, ArrayList<NetworkPlayer> objects) {
         super(context, resource, objects);
         this.objects = objects;

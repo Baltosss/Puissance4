@@ -36,7 +36,7 @@ public class ConnectButtonAuthenticateAsyncTask extends AuthenticateAsyncTask {
                 GameConfiguration.PASSWORD = tempPassword;
 
                 CheckBox checkBox = (CheckBox) context.findViewById(R.id.rememberCheck);
-                if(checkBox.isChecked()) {
+                if (checkBox.isChecked()) {
                     SharedPreferences preferences = context.getPreferences(Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("username", GameConfiguration.USERNAME);

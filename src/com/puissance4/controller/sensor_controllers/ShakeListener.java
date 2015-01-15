@@ -18,13 +18,12 @@ public class ShakeListener {
         startShakingTime = 0;
     }
 
-    public void onShake(){
-        if(startShakingTime == 0) {
+    public void onShake() {
+        if (startShakingTime == 0) {
             startShakingTime = System.currentTimeMillis();
             Toast.makeText(context, R.string.shuffle, Toast.LENGTH_SHORT).show();
-        }
-        else {
-            if(System.currentTimeMillis() - startShakingTime > SensorConfiguration.MIN_DURATION_BETWEEN_SHAKES) {
+        } else {
+            if (System.currentTimeMillis() - startShakingTime > SensorConfiguration.MIN_DURATION_BETWEEN_SHAKES) {
                 startShakingTime = 0;
                 onShake();
             }

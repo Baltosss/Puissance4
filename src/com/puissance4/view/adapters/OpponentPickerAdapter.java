@@ -32,11 +32,11 @@ public class OpponentPickerAdapter extends ArrayNetworkPlayerAdapter {
             v = inflater.inflate(R.layout.friend_item, null);
         }
         final NetworkPlayer opponent = objects.get(position);
-        if(opponent != null) {
+        if (opponent != null) {
             ImageView statusView = (ImageView) v.findViewById(R.id.imageFriendItem);
             TextView friendText = (TextView) v.findViewById(R.id.textFriendItem);
             Button playButton = (Button) v.findViewById(R.id.buttonFriendItem);
-            switch(opponent.getStatus()) {
+            switch (opponent.getStatus()) {
                 case 0:
                     statusView.setImageResource(R.drawable.icon_green_dot);
                     playButton.setText(R.string.playButton);
@@ -61,7 +61,7 @@ public class OpponentPickerAdapter extends ArrayNetworkPlayerAdapter {
                     ////////////////// ASK FOR PARTY /////////////////////////////
                     ((Activity) context).setContentView(R.layout.loading);
                     ((TextView) ((Activity) context).findViewById(R.id.loadingText)).setText(R.string.waitingPlayerAnswer);
-                    new StartGameAsyncTask((Activity)context, opponent).execute();
+                    new StartGameAsyncTask((Activity) context, opponent).execute();
                 }
             });
         }
@@ -69,4 +69,4 @@ public class OpponentPickerAdapter extends ArrayNetworkPlayerAdapter {
     }
 
 
-    }
+}

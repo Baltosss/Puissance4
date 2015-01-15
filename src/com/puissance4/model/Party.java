@@ -9,142 +9,122 @@ import com.puissance4.model.exceptions.NotPlayerTurnException;
 
 import java.io.Serializable;
 
-public class Party implements Serializable{
-	private Grid grid;
-	private int countPlayers;
-	private int userId;
-	private Player[] players;
-	private int currentPlayer;
-	private boolean isManagingTurns;
-	
-	public Party(String[] playerNames, int userId, int height, int width)
-	{
+public class Party implements Serializable {
+    private Grid grid;
+    private int countPlayers;
+    private int userId;
+    private Player[] players;
+    private int currentPlayer;
+    private boolean isManagingTurns;
+
+    public Party(String[] playerNames, int userId, int height, int width) {
         isManagingTurns = true;
-		this.userId = userId;
-		countPlayers = playerNames.length;
-		if(countPlayers>0)
-		{
-			players = new Player[countPlayers];
-			grid = new Grid(height, width, countPlayers);
-			for(int i = 0; i<countPlayers; i++)
-			{
-				players[i] = new Player(playerNames[i], i);
-				
-			}
-			currentPlayer = 0;
-		}
-	}
+        this.userId = userId;
+        countPlayers = playerNames.length;
+        if (countPlayers > 0) {
+            players = new Player[countPlayers];
+            grid = new Grid(height, width, countPlayers);
+            for (int i = 0; i < countPlayers; i++) {
+                players[i] = new Player(playerNames[i], i);
 
-	public Party(String[] playerNames, int height, int width)
-	{
+            }
+            currentPlayer = 0;
+        }
+    }
+
+    public Party(String[] playerNames, int height, int width) {
         isManagingTurns = false; //TEST MODE
-		countPlayers = playerNames.length;
-		if(countPlayers>0)
-		{
-			players = new Player[countPlayers];
-			grid = new Grid(height, width, countPlayers);
-			for(int i = 0; i<countPlayers; i++)
-			{
-				players[i] = new Player(playerNames[i], i);
+        countPlayers = playerNames.length;
+        if (countPlayers > 0) {
+            players = new Player[countPlayers];
+            grid = new Grid(height, width, countPlayers);
+            for (int i = 0; i < countPlayers; i++) {
+                players[i] = new Player(playerNames[i], i);
 
-			}
-			currentPlayer = 0;
-		}
-	}
+            }
+            currentPlayer = 0;
+        }
+    }
 
-	//orientation = 0 for regular phone orientation, 1 otherwise
-	public void nextMove(int columnId, int orientation) throws FullColumnException, ImpossibleColumnPlayException, NoneMoveException, FullRowException, ImpossibleRowPlayException, NotPlayerTurnException {
-		if(isManagingTurns && userId != currentPlayer) {
-			throw new NotPlayerTurnException();
-		}
-		playMove(columnId, orientation);
-	}
+    //orientation = 0 for regular phone orientation, 1 otherwise
+    public void nextMove(int columnId, int orientation) throws FullColumnException, ImpossibleColumnPlayException, NoneMoveException, FullRowException, ImpossibleRowPlayException, NotPlayerTurnException {
+        if (isManagingTurns && userId != currentPlayer) {
+            throw new NotPlayerTurnException();
+        }
+        playMove(columnId, orientation);
+    }
 
     public void nextOpponentMove(int columnId, int orientation, Player opponent) throws FullColumnException, ImpossibleColumnPlayException, NoneMoveException, FullRowException, ImpossibleRowPlayException, NotPlayerTurnException {
         int opponentId = -1;
-        for(int i=0; i<players.length; i++) {
-            if(players[i].getName().equals(opponent.getName())) {
+        for (int i = 0; i < players.length; i++) {
+            if (players[i].getName().equals(opponent.getName())) {
                 opponentId = i;
                 break;
             }
         }
-        if(opponentId != currentPlayer || !isManagingTurns)
-        {
+        if (opponentId != currentPlayer || !isManagingTurns) {
             throw new NotPlayerTurnException();
         }
         playMove(columnId, orientation);
     }
 
     public void playMove(int columnId, int orientation) throws FullColumnException, ImpossibleColumnPlayException, NoneMoveException, FullRowException, ImpossibleRowPlayException, NotPlayerTurnException {
-        if(orientation==0)
-        {
+        if (orientation == 0) {
             grid.playAtColumn(columnId, currentPlayer);
-        }
-        else
-        {
+        } else {
             grid.playAtRow(columnId, currentPlayer);
         }
-        if(grid.hasWon())
-        {
-            System.out.println("Le joueur "+players[currentPlayer]+" a gagné");
-        }
-        else
-        {
+        if (grid.hasWon()) {
+            System.out.println("Le joueur " + players[currentPlayer] + " a gagné");
+        } else {
             changeCurrentPlayer();
         }
     }
 
-    private void changeCurrentPlayer()
-	{
-		if(currentPlayer<countPlayers-1)
-		{
-			currentPlayer++;
-		}
-		else
-		{
-			currentPlayer = 0;
-		}
-	}
-	
-	public Player getCurrentPlayer() {
-		return players[currentPlayer];
-	}
-	
-	public Player getWinner() {
-		if(grid.hasWon())
-		{
-			return players[currentPlayer];
-		}
-		return null;
-	}
-	
-	public String toString()
-	{
-		String result = "Liste des joueurs : \n";
-		for(int i=0; i<countPlayers; i++)
-		{
-			result += "- "+players[i].getName()+"\n";
-		}
-		result+="\n"+grid.toString();
-		return result;
-	}
+    private void changeCurrentPlayer() {
+        if (currentPlayer < countPlayers - 1) {
+            currentPlayer++;
+        } else {
+            currentPlayer = 0;
+        }
+    }
 
-	public boolean isPartyNull() {
-		return grid.isNullGame();
-	}
+    public Player getCurrentPlayer() {
+        return players[currentPlayer];
+    }
 
-	public void shuffle() {
-		grid.shuffle(currentPlayer);
-		changeCurrentPlayer();
-	}
+    public Player getWinner() {
+        if (grid.hasWon()) {
+            return players[currentPlayer];
+        }
+        return null;
+    }
+
+    public String toString() {
+        String result = "Liste des joueurs : \n";
+        for (int i = 0; i < countPlayers; i++) {
+            result += "- " + players[i].getName() + "\n";
+        }
+        result += "\n" + grid.toString();
+        return result;
+    }
+
+    public boolean isPartyNull() {
+        return grid.isNullGame();
+    }
+
+    public void shuffle() {
+        grid.shuffle(currentPlayer);
+        changeCurrentPlayer();
+    }
 
     public Player[] getPlayers() {
         return players;
     }
 
-	public Grid getGrid() {
-		return grid;
-	}
+    public Grid getGrid() {
+        return grid;
+    }
 
     public int getLastSlotRow() {
         return grid.getLastSlotRow();

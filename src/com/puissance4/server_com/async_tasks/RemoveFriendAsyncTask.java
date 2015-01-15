@@ -24,7 +24,7 @@ public class RemoveFriendAsyncTask extends AsyncTask<String, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean result) {
-        if(result) {
+        if (result) {
             Toast.makeText(context, R.string.friendRemoved, Toast.LENGTH_SHORT);
             context.setContentView(R.layout.loading);
             context.buildFriendList();

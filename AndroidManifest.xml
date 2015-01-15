@@ -1,34 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.puissance4"
-          android:versionCode="1"
-          android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="16"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
-    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
-        <activity android:name="com.puissance4.view.activities.GameActivity"
-                  android:label="@string/app_name">
-        </activity>
-        <activity android:name="com.puissance4.view.activities.MainActivity"
-                  android:label="@string/app_name">
+    package="com.example.puissance4"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-sdk android:minSdkVersion="16" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name">
+        <activity
+            android:name="com.puissance4.view.activities.GameActivity"
+            android:label="@string/app_name"></activity>
+        <activity
+            android:name="com.puissance4.view.activities.MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.puissance4.view.activities.SettingActivity"
-                  android:label="@string/mainSettings"/>
-        <activity android:name="com.puissance4.view.activities.FriendListActivity"
-                  android:label="@string/friendList"/>
-        <activity android:name="com.puissance4.view.activities.FriendPickerActivity"
-                  android:label="@string/pickOpponent"/>
-        <activity android:name="com.puissance4.view.activities.NearPlayerPickerActivity"
-                  android:label="@string/pickOpponent"/>
+        <activity
+            android:name="com.puissance4.view.activities.SettingActivity"
+            android:label="@string/mainSettings"
+            android:noHistory="true" />
+        <activity
+            android:name="com.puissance4.view.activities.FriendListActivity"
+            android:label="@string/friendList"
+            android:noHistory="true" />
+        <activity
+            android:name="com.puissance4.view.activities.FriendPickerActivity"
+            android:label="@string/pickOpponent"
+            android:noHistory="true" />
+        <activity
+            android:name="com.puissance4.view.activities.NearPlayerPickerActivity"
+            android:label="@string/pickOpponent"
+            android:noHistory="true" />
 
-        <service android:name="com.puissance4.server_com.ping_service.PingService"/>
-        <receiver android:name="com.puissance4.server_com.ping_service.RefuseGameReceiver"/>
+        <service android:name="com.puissance4.server_com.network_service.NetworkService" />
+        <receiver android:name="com.puissance4.server_com.network_service.RefuseGameReceiver" />
     </application>
 </manifest>

@@ -23,6 +23,7 @@ import com.puissance4.view.activities.GameActivity;
 public class OnGameButtonClickListener extends ActivityListener {
     private Party party;
     private int column;
+
     public OnGameButtonClickListener(GameActivity context, Party party, int column) {
         super(context);
         this.party = party;
@@ -32,7 +33,7 @@ public class OnGameButtonClickListener extends ActivityListener {
     @Override
     public void onClick(View view) {
         try {
-            if(((GameActivity)context).isInGame()) {
+            if (((GameActivity) context).isInGame()) {
                 int gColumn = column - 1;
                 if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                     party.nextMove(gColumn, 0);

@@ -28,7 +28,7 @@ public class OnDisconnectClickListener extends ActivityListener {
         GameConfiguration.PASSWORD = null;
         GameConfiguration.USERNAME = null;
         SharedPreferences preferences = context.getPreferences(Context.MODE_PRIVATE);
-        if(preferences.contains("username")) {
+        if (preferences.contains("username")) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.remove("username");
             if (preferences.contains("password")) {
