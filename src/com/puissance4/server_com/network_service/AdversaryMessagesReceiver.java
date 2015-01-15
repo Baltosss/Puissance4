@@ -10,7 +10,16 @@ import com.puissance4.view.activities.GameActivity;
  * Created by cyrille on 14/01/15.
  */
 public class AdversaryMessagesReceiver extends BroadcastReceiver {
+    private static AdversaryMessagesReceiver INSTANCE = null;
     GameActivity view;
+
+    public static AdversaryMessagesReceiver getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new AdversaryMessagesReceiver();
+        }
+
+        return INSTANCE;
+    }
 
     public void setView(GameActivity view) {
         this.view = view;

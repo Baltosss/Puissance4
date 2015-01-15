@@ -51,7 +51,6 @@ public class NetworkComm {
     }
 
     private NetworkComm() {
-        System.out.println("CREATENETWORKCOM");
         isConnected = false;
     }
 

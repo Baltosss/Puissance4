@@ -37,15 +37,17 @@ public class GameActivity extends Activity {
     private boolean testMode = false;
     private boolean isInGame = true;
     private boolean isEndGameScreen = false;
-    private AdversaryMessagesReceiver adversaryMessagesReceiver;
+    private boolean receiverRegistered = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.puissance2);
-        adversaryMessagesReceiver = new AdversaryMessagesReceiver();
-        adversaryMessagesReceiver.setView(this);
-        LocalBroadcastManager.getInstance(this).registerReceiver(adversaryMessagesReceiver, new IntentFilter("ADVMESS"));
+        AdversaryMessagesReceiver.getInstance().setView(this);
+        if (!receiverRegistered) {
+            LocalBroadcastManager.getInstance(this).registerReceiver(AdversaryMessagesReceiver.getInstance(), new IntentFilter("ADVMESS"));
+            receiverRegistered = true;
+        }
         shakeDetector = new ShakeDetector(new ShakeListener(this));
         setupParty(savedInstanceState);
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -69,6 +71,11 @@ public class GameActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        if (receiverRegistered) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(AdversaryMessagesReceiver.getInstance());
+            receiverRegistered = false;
+        }
 
         /*if(isInGame) {
             new Thread(new Runnable() {
@@ -119,7 +126,7 @@ public class GameActivity extends Activity {
         //if (savedInstanceState == null) {
         if (getIntent().hasExtra("party")) { //GAME JUST STARTED
             party = (Party) getIntent().getSerializableExtra("party");
-        } else if(savedInstanceState == null) {
+        } else if (savedInstanceState == null) {
             if (party == null) {
                 System.out.println("TEST MODE ACTIVATED");
                 //TEST MODE
@@ -128,8 +135,7 @@ public class GameActivity extends Activity {
                 testMode = true;
                 party = new Party(players, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH);
             }
-        }
-        else {  //GAME ALREADY STARTED
+        } else {  //GAME ALREADY STARTED
             party = (Party) savedInstanceState.getSerializable("party");
             isInGame = savedInstanceState.getBoolean("isInGame", true);
             isEndGameScreen = savedInstanceState.getBoolean("isEndGameScreen", false);
@@ -191,10 +197,9 @@ public class GameActivity extends Activity {
                     slot.setBackground(getResources().getDrawable(R.drawable.slot_white));
                     break;
                 case 0:
-                    if(isEndGameScreen) {
+                    if (isEndGameScreen) {
                         buildEndGameScreenButton(slot, slotValue, isLastMove, endRow, endColumn);
-                    }
-                    else {
+                    } else {
                         if (isLastMove) {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_last_red));
                         } else {
@@ -203,10 +208,9 @@ public class GameActivity extends Activity {
                     }
                     break;
                 case 1:
-                    if(isEndGameScreen) {
+                    if (isEndGameScreen) {
                         buildEndGameScreenButton(slot, slotValue, isLastMove, endRow, endColumn);
-                    }
-                    else {
+                    } else {
                         if (isLastMove) {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_last_yellow));
                         } else {
@@ -223,145 +227,125 @@ public class GameActivity extends Activity {
     private void buildEndGameScreenButton(Button slot, int slotValue, boolean isLastMove, int row, int column) {
         switch (party.getWinDirection()) {
             case horizontal:
-                if(slotValue==0) {
+                if (slotValue == 0) {
                     if (isLastMove) {
-                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_last_hori_red));
-                        }
-                        else {
+                        } else {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_last_verti_red));
                         }
                     } else {
-                        if(party.isInWinSlots(column, row)) {
-                            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        if (party.isInWinSlots(column, row)) {
+                            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                                 slot.setBackground(getResources().getDrawable(R.drawable.slot_hori_red));
-                            }
-                            else {
+                            } else {
                                 slot.setBackground(getResources().getDrawable(R.drawable.slot_verti_red));
                             }
-                        }
-                        else {
+                        } else {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_red));
                         }
                     }
-                }
-                else {
+                } else {
                     if (isLastMove) {
-                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_last_hori_yellow));
-                        }
-                        else {
+                        } else {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_last_verti_yellow));
                         }
                     } else {
-                        if(party.isInWinSlots(column, row)) {
+                        if (party.isInWinSlots(column, row)) {
 
-                            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                                 slot.setBackground(getResources().getDrawable(R.drawable.slot_hori_yellow));
-                            }
-                            else {
+                            } else {
                                 slot.setBackground(getResources().getDrawable(R.drawable.slot_verti_yellow));
                             }
-                        }
-                        else {
+                        } else {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_yellow));
                         }
                     }
                 }
                 break;
             case vertical:
-                if(slotValue==0) {
+                if (slotValue == 0) {
                     if (isLastMove) {
-                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_last_verti_red));
-                        }
-                        else {
+                        } else {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_last_hori_red));
                         }
                     } else {
-                        if(party.isInWinSlots(column, row)) {
-                            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        if (party.isInWinSlots(column, row)) {
+                            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                                 slot.setBackground(getResources().getDrawable(R.drawable.slot_verti_red));
-                            }
-                            else {
+                            } else {
                                 slot.setBackground(getResources().getDrawable(R.drawable.slot_hori_red));
                             }
-                        }
-                        else {
+                        } else {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_red));
                         }
                     }
-                }
-                else {
+                } else {
                     if (isLastMove) {
-                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_last_verti_yellow));
-                        }
-                        else {
+                        } else {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_last_hori_yellow));
                         }
                     } else {
-                        if(party.isInWinSlots(column, row)) {
-                            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        if (party.isInWinSlots(column, row)) {
+                            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                                 slot.setBackground(getResources().getDrawable(R.drawable.slot_verti_yellow));
-                            }
-                            else {
+                            } else {
                                 slot.setBackground(getResources().getDrawable(R.drawable.slot_hori_yellow));
                             }
-                        }
-                        else {
+                        } else {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_yellow));
                         }
                     }
                 }
                 break;
             case upLeftDiagonal:
-                if(slotValue==0) {
+                if (slotValue == 0) {
                     if (isLastMove) {
                         slot.setBackground(getResources().getDrawable(R.drawable.slot_last_diag1_red));
                     } else {
-                        if(party.isInWinSlots(column, row)) {
+                        if (party.isInWinSlots(column, row)) {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_diag1_red));
-                        }
-                        else {
+                        } else {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_red));
                         }
                     }
-                }
-                else {
+                } else {
                     if (isLastMove) {
                         slot.setBackground(getResources().getDrawable(R.drawable.slot_last_diag1_yellow));
                     } else {
-                        if(party.isInWinSlots(column, row)) {
+                        if (party.isInWinSlots(column, row)) {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_diag1_yellow));
-                        }
-                        else {
+                        } else {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_yellow));
                         }
                     }
                 }
                 break;
             case upRightDiagonal:
-                if(slotValue==0) {
+                if (slotValue == 0) {
                     if (isLastMove) {
                         slot.setBackground(getResources().getDrawable(R.drawable.slot_last_diag2_red));
                     } else {
-                        if(party.isInWinSlots(column, row)) {
+                        if (party.isInWinSlots(column, row)) {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_diag2_red));
-                        }
-                        else {
+                        } else {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_red));
                         }
                     }
-                }
-                else {
+                } else {
                     if (isLastMove) {
                         slot.setBackground(getResources().getDrawable(R.drawable.slot_last_diag2_yellow));
                     } else {
-                        if(party.isInWinSlots(column, row)) {
+                        if (party.isInWinSlots(column, row)) {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_diag2_yellow));
-                        }
-                        else {
+                        } else {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_yellow));
                         }
                     }
@@ -383,7 +367,7 @@ public class GameActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if(!isInGame || testMode) {
+        if (!isInGame || testMode) {
             super.onBackPressed();
         }
     }
@@ -395,7 +379,7 @@ public class GameActivity extends Activity {
             e.printStackTrace();
             Toast.makeText(this, R.string.notYourTurnError, Toast.LENGTH_SHORT);
         }
-        if(!testMode) {
+        if (!testMode) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -447,7 +431,7 @@ public class GameActivity extends Activity {
                             NetworkComm.getInstance().sendWin(1);
                         }
                     }).start();
-                    Toast.makeText(getApplicationContext(), winner.getName() + " "+R.string.hasWon, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), winner.getName() + " " + R.string.hasWon, Toast.LENGTH_LONG).show();
                     /*Intent intent = new Intent(context, MainActivity.class);
                     context.startActivity(intent);*/
                     isInGame = false;
@@ -478,9 +462,9 @@ public class GameActivity extends Activity {
             opponentId = 1;
         }
         int[][] convertedGrid = new int[grid.length][]; //Convert to model specifications
-        for(int i=0; i<grid.length; i++) {
+        for (int i = 0; i < grid.length; i++) {
             convertedGrid[i] = new int[grid[i].length];
-            for(int j=0; j<grid.length; j++) {
+            for (int j = 0; j < grid.length; j++) {
                 convertedGrid[i][j] = grid[i][j];
             }
         }
@@ -508,11 +492,11 @@ public class GameActivity extends Activity {
         }
         switch (result) {
             case 0:
-                Toast.makeText(this, GameConfiguration.USERNAME +" "+ getResources().getString(R.string.hasWon), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, GameConfiguration.USERNAME + " " + getResources().getString(R.string.hasWon), Toast.LENGTH_LONG).show();
                 buildEndGameScreen();
                 break;
             case 1:
-                Toast.makeText(this,party.getPlayers()[opponentId].getName() +" "+ getResources().getString(R.string.hasWon), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, party.getPlayers()[opponentId].getName() + " " + getResources().getString(R.string.hasWon), Toast.LENGTH_LONG).show();
                 buildEndGameScreen();
                 break;
             case 2:
