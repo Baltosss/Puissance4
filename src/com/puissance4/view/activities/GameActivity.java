@@ -192,6 +192,13 @@ public class GameActivity extends Activity {
         savedInstanceState.putBoolean("isInGame", isInGame);
     }
 
+    @Override
+    public void onBackPressed() {
+        if(!isInGame) {
+            super.onBackPressed();
+        }
+    }
+
     public void shuffle() {
         party.shuffle();
         new Thread(new Runnable() {
