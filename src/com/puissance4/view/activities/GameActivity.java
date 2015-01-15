@@ -383,7 +383,7 @@ public class GameActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if(!isInGame) {
+        if(!isInGame || testMode) {
             super.onBackPressed();
         }
     }
@@ -393,13 +393,16 @@ public class GameActivity extends Activity {
             party.shuffle();
         } catch (NotPlayerTurnException e) {
             e.printStackTrace();
+            Toast.makeText(this, R.string.notYourTurnError, Toast.LENGTH_SHORT);
         }
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                NetworkComm.getInstance().sendRandom(party.getGrid().getGrid());
-            }
-        }).start();
+        if(!testMode) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    NetworkComm.getInstance().sendRandom(party.getGrid().getGrid());
+                }
+            }).start();
+        }
         setContentView(R.layout.puissance2);
         buildGrid();
     }
@@ -444,7 +447,7 @@ public class GameActivity extends Activity {
                             NetworkComm.getInstance().sendWin(1);
                         }
                     }).start();
-                    Toast.makeText(getApplicationContext(), winner.getName() + R.string.hasWon, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), winner.getName() + " "+R.string.hasWon, Toast.LENGTH_LONG).show();
                     /*Intent intent = new Intent(context, MainActivity.class);
                     context.startActivity(intent);*/
                     isInGame = false;
@@ -505,11 +508,11 @@ public class GameActivity extends Activity {
         }
         switch (result) {
             case 0:
-                Toast.makeText(this,party.getPlayers()[opponentId].getName() + getResources().getString(R.string.hasWon), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, GameConfiguration.USERNAME +" "+ getResources().getString(R.string.hasWon), Toast.LENGTH_LONG).show();
                 buildEndGameScreen();
                 break;
             case 1:
-                Toast.makeText(this, GameConfiguration.USERNAME + getResources().getString(R.string.hasWon), Toast.LENGTH_LONG).show();
+                Toast.makeText(this,party.getPlayers()[opponentId].getName() +" "+ getResources().getString(R.string.hasWon), Toast.LENGTH_LONG).show();
                 buildEndGameScreen();
                 break;
             case 2:

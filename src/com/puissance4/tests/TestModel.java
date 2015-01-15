@@ -20,11 +20,11 @@ public class TestModel {
         //playHorizontalTest();
         //playBothSidesTest();
         //testCheckWinner();
-        //testShuffle();
+        testShuffle();
         //testPartie();
         //testPartieNulle();
         //testReshuffleNulle();
-        testOpponentShuffle();
+        //testOpponentShuffle();
     }
 
     private static void gridTest() {

@@ -47,7 +47,7 @@
     <string name="shuffle">Mélange !</string>
     <string name="friendAdded">Ami ajouté</string>
     <string name="partyNull">Egalité !</string>
-    <string name="hasWon"> a gagné</string>
+    <string name="hasWon">a gagné</string>
     <string name="opponentDisconnected">L\'adversaire a été déconnecté</string>
     <string name="opponentShuffle">Mélange adverse !</string>
 

@@ -55,7 +55,7 @@
     <string name="shuffle">Shuffle !</string>
     <string name="friendAdded">Friend added</string>
     <string name="partyNull">Draw !</string>
-    <string name="hasWon"> has won</string>
+    <string name="hasWon">has won</string>
     <string name="opponentDisconnected">The opponent has been disconnected</string>
     <string name="opponentShuffle">Opponent\'s shuffle !</string>
 

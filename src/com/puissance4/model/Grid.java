@@ -338,26 +338,27 @@ public class Grid implements Serializable {
                                 System.out.println(e.toString());
                                 notAvailableMove = true;
                             } catch (ImpossibleColumnPlayException e) {
-                                // TODO Auto-generated catch block
+                                notAvailableMove = true;
                                 e.printStackTrace();
                             } catch (NoneMoveException e) {
-                                // TODO Auto-generated catch block
+                                notAvailableMove = true;
                                 e.printStackTrace();
                             }
                         }
                     } else {
-                        notAvailableMove = false;
+                        notAvailableMove = true;
                         while (notAvailableMove) {
+                            notAvailableMove = false;
                             try {
                                 playAtRow(random.nextInt(height), nextShuffledSlotState);
                             } catch (FullRowException e) {
                                 notAvailableMove = true;
                                 e.printStackTrace();
                             } catch (ImpossibleRowPlayException e) {
-                                // TODO Auto-generated catch block
+                                notAvailableMove = true;
                                 e.printStackTrace();
                             } catch (NoneMoveException e) {
-                                // TODO Auto-generated catch block
+                                notAvailableMove = true;
                                 e.printStackTrace();
                             }
                         }
@@ -391,10 +392,10 @@ public class Grid implements Serializable {
         int countMoves = 1;
         Arrays.fill(countSlots, 0);
         countSlots[newSlotState]++;
-        for (int[] column : grid) {
+        for (int columnIndex = 0; columnIndex<width; columnIndex++) {
             for (int row = 0; row < height; row++) {
-                if (column[row] >= 0) {
-                    countSlots[column[row]]++;
+                if (grid[columnIndex][row] >= 0) {
+                    countSlots[grid[columnIndex][row]]++;
                     countMoves++;
                 }
             }

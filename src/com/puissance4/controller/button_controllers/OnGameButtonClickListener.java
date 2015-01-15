@@ -56,7 +56,7 @@ public class OnGameButtonClickListener extends ActivityListener {
                 if(((GameActivity) context).isTestMode()) {
                     Player winner = party.getWinner();
                     if (winner != null) {
-                        ((GameActivity) context).opponentWin(1);
+                        ((GameActivity) context).opponentWin(0);
                     } else if (party.isPartyNull()) {
                         Toast.makeText(context, R.string.partyNull, Toast.LENGTH_SHORT);
                         ((GameActivity) context).isInGame(false);
