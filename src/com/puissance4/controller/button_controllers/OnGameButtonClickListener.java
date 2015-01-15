@@ -53,15 +53,14 @@ public class OnGameButtonClickListener extends ActivityListener {
                 }
                 context.setContentView(R.layout.puissance2);
                 ((GameActivity) context).buildGrid();
-                Player winner = party.getWinner();
-                if (winner != null) {
-                    Toast.makeText(context.getApplicationContext(), winner.getName() + R.string.hasWon, Toast.LENGTH_LONG).show();
-                    /*Intent intent = new Intent(context, MainActivity.class);
-                    context.startActivity(intent);*/
-                    ((GameActivity) context).isInGame(false);
-                } else if (party.isPartyNull()) {
-                    Toast.makeText(context, R.string.partyNull, Toast.LENGTH_SHORT);
-                    ((GameActivity) context).isInGame(false);
+                if(((GameActivity) context).isTestMode()) {
+                    Player winner = party.getWinner();
+                    if (winner != null) {
+                        ((GameActivity) context).opponentWin(1);
+                    } else if (party.isPartyNull()) {
+                        Toast.makeText(context, R.string.partyNull, Toast.LENGTH_SHORT);
+                        ((GameActivity) context).isInGame(false);
+                    }
                 }
             }
         } catch (FullColumnException e) {

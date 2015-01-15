@@ -6,6 +6,9 @@ import com.puissance4.model.Player;
 import com.puissance4.model.exceptions.FullColumnException;
 import com.puissance4.model.exceptions.ImpossibleColumnPlayException;
 import com.puissance4.model.exceptions.NoneMoveException;
+import com.puissance4.model.exceptions.NotPlayerTurnException;
+import com.puissance4.model.exceptions.WrongHeightException;
+import com.puissance4.model.exceptions.WrongWidthException;
 
 import java.util.Random;
 
@@ -18,9 +21,10 @@ public class TestModel {
         //playBothSidesTest();
         //testCheckWinner();
         //testShuffle();
-        testPartie();
+        //testPartie();
         //testPartieNulle();
         //testReshuffleNulle();
+        testOpponentShuffle();
     }
 
     private static void gridTest() {
@@ -199,8 +203,49 @@ public class TestModel {
             isPartyNull = party.isPartyNull();
         }
         isPartyNull = party.isPartyNull();
-        party.shuffle();
+        try {
+            party.shuffle();
+        } catch (NotPlayerTurnException e) {
+            e.printStackTrace();
+        }
         System.out.println(party.toString());
         System.out.println("Le dernier joueur est " + party.getCurrentPlayer().getName());
+    }
+
+    public static void testOpponentShuffle() {
+        String[] players = {"Lucas", "Fred"};
+        Party party = new Party(players, 0, 10, 10);
+        Party party2 = new Party(players, 0, 10, 10);
+        Random random = new Random();
+        int opponentId = 1;
+        boolean isMyTurn = true;
+        for (int i=0; i<10; i++) {
+            try {
+                if (isMyTurn) {
+                    isMyTurn = false;
+                    party.nextMove(random.nextInt(10), random.nextInt(2));
+                    party2.nextMove(random.nextInt(10), random.nextInt(2));
+
+                } else {
+                    isMyTurn = true;
+                    party.nextOpponentMove(random.nextInt(10), random.nextInt(2), party.getPlayers()[opponentId]);
+                    party2.nextOpponentMove(random.nextInt(10), random.nextInt(2), party.getPlayers()[opponentId]);
+                }
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+        }
+        System.out.println(party.toString());
+        System.out.println(party2.toString());
+        try {
+            party2.opponentShuffle(party.getGrid().getGrid(), party2.getCurrentPlayer());
+        } catch (WrongWidthException e) {
+            e.printStackTrace();
+        } catch (WrongHeightException e) {
+            e.printStackTrace();
+        } catch (NotPlayerTurnException e) {
+            e.printStackTrace();
+        }
+        System.out.println(party2.toString());
     }
 }

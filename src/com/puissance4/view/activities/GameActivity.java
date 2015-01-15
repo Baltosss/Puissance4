@@ -22,6 +22,9 @@ import com.puissance4.controller.sensor_controllers.ShakeDetector;
 import com.puissance4.controller.sensor_controllers.ShakeListener;
 import com.puissance4.model.Party;
 import com.puissance4.model.Player;
+import com.puissance4.model.exceptions.NotPlayerTurnException;
+import com.puissance4.model.exceptions.WrongHeightException;
+import com.puissance4.model.exceptions.WrongWidthException;
 import com.puissance4.server_com.network_handlers.NetworkComm;
 import com.puissance4.server_com.network_service.AdversaryMessagesReceiver;
 
@@ -33,6 +36,7 @@ public class GameActivity extends Activity {
     private ShakeDetector shakeDetector;
     private boolean testMode = false;
     private boolean isInGame = true;
+    private boolean isEndGameScreen = false;
     private AdversaryMessagesReceiver adversaryMessagesReceiver;
 
     @Override
@@ -66,14 +70,15 @@ public class GameActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
 
-        if(isInGame) {
+        /*if(isInGame) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     NetworkComm.getInstance().leaveGame();
                 }
             }).start();
-        }
+        }*/ //WHEN YOU TURN THE DEVICE YOU CALL ONDESTROY
+        //YOU MUST FIND ANOTHER WAY
 
         LocalBroadcastManager.getInstance(this).unregisterReceiver(adversaryMessagesReceiver);
     }
@@ -114,16 +119,19 @@ public class GameActivity extends Activity {
         //if (savedInstanceState == null) {
         if (getIntent().hasExtra("party")) { //GAME JUST STARTED
             party = (Party) getIntent().getSerializableExtra("party");
-        } else {  //TEST MODE
-            System.out.println("IT IS NULL --> TEST MODE");
-            String[] players = {"Fred", "Cyrille"};
-            testMode = true;
-            party = new Party(players, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH);
+        } else if(savedInstanceState == null) {
+            if (party == null) {
+                //TEST MODE
+                System.out.println("IT IS NULL --> TEST MODE");
+                String[] players = {"Fred", "Cyrille"};
+                testMode = true;
+                party = new Party(players, GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH);
+            }
         }
-//        } else {  //GAME ALREADY STARTED
-        if (party == null) {
+        else {  //GAME ALREADY STARTED
             party = (Party) savedInstanceState.getSerializable("party");
             isInGame = savedInstanceState.getBoolean("isInGame", true);
+            isEndGameScreen = savedInstanceState.getBoolean("isEndGameScreen", false);
             if (party == null) {
                 String[] players = {savedInstanceState.getString("player1"), savedInstanceState.getString("player2")};
                 if (players[0] == null || players[1] == null) {
@@ -148,6 +156,8 @@ public class GameActivity extends Activity {
     private Button buildButton(final int row, final int column) {
         boolean isLastMove = false;
         Button slot = new Button(this);
+        int endRow = row - 1;
+        int endColumn = column - 1;
         LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f);
         slot.setLayoutParams(buttonParams);
         if (row == 0 && column == 0) {
@@ -165,9 +175,12 @@ public class GameActivity extends Activity {
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 isLastMove = ((party.getLastSlotColumn() == (column - 1)) && (party.getLastSlotRow() == (row - 1)));
                 slotValue = party.getGrid().getGrid()[column - 1][row - 1];
+
             } else {
                 isLastMove = ((party.getLastSlotColumn() == row - 1) && (party.getLastSlotRow() == column - 1));
                 slotValue = party.getGrid().getGrid()[row - 1][column - 1];
+                endColumn = endRow;
+                endRow = column - 1;
             }
             switch (slotValue) {
                 case -2:
@@ -176,17 +189,27 @@ public class GameActivity extends Activity {
                     slot.setBackground(getResources().getDrawable(R.drawable.slot_white));
                     break;
                 case 0:
-                    if (isLastMove) {
-                        slot.setBackground(getResources().getDrawable(R.drawable.slot_last_red));
-                    } else {
-                        slot.setBackground(getResources().getDrawable(R.drawable.slot_red));
+                    if(isEndGameScreen) {
+                        buildEndGameScreenButton(slot, slotValue, isLastMove, endRow, endColumn);
+                    }
+                    else {
+                        if (isLastMove) {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_last_red));
+                        } else {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_red));
+                        }
                     }
                     break;
                 case 1:
-                    if (isLastMove) {
-                        slot.setBackground(getResources().getDrawable(R.drawable.slot_last_yellow));
-                    } else {
-                        slot.setBackground(getResources().getDrawable(R.drawable.slot_yellow));
+                    if(isEndGameScreen) {
+                        buildEndGameScreenButton(slot, slotValue, isLastMove, endRow, endColumn);
+                    }
+                    else {
+                        if (isLastMove) {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_last_yellow));
+                        } else {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_yellow));
+                        }
                     }
                     break;
             }
@@ -195,11 +218,123 @@ public class GameActivity extends Activity {
         return slot;
     }
 
+    private void buildEndGameScreenButton(Button slot, int slotValue, boolean isLastMove, int row, int column) {
+        switch (party.getWinDirection()) {
+            case horizontal:
+                if(slotValue==0) {
+                    if (isLastMove) {
+                        slot.setBackground(getResources().getDrawable(R.drawable.slot_last_hori_red));
+                    } else {
+                        if(party.isInWinSlots(column, row)) {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_hori_red));
+                        }
+                        else {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_red));
+                        }
+                    }
+                }
+                else {
+                    if (isLastMove) {
+                        slot.setBackground(getResources().getDrawable(R.drawable.slot_last_hori_yellow));
+                    } else {
+                        if(party.isInWinSlots(column, row)) {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_hori_yellow));
+                        }
+                        else {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_yellow));
+                        }
+                    }
+                }
+                break;
+            case vertical:
+                if(slotValue==0) {
+                    if (isLastMove) {
+                        slot.setBackground(getResources().getDrawable(R.drawable.slot_last_verti_red));
+                    } else {
+                        if(party.isInWinSlots(column, row)) {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_verti_red));
+                        }
+                        else {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_red));
+                        }
+                    }
+                }
+                else {
+                    if (isLastMove) {
+                        slot.setBackground(getResources().getDrawable(R.drawable.slot_last_verti_yellow));
+                    } else {
+                        if(party.isInWinSlots(column, row)) {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_hori_yellow));
+                        }
+                        else {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_yellow));
+                        }
+                    }
+                }
+                break;
+            case upLeftDiagonal:
+                if(slotValue==0) {
+                    if (isLastMove) {
+                        slot.setBackground(getResources().getDrawable(R.drawable.slot_last_diag1_red));
+                    } else {
+                        if(party.isInWinSlots(column, row)) {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_diag1_red));
+                        }
+                        else {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_red));
+                        }
+                    }
+                }
+                else {
+                    if (isLastMove) {
+                        slot.setBackground(getResources().getDrawable(R.drawable.slot_last_diag1_yellow));
+                    } else {
+                        if(party.isInWinSlots(column, row)) {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_diag1_yellow));
+                        }
+                        else {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_yellow));
+                        }
+                    }
+                }
+                break;
+            case upRightDiagonal:
+                if(slotValue==0) {
+                    if (isLastMove) {
+                        slot.setBackground(getResources().getDrawable(R.drawable.slot_last_diag2_red));
+                    } else {
+                        if(party.isInWinSlots(column, row)) {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_diag2_red));
+                        }
+                        else {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_red));
+                        }
+                    }
+                }
+                else {
+                    if (isLastMove) {
+                        slot.setBackground(getResources().getDrawable(R.drawable.slot_last_diag2_yellow));
+                    } else {
+                        if(party.isInWinSlots(column, row)) {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_diag2_yellow));
+                        }
+                        else {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_yellow));
+                        }
+                    }
+                }
+                break;
+            case none:
+                break;
+        }
+    }
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putSerializable("party", party);
         savedInstanceState.putBoolean("isInGame", isInGame);
+        savedInstanceState.putBoolean("isEndGameScreen", isEndGameScreen);
     }
 
     @Override
@@ -210,7 +345,11 @@ public class GameActivity extends Activity {
     }
 
     public void shuffle() {
-        party.shuffle();
+        try {
+            party.shuffle();
+        } catch (NotPlayerTurnException e) {
+            e.printStackTrace();
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -286,6 +425,29 @@ public class GameActivity extends Activity {
 
     //réception d'un random de l'adversaire
     public void opponentRandom(Integer[][] grid) {
+        setContentView(R.layout.puissance2);
+        int opponentId = 0;
+        if (party.getPlayers()[0].getName().equals(GameConfiguration.USERNAME)) {
+            opponentId = 1;
+        }
+        int[][] convertedGrid = new int[grid.length][]; //Convert to model specifications
+        for(int i=0; i<grid.length; i++) {
+            convertedGrid[i] = new int[grid[i].length];
+            for(int j=0; j<grid.length; j++) {
+                convertedGrid[i][j] = grid[i][j];
+            }
+        }
+        try {
+            party.opponentShuffle(convertedGrid, party.getPlayers()[opponentId]);
+            buildGrid();
+            Toast.makeText(this, R.string.opponentShuffle, Toast.LENGTH_SHORT).show();
+        } catch (WrongWidthException e) {
+            e.printStackTrace();
+        } catch (WrongHeightException e) {
+            e.printStackTrace();
+        } catch (NotPlayerTurnException e) {
+            e.printStackTrace();
+        }
     }
 
     //réception d'une notification de victoire ou non
@@ -293,11 +455,40 @@ public class GameActivity extends Activity {
     //1 : gagné
     //2 : égalité
     public void opponentWin(int result) {
+        int opponentId = 0;
+        if (party.getPlayers()[0].getName().equals(GameConfiguration.USERNAME)) {
+            opponentId = 1;
+        }
+        switch (result) {
+            case 0:
+                Toast.makeText(this,party.getPlayers()[opponentId].getName() + getResources().getString(R.string.hasWon), Toast.LENGTH_LONG).show();
+                buildEndGameScreen();
+                break;
+            case 1:
+                Toast.makeText(this, GameConfiguration.USERNAME + getResources().getString(R.string.hasWon), Toast.LENGTH_LONG).show();
+                buildEndGameScreen();
+                break;
+            case 2:
+                Toast.makeText(this, R.string.partyNull, Toast.LENGTH_LONG);
+                break;
+            default:
+                Toast.makeText(this, R.string.winnerUnhandledError, Toast.LENGTH_SHORT);
+                break;
+        }
 
+        /*Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);*/
+        isInGame = false;
+    }
+
+    public void buildEndGameScreen() {
+        setContentView(R.layout.puissance2);
+        isEndGameScreen = true;
+        buildGrid();
     }
 
     public void adversaryDisconnected() {
-        Toast.makeText(this, "Opponent disconnected!", Toast.LENGTH_SHORT);
+        Toast.makeText(this, R.string.opponentDisconnected, Toast.LENGTH_SHORT).show();
         isInGame = false;
     }
 }

@@ -56,6 +56,8 @@
     <string name="friendAdded">Friend added</string>
     <string name="partyNull">Draw !</string>
     <string name="hasWon"> has won</string>
+    <string name="opponentDisconnected">The opponent has been disconnected</string>
+    <string name="opponentShuffle">Opponent\'s shuffle !</string>
 
     <!--Toast Error Messages-->
     <string name="unknownUsername">Unknown username</string>
@@ -82,4 +84,5 @@
     <string name="notYourTurnError">Wait your turn</string>
     <string name="impossibleOpponentMove">Internal error : Impossible opponent move</string>
     <string name="partySettingError">Error while setting game</string>
+    <string name="winnerUnhandledError">Unhandled error while getting end of game call</string>
 </resources>

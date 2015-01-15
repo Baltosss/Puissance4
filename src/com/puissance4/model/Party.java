@@ -6,6 +6,8 @@ import com.puissance4.model.exceptions.ImpossibleColumnPlayException;
 import com.puissance4.model.exceptions.ImpossibleRowPlayException;
 import com.puissance4.model.exceptions.NoneMoveException;
 import com.puissance4.model.exceptions.NotPlayerTurnException;
+import com.puissance4.model.exceptions.WrongHeightException;
+import com.puissance4.model.exceptions.WrongWidthException;
 
 import java.io.Serializable;
 
@@ -113,8 +115,21 @@ public class Party implements Serializable {
         return grid.isNullGame();
     }
 
-    public void shuffle() {
-        grid.shuffle(currentPlayer);
+    public void shuffle() throws NotPlayerTurnException {
+        if (currentPlayer == userId) {
+            grid.shuffle(currentPlayer);
+            changeCurrentPlayer();
+        }
+        else {
+            throw new NotPlayerTurnException();
+        }
+    }
+
+    public void opponentShuffle(int[][] grid, Player opponentPlayer) throws WrongWidthException, WrongHeightException, NotPlayerTurnException {
+        if(!players[currentPlayer].getName().equals(opponentPlayer.getName())) {
+            throw new NotPlayerTurnException();
+        }
+        this.grid.setGrid(grid);
         changeCurrentPlayer();
     }
 
@@ -134,7 +149,11 @@ public class Party implements Serializable {
         return grid.getLastSlotColumn();
     }
 
-    public int[] getWinLengthFromLastMove() {
-        return grid.getWinLengthFromLastMove();
+    public WinningLineDirection getWinDirection() {
+        return grid.getWinDirection();
+    }
+
+    public boolean isInWinSlots(int column, int row) {
+        return grid.isInWinSlots(column, row);
     }
 }

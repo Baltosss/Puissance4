@@ -1,5 +1,6 @@
 package com.puissance4.model;
 
+import com.example.puissance4.R;
 import com.puissance4.model.exceptions.FullColumnException;
 import com.puissance4.model.exceptions.FullRowException;
 import com.puissance4.model.exceptions.ImpossibleColumnPlayException;
@@ -101,10 +102,7 @@ public class Grid implements Serializable {
     }
 
     public boolean hasWon() {
-        int diagHLDR = 0;    //Diagonal high left to down right corner
-        int diagHRDL = 0;    //Diagonal high right to down left corner
-        int horizontalLine = 0;
-        int verticalLine = 0;
+        winLengthFromLastMove[0] = winLengthFromLastMove[1] = 0;
         if ((lastSlotRow > 0) && (lastSlotColumn > 0))   //Diagonal high left to down right corner
         {
             winLengthFromLastMove[0] = diagonalHLSize(lastSlotRow - 1, lastSlotColumn - 1);
@@ -240,18 +238,15 @@ public class Grid implements Serializable {
     }
 
     public void setGrid(int[][] grid) throws WrongHeightException, WrongWidthException {
-        if (grid.length >= 3 && grid.length <= 20) {
-            if (grid[0].length >= 3 && grid[0].length <= 20) {
-                this.grid = grid;
-                width = grid.length;
-                height = grid[0].length;
-            } else {
-                throw new WrongHeightException();
-            }
-        } else {
+        if(grid.length != width) {
             throw new WrongWidthException();
         }
-
+        for(int i=0; i<width; i++) {
+            if(grid[i].length != height) {
+                throw new WrongHeightException();
+            }
+        }
+        this.grid = grid;
     }
 
     public int getWidth() {
@@ -424,6 +419,43 @@ public class Grid implements Serializable {
 
     public int[] getWinLengthFromLastMove() {
         return winLengthFromLastMove;
+    }
+
+    public WinningLineDirection getWinDirection() {
+        return winDirection;
+    }
+
+    public boolean isInWinSlots(int column, int row) {
+        int winLineMinColumn = lastSlotColumn - winLengthFromLastMove[0];
+        int winLineMaxColumn = lastSlotColumn + winLengthFromLastMove[1];
+        int winLineMaxRow = lastSlotRow + winLengthFromLastMove[1];
+        int winLineMinRow = lastSlotRow - winLengthFromLastMove[0];
+        boolean isInWinLineColumns = ((column >= winLineMinColumn) && (column <= winLineMaxColumn));
+        boolean isInWinLineRows = ((row >= winLineMinRow) && (row <= winLineMaxRow));
+        switch (winDirection) {
+            case horizontal:
+                return (row == lastSlotRow && isInWinLineColumns);
+            case vertical:
+                return (column == lastSlotColumn && isInWinLineRows);
+            case upLeftDiagonal:
+                return (((column-lastSlotColumn) == (row-lastSlotRow)) && isInWinLineColumns && isInWinLineRows);
+            case upRightDiagonal:
+                for(int i=0; i<=winLengthFromLastMove[0]; i++) {
+                    if((column == lastSlotColumn+i) && (row == lastSlotRow-i)) {
+                        return true;
+                    }
+                }
+                for(int i=1; i<=winLengthFromLastMove[1]; i++) {
+                    if((column == lastSlotColumn-i) && (row == lastSlotRow+i)) {
+                        return true;
+                    }
+                }
+                return false;
+            case none:
+                return false;
+            default:
+                return false;
+        }
     }
 }
 
