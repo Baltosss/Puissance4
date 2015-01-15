@@ -80,7 +80,7 @@ public class GameActivity extends Activity {
         }*/ //WHEN YOU TURN THE DEVICE YOU CALL ONDESTROY
         //YOU MUST FIND ANOTHER WAY
 
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(adversaryMessagesReceiver);
+        //LocalBroadcastManager.getInstance(this).unregisterReceiver(adversaryMessagesReceiver);
     }
 
     public void buildGrid() {
@@ -121,6 +121,7 @@ public class GameActivity extends Activity {
             party = (Party) getIntent().getSerializableExtra("party");
         } else if(savedInstanceState == null) {
             if (party == null) {
+                System.out.println("TEST MODE ACTIVATED");
                 //TEST MODE
                 System.out.println("IT IS NULL --> TEST MODE");
                 String[] players = {"Fred", "Cyrille"};
@@ -132,6 +133,7 @@ public class GameActivity extends Activity {
             party = (Party) savedInstanceState.getSerializable("party");
             isInGame = savedInstanceState.getBoolean("isInGame", true);
             isEndGameScreen = savedInstanceState.getBoolean("isEndGameScreen", false);
+            testMode = savedInstanceState.getBoolean("testMode", false);
             if (party == null) {
                 String[] players = {savedInstanceState.getString("player1"), savedInstanceState.getString("player2")};
                 if (players[0] == null || players[1] == null) {
@@ -223,10 +225,20 @@ public class GameActivity extends Activity {
             case horizontal:
                 if(slotValue==0) {
                     if (isLastMove) {
-                        slot.setBackground(getResources().getDrawable(R.drawable.slot_last_hori_red));
+                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_last_hori_red));
+                        }
+                        else {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_last_verti_red));
+                        }
                     } else {
                         if(party.isInWinSlots(column, row)) {
-                            slot.setBackground(getResources().getDrawable(R.drawable.slot_hori_red));
+                            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                                slot.setBackground(getResources().getDrawable(R.drawable.slot_hori_red));
+                            }
+                            else {
+                                slot.setBackground(getResources().getDrawable(R.drawable.slot_verti_red));
+                            }
                         }
                         else {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_red));
@@ -235,10 +247,21 @@ public class GameActivity extends Activity {
                 }
                 else {
                     if (isLastMove) {
-                        slot.setBackground(getResources().getDrawable(R.drawable.slot_last_hori_yellow));
+                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_last_hori_yellow));
+                        }
+                        else {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_last_verti_yellow));
+                        }
                     } else {
                         if(party.isInWinSlots(column, row)) {
-                            slot.setBackground(getResources().getDrawable(R.drawable.slot_hori_yellow));
+
+                            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                                slot.setBackground(getResources().getDrawable(R.drawable.slot_hori_yellow));
+                            }
+                            else {
+                                slot.setBackground(getResources().getDrawable(R.drawable.slot_verti_yellow));
+                            }
                         }
                         else {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_yellow));
@@ -249,10 +272,20 @@ public class GameActivity extends Activity {
             case vertical:
                 if(slotValue==0) {
                     if (isLastMove) {
-                        slot.setBackground(getResources().getDrawable(R.drawable.slot_last_verti_red));
+                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_last_verti_red));
+                        }
+                        else {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_last_hori_red));
+                        }
                     } else {
                         if(party.isInWinSlots(column, row)) {
-                            slot.setBackground(getResources().getDrawable(R.drawable.slot_verti_red));
+                            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                                slot.setBackground(getResources().getDrawable(R.drawable.slot_verti_red));
+                            }
+                            else {
+                                slot.setBackground(getResources().getDrawable(R.drawable.slot_hori_red));
+                            }
                         }
                         else {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_red));
@@ -261,10 +294,20 @@ public class GameActivity extends Activity {
                 }
                 else {
                     if (isLastMove) {
-                        slot.setBackground(getResources().getDrawable(R.drawable.slot_last_verti_yellow));
+                        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_last_verti_yellow));
+                        }
+                        else {
+                            slot.setBackground(getResources().getDrawable(R.drawable.slot_last_hori_yellow));
+                        }
                     } else {
                         if(party.isInWinSlots(column, row)) {
-                            slot.setBackground(getResources().getDrawable(R.drawable.slot_hori_yellow));
+                            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                                slot.setBackground(getResources().getDrawable(R.drawable.slot_verti_yellow));
+                            }
+                            else {
+                                slot.setBackground(getResources().getDrawable(R.drawable.slot_hori_yellow));
+                            }
                         }
                         else {
                             slot.setBackground(getResources().getDrawable(R.drawable.slot_yellow));
@@ -332,6 +375,7 @@ public class GameActivity extends Activity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putBoolean("testMode", testMode);
         savedInstanceState.putSerializable("party", party);
         savedInstanceState.putBoolean("isInGame", isInGame);
         savedInstanceState.putBoolean("isEndGameScreen", isEndGameScreen);
@@ -354,10 +398,10 @@ public class GameActivity extends Activity {
             @Override
             public void run() {
                 NetworkComm.getInstance().sendRandom(party.getGrid().getGrid());
-                setContentView(R.layout.puissance2);
-                buildGrid();
             }
         }).start();
+        setContentView(R.layout.puissance2);
+        buildGrid();
     }
 
     public boolean isInGame() {
