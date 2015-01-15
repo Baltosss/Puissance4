@@ -118,10 +118,6 @@ public class NetworkService extends Service {
     }
 
     public void proposalReceived(String advname, int x, int y) {
-        //A NE FAIRE QUE EN CAS DE REPONSE POSITIVE
-        GameConfiguration.GRID_HEIGHT = x;
-        GameConfiguration.GRID_WIDTH = y;
-
         //DIALOGUE ET APPELER answerProposal();
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.slot_red_star)
