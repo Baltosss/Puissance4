@@ -33,6 +33,7 @@ public class NetworkService extends Service {
     private PowerManager powerManager;
     private PowerManager.WakeLock wakeLock;
     private Criteria criteria;
+    private static boolean cancelTimeout;
 
     private class pingLocationListener implements LocationListener {
         @Override
@@ -78,6 +79,7 @@ public class NetworkService extends Service {
     public void onCreate() {
         System.out.println("CREATESERVICE");
         setCoordinates(0, 0);
+        cancelTimeout = false;
         NetworkComm.getInstance().setService(this);
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -135,7 +137,7 @@ public class NetworkService extends Service {
         acceptGameIntent.putExtra("X", x);
         acceptGameIntent.putExtra("Y", y);
 
-        PendingIntent acceptPendingIntent = PendingIntent.getActivity(this, 0, acceptGameIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent acceptPendingIntent = PendingIntent.getActivity(this, 0, acceptGameIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         builder.setContentIntent(acceptPendingIntent);
 
         Intent refuseGameIntent = new Intent(this, RefuseGameReceiver.class);
@@ -147,8 +149,12 @@ public class NetworkService extends Service {
         notificationExpirationHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                notificationManager.cancel(5);
-                NetworkComm.getInstance().answerProposal(false);
+                if(!cancelTimeout) {
+                    notificationManager.cancel(5);
+                    NetworkComm.getInstance().answerProposal(false);
+                }
+
+                cancelTimeout = false;
             }
         }, 60000);
     }
@@ -170,5 +176,9 @@ public class NetworkService extends Service {
         ret[0] = latitude;
         ret[1] = longitude;
         return ret;
+    }
+
+    public static void cancelTimeout() {
+        cancelTimeout = true;
     }
 }

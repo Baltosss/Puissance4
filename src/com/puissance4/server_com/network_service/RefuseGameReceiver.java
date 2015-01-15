@@ -12,6 +12,7 @@ import com.puissance4.server_com.network_handlers.NetworkComm;
 public class RefuseGameReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        NetworkService.cancelTimeout();
         NetworkComm.getInstance().answerProposal(false);
     }
 }

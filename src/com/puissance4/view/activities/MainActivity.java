@@ -43,6 +43,7 @@ public class MainActivity extends Activity {
         } else if (getIntent().hasExtra("ADVNAME")) {
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.cancel(5);
+            NetworkService.cancelTimeout();
 
             Intent gameIntent = new Intent(this, GameActivity.class);
 
