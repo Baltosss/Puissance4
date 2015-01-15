@@ -12,6 +12,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.puissance4.R;
@@ -70,6 +71,8 @@ public class GameActivity extends Activity {
     public void buildGrid() {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         gameGrid = (LinearLayout) findViewById(R.id.gamegrid);
+        TextView currentTurnText = (TextView) findViewById(R.id.currentTurnText);
+        currentTurnText.setText(party.getCurrentPlayer().getName());
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             gameGrid.setWeightSum(GameConfiguration.GRID_HEIGHT+1);
             for (int i = 0; i < (GameConfiguration.GRID_HEIGHT+1); i++) {
@@ -114,7 +117,7 @@ public class GameActivity extends Activity {
             if (party == null) {
                 String[] players = {savedInstanceState.getString("player1"), savedInstanceState.getString("player2")};
                 if (players[0] == null || players[1] == null) {
-                    Toast.makeText(getApplicationContext(), "Error while setting game", Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(), R.string.partySettingError, Toast.LENGTH_LONG);
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                 }
@@ -133,6 +136,7 @@ public class GameActivity extends Activity {
 
     //Row and column are coordinates of the button in the screen grid, not the game one.
     private Button buildButton(final int row, final int column) {
+        boolean isLastMove = false;
         Button slot = new Button(this);
         LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f);
         slot.setLayoutParams(buttonParams);
@@ -149,8 +153,10 @@ public class GameActivity extends Activity {
         } else {
             int slotValue;
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                isLastMove = ((party.getLastSlotColumn() == (column-1)) && (party.getLastSlotRow() == (row-1)));
                 slotValue = party.getGrid().getGrid()[column - 1][row - 1];
             } else {
+                isLastMove = ((party.getLastSlotColumn() == row-1) && (party.getLastSlotRow() == column-1));
                 slotValue = party.getGrid().getGrid()[row - 1][column - 1];
             }
             switch (slotValue) {
@@ -160,10 +166,20 @@ public class GameActivity extends Activity {
                     slot.setBackground(getResources().getDrawable(R.drawable.slot_white));
                     break;
                 case 0:
-                    slot.setBackground(getResources().getDrawable(R.drawable.slot_red));
+                    if(isLastMove) {
+                        slot.setBackground(getResources().getDrawable(R.drawable.slot_last_red));
+                    }
+                    else {
+                        slot.setBackground(getResources().getDrawable(R.drawable.slot_red));
+                    }
                     break;
                 case 1:
-                    slot.setBackground(getResources().getDrawable(R.drawable.slot_yellow));
+                    if(isLastMove) {
+                        slot.setBackground(getResources().getDrawable(R.drawable.slot_last_yellow));
+                    }
+                    else {
+                        slot.setBackground(getResources().getDrawable(R.drawable.slot_yellow));
+                    }
                     break;
             }
             slot.setEnabled(false);
