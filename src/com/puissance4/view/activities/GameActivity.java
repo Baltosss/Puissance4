@@ -123,7 +123,12 @@ public class GameActivity extends Activity {
     }
 
     private void setupParty(Bundle savedInstanceState) {
-        //if (savedInstanceState == null) {
+        if(savedInstanceState != null) {
+            isInGame = savedInstanceState.getBoolean("isInGame", true);
+            isEndGameScreen = savedInstanceState.getBoolean("isEndGameScreen", false);
+            testMode = savedInstanceState.getBoolean("testMode", false);
+
+        }
         if (getIntent().hasExtra("party")) { //GAME JUST STARTED
             party = (Party) getIntent().getSerializableExtra("party");
         } else if (savedInstanceState == null) {
@@ -137,9 +142,6 @@ public class GameActivity extends Activity {
             }
         } else {  //GAME ALREADY STARTED
             party = (Party) savedInstanceState.getSerializable("party");
-            isInGame = savedInstanceState.getBoolean("isInGame", true);
-            isEndGameScreen = savedInstanceState.getBoolean("isEndGameScreen", false);
-            testMode = savedInstanceState.getBoolean("testMode", false);
             if (party == null) {
                 String[] players = {savedInstanceState.getString("player1"), savedInstanceState.getString("player2")};
                 if (players[0] == null || players[1] == null) {
