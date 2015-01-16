@@ -6,6 +6,7 @@ import java.util.Timer;
 public class Server {
   protected static int SERVER_PORT = 1337;
   protected static ServerSocket SERVER_SOCKET = null;
+  protected static int MAX_MATCH_DISTANCE = 10000;
   protected static DataBase dataBase = new DataBase();
 
   public static void main(String[] args) {

@@ -423,6 +423,23 @@ public class Client {
     LOCK.unlock();
   }
 
+  public double distanceTo(Client client) {
+    double divisor = (double) (180 / Math.PI);
+
+    double x1 = latitude / divisor;
+    double y1 = longitude / divisor;
+    double x2 = client.getLatitude() / divisor;
+    double y2 = client.getLongitude() / divisor;
+
+    double t1 = Math.cos(x1) * Math.cos(y1) * Math.cos(x2) * Math.cos(y2);
+    double t2 = Math.cos(x1) * Math.sin(y1) * Math.cos(x2) * Math.sin(y2);
+    double t3 = Math.sin(x1) * Math.sin(x2);
+
+    double tt = Math.acos(t1 + t2 + t3);
+
+    return 6366000 * tt;
+  }
+
   public String getName() {
     return name;
   }

@@ -60,7 +60,7 @@ public class DataBase {
         }
 
         registered_clients = Collections.synchronizedMap(tempMap);
-        
+
         input.close();
         buffer.close();
         file.close();
@@ -144,9 +144,14 @@ public class DataBase {
   }
 
   public List<Client> getNearPlayers(Client client) {
-    // TODO coordonées
-    ArrayList<Client> ret = new ArrayList<Client>(auth_clients.values());
-    ret.remove(client);
+    ArrayList<Client> ret = new ArrayList<Client>();
+
+    for (Client c : auth_clients.values()) {
+      if ((c != client) && (client.distanceTo(c) <= Server.MAX_MATCH_DISTANCE)) {
+        ret.add(c);
+      }
+    }
+
     return ret;
   }
 
