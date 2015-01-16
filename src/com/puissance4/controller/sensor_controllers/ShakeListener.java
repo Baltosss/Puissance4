@@ -21,7 +21,6 @@ public class ShakeListener {
     public void onShake() {
         if (startShakingTime == 0) {
             startShakingTime = System.currentTimeMillis();
-            Toast.makeText(context, R.string.shuffle, Toast.LENGTH_SHORT).show();
             context.shuffle();
         } else {
             if (System.currentTimeMillis() - startShakingTime > SensorConfiguration.MIN_DURATION_BETWEEN_SHAKES) {

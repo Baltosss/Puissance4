@@ -380,6 +380,7 @@ public class GameActivity extends Activity {
         if(nbShufflesRemaining > 0) {
             try {
                 party.shuffle();
+                Toast.makeText(this, R.string.shuffle, Toast.LENGTH_SHORT).show();
                 nbShufflesRemaining--;
                 if (!testMode) {
                     new Thread(new Runnable() {
