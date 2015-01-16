@@ -18,7 +18,6 @@ import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 
 import com.example.puissance4.R;
-import com.puissance4.configuration.GameConfiguration;
 import com.puissance4.server_com.network_handlers.NetworkComm;
 import com.puissance4.view.activities.MainActivity;
 
@@ -77,7 +76,6 @@ public class NetworkService extends Service {
 
     @Override
     public void onCreate() {
-        System.out.println("CREATESERVICE");
         setCoordinates(0, 0);
         cancelTimeout = false;
         NetworkComm.getInstance().setService(this);
@@ -86,19 +84,19 @@ public class NetworkService extends Service {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.slot_red_star)
-                .setContentTitle("Puissance4")
-                .setContentText("Puissance4 est en cours d'exécution.");
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(getString(R.string.app_name) + " " + getString(R.string.isRunning));
 
         Intent openIntent = new Intent(getApplicationContext(), MainActivity.class);
         openIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent openPendingIntent = PendingIntent.getActivity(this, 1, openIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        builder.addAction(new NotificationCompat.Action(R.drawable.icon_green_dot, "Ouvrir", openPendingIntent));
+        builder.addAction(new NotificationCompat.Action(R.drawable.icon_green_dot, getString(R.string.open), openPendingIntent));
 
         Intent closeIntent = new Intent(getApplicationContext(), MainActivity.class);
         closeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         closeIntent.putExtra("CLOSEAPP", true);
         PendingIntent closePendingIntent = PendingIntent.getActivity(this, 2, closeIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        builder.addAction(new NotificationCompat.Action(R.drawable.icon_red_dot, "Quitter", closePendingIntent));
+        builder.addAction(new NotificationCompat.Action(R.drawable.icon_red_dot, getString(R.string.quit), closePendingIntent));
 
         startForeground(6, builder.build());
 
@@ -121,9 +119,9 @@ public class NetworkService extends Service {
         //DIALOGUE ET APPELER answerProposal();
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.slot_red_star)
-                .setContentTitle(advname + " vous propose de jouer !")
-                .setTicker(advname + " vous propose de jouer !")
-                .setContentText("Cliquez pour accepter.")
+                .setContentTitle(advname + " " + getString(R.string.requestsAMatch))
+                .setTicker(advname + " " + getString(R.string.requestsAMatch))
+                .setContentText(getString(R.string.touchToAccept))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(Notification.CATEGORY_SOCIAL)
                 .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
@@ -145,7 +143,7 @@ public class NetworkService extends Service {
         notificationExpirationHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(!cancelTimeout) {
+                if (!cancelTimeout) {
                     notificationManager.cancel(5);
                     NetworkComm.getInstance().answerProposal(false);
                 }

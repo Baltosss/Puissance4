@@ -86,4 +86,11 @@
     <string name="impossibleOpponentMove">Internal error : Impossible opponent move</string>
     <string name="partySettingError">Error while setting game</string>
     <string name="winnerUnhandledError">Unhandled error while getting end of game call</string>
+
+    <!--Notifications Messages-->
+    <string name="requestsAMatch">requests a game.</string>
+    <string name="touchToAccept">Touch to accept.</string>
+    <string name="isRunning">is running.</string>
+    <string name="open">Open</string>
+    <string name="quit">Quit</string>
 </resources>

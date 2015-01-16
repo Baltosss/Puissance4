@@ -78,4 +78,11 @@
     <string name="impossibleOpponentMove">Erreur interne : Mouvement adverse impossible</string>
     <string name="partySettingError">Erreur lors de la création de la partie</string>
     <string name="winnerUnhandledError">Erreur inconnue durant la notification de fin de partie</string>
+
+    <!--Notifications Messages-->
+    <string name="requestsAMatch">propose une partie.</string>
+    <string name="touchToAccept">Touchez pour accepter.</string>
+    <string name="isRunning">est en cours d\'exécution.</string>
+    <string name="open">Ouvrir</string>
+    <string name="quit">Quitter</string>
 </resources>
