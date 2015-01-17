@@ -124,7 +124,7 @@ public class GameActivity extends Activity {
     }
 
     private void setupParty(Bundle savedInstanceState) {
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             isInGame = savedInstanceState.getBoolean("isInGame", true);
             isEndGameScreen = savedInstanceState.getBoolean("isEndGameScreen", false);
             testMode = savedInstanceState.getBoolean("testMode", false);
@@ -377,7 +377,7 @@ public class GameActivity extends Activity {
     }
 
     public void shuffle() {
-        if(nbShufflesRemaining > 0) {
+        if (nbShufflesRemaining > 0) {
             try {
                 party.shuffle();
                 Toast.makeText(this, R.string.shuffle, Toast.LENGTH_SHORT).show();
@@ -396,8 +396,7 @@ public class GameActivity extends Activity {
                 e.printStackTrace();
                 Toast.makeText(this, R.string.notYourTurnError, Toast.LENGTH_SHORT);
             }
-        }
-        else {
+        } else {
             Toast.makeText(this, R.string.noMoreShuffles, Toast.LENGTH_SHORT);
         }
     }

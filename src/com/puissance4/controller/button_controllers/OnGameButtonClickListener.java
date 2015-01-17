@@ -53,7 +53,7 @@ public class OnGameButtonClickListener extends ActivityListener {
                 }
                 context.setContentView(R.layout.puissance2);
                 ((GameActivity) context).buildGrid();
-                if(((GameActivity) context).isTestMode()) {
+                if (((GameActivity) context).isTestMode()) {
                     Player winner = party.getWinner();
                     if (winner != null) {
                         ((GameActivity) context).opponentWin(0);

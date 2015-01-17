@@ -57,7 +57,7 @@ public class NetworkService extends Service {
     private Runnable pingRunnable = new Runnable() {
         @Override
         public void run() {
-            locationManager.requestSingleUpdate(criteria, new pingLocationListener(), null);
+            //locationManager.requestSingleUpdate(criteria, new pingLocationListener(), null);
             NetworkComm.getInstance().sendPing(latitude, longitude);
             pingHandler.postDelayed(this, 5000);
         }
@@ -109,6 +109,13 @@ public class NetworkService extends Service {
         criteria.setAccuracy(Criteria.ACCURACY_MEDIUM);
         criteria.setAltitudeRequired(false);
         criteria.setBearingRequired(false);
+
+        Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, true));
+        if (lastKnownLocation != null) {
+            latitude = lastKnownLocation.getLatitude();
+            longitude = lastKnownLocation.getLongitude();
+        }
+        locationManager.requestLocationUpdates(30000, 0, criteria, new pingLocationListener(), null);
 
         pingHandler = new Handler();
         notificationExpirationHandler = new Handler();

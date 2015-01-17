@@ -219,7 +219,7 @@ public class TestModel {
         Random random = new Random();
         int opponentId = 1;
         boolean isMyTurn = true;
-        for (int i=0; i<10; i++) {
+        for (int i = 0; i < 10; i++) {
             try {
                 if (isMyTurn) {
                     isMyTurn = false;

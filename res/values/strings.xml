@@ -22,7 +22,8 @@
     <string name="addFriendButton">Add</string>
     <string name="registerButton">Register</string>
     <string name="modifyButton">Modify grid</string>
-    <string name="playButton">Play</string> <!-- Set in OpponentPickerAdapter -->
+    <string name="playButton">Play</string>
+    <!-- Set in OpponentPickerAdapter -->
     <string name="connectButton">Connect</string>
     <string name="disconnectButton">Disconnect</string>
     <string name="settingsButton">Settings</string>

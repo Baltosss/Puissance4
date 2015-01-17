@@ -119,14 +119,13 @@ public class Party implements Serializable {
         if (currentPlayer == userId) {
             grid.shuffle(currentPlayer);
             changeCurrentPlayer();
-        }
-        else {
+        } else {
             throw new NotPlayerTurnException();
         }
     }
 
     public void opponentShuffle(int[][] grid, Player opponentPlayer) throws WrongWidthException, WrongHeightException, NotPlayerTurnException {
-        if(!players[currentPlayer].getName().equals(opponentPlayer.getName())) {
+        if (!players[currentPlayer].getName().equals(opponentPlayer.getName())) {
             throw new NotPlayerTurnException();
         }
         this.grid.setGrid(grid);

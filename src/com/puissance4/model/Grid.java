@@ -1,6 +1,5 @@
 package com.puissance4.model;
 
-import com.example.puissance4.R;
 import com.puissance4.model.exceptions.FullColumnException;
 import com.puissance4.model.exceptions.FullRowException;
 import com.puissance4.model.exceptions.ImpossibleColumnPlayException;
@@ -238,11 +237,11 @@ public class Grid implements Serializable {
     }
 
     public void setGrid(int[][] grid) throws WrongHeightException, WrongWidthException {
-        if(grid.length != width) {
+        if (grid.length != width) {
             throw new WrongWidthException();
         }
-        for(int i=0; i<width; i++) {
-            if(grid[i].length != height) {
+        for (int i = 0; i < width; i++) {
+            if (grid[i].length != height) {
                 throw new WrongHeightException();
             }
         }
@@ -392,7 +391,7 @@ public class Grid implements Serializable {
         int countMoves = 1;
         Arrays.fill(countSlots, 0);
         countSlots[newSlotState]++;
-        for (int columnIndex = 0; columnIndex<width; columnIndex++) {
+        for (int columnIndex = 0; columnIndex < width; columnIndex++) {
             for (int row = 0; row < height; row++) {
                 if (grid[columnIndex][row] >= 0) {
                     countSlots[grid[columnIndex][row]]++;
@@ -439,15 +438,15 @@ public class Grid implements Serializable {
             case vertical:
                 return (column == lastSlotColumn && isInWinLineRows);
             case upLeftDiagonal:
-                return (((column-lastSlotColumn) == (row-lastSlotRow)) && isInWinLineColumns && isInWinLineRows);
+                return (((column - lastSlotColumn) == (row - lastSlotRow)) && isInWinLineColumns && isInWinLineRows);
             case upRightDiagonal:
-                for(int i=0; i<=winLengthFromLastMove[0]; i++) {
-                    if((column == lastSlotColumn+i) && (row == lastSlotRow-i)) {
+                for (int i = 0; i <= winLengthFromLastMove[0]; i++) {
+                    if ((column == lastSlotColumn + i) && (row == lastSlotRow - i)) {
                         return true;
                     }
                 }
-                for(int i=1; i<=winLengthFromLastMove[1]; i++) {
-                    if((column == lastSlotColumn-i) && (row == lastSlotRow+i)) {
+                for (int i = 1; i <= winLengthFromLastMove[1]; i++) {
+                    if ((column == lastSlotColumn - i) && (row == lastSlotRow + i)) {
                         return true;
                     }
                 }
