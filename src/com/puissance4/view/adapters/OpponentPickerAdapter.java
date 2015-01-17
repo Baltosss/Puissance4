@@ -45,15 +45,26 @@ public class OpponentPickerAdapter extends ArrayNetworkPlayerAdapter {
         final NetworkPlayer opponent = objects.get(position);
 
         String opponentDistanceText = null;
+        double myLatitude = 0;
+        double myLongitude = 0;
         if (myLocation != null) {
+            myLatitude = myLocation.getLatitude();
+            myLongitude = myLocation.getLongitude();
+        }
+        double opLatitude = opponent.getLatitude();
+        double opLongitude = opponent.getLongitude();
+
+        if (!((myLatitude == 0) && (myLongitude == 0)) && !((opLatitude == 0) && (opLongitude == 0))) {
             float[] results = new float[3];
-            Location.distanceBetween(myLocation.getLatitude(), myLocation.getLongitude(), opponent.getLatitude(), opponent.getLongitude(), results);
+            Location.distanceBetween(myLatitude, myLongitude, opLatitude, opLongitude, results);
             float opponentDistance = results[0];
             if (opponentDistance < 1000) {
                 opponentDistanceText = Integer.toString(Math.round(opponentDistance)) + "m";
             } else {
                 opponentDistanceText = Integer.toString(Math.round(opponentDistance / 1000)) + "km";
             }
+        } else {
+            opponentDistanceText = "N/A";
         }
 
         if (opponent != null) {
@@ -63,16 +74,12 @@ public class OpponentPickerAdapter extends ArrayNetworkPlayerAdapter {
             Button playButton = (Button) v.findViewById(R.id.buttonFriendItem);
             switch (opponent.getStatus()) {
                 case 0:
-                    if (opponentDistanceText != null) {
-                        distanceText.setText(opponentDistanceText);
-                    }
+                    distanceText.setText(opponentDistanceText);
                     statusView.setImageResource(R.drawable.icon_green_dot);
                     playButton.setText(R.string.playButton);
                     break;
                 case 1:
-                    if (opponentDistanceText != null) {
-                        distanceText.setText(opponentDistanceText);
-                    }
+                    distanceText.setText(opponentDistanceText);
                     statusView.setImageResource(R.drawable.icon_orange_dot);
                     playButton.setVisibility(View.GONE);
                     break;
