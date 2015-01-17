@@ -276,9 +276,9 @@ public class NetworkComm {
     // 1 : second player
     // 2 : game denied
     // 3 : error
-    public int proposeGame(String adversary, int x, int y) {
+    public int proposeGame(String adversary, int x, int y, int n) {
         LATCH = new CountDownLatch(1);
-        OUTPUT.send("PROPMATCH_" + adversary + "_" + x + "_" + y);
+        OUTPUT.send("PROPMATCH_" + adversary + "_" + x + "_" + y + "_" + n);
 
         try {
             if (!LATCH.await(80, TimeUnit.SECONDS)) {
@@ -301,9 +301,9 @@ public class NetworkComm {
         return result;
     }
 
-    public void proposalReceived(String advname, int x, int y) {
+    public void proposalReceived(String advname, int x, int y, int n) {
         if (service != null) {
-            service.proposalReceived(advname, x, y);
+            service.proposalReceived(advname, x, y, n);
         }
     }
 

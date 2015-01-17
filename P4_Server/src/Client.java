@@ -216,15 +216,16 @@ public class Client {
                 break;
 
               case "PROPMATCH":
-                if (tokenizer.countTokens() >= 3) {
+                if (tokenizer.countTokens() >= 4) {
                   adversary = Server.dataBase.getConnectedClient(tokenizer.nextToken());
                   int xcols = Integer.parseInt(tokenizer.nextToken());
                   int ycols = Integer.parseInt(tokenizer.nextToken());
+                  int nbshuffle = Integer.parseInt(tokenizer.nextToken());
 
                   if (adversary == null || !adversary.isAvailable()) {
                     send("ERRORUNAVAILABLEPLAYER");
                   } else {
-                    adversary.propMatch(name, xcols, ycols);
+                    adversary.propMatch(name, xcols, ycols, nbshuffle);
                   }
 
                 } else {
@@ -342,9 +343,9 @@ public class Client {
     currentState = state;
   }
 
-  public void propMatch(String advname, int xcols, int ycols) {
+  public void propMatch(String advname, int xcols, int ycols, int nbshuffle) {
     adversary = Server.dataBase.getConnectedClient(advname);
-    send("PROPMATCH_" + advname + "_" + xcols + "_" + ycols);
+    send("PROPMATCH_" + advname + "_" + xcols + "_" + ycols + "_" + nbshuffle);
   }
 
   public void notifyMatchResponse(boolean response) {

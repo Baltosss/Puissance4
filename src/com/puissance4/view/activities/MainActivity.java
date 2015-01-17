@@ -53,6 +53,7 @@ public class MainActivity extends Activity {
 
             GameConfiguration.GRID_HEIGHT = getIntent().getIntExtra("X", 0);
             GameConfiguration.GRID_WIDTH = getIntent().getIntExtra("Y", 0);
+            GameConfiguration.COUNT_SHUFFLE = getIntent().getIntExtra("N", 0);
 
             int firstPlayer = NetworkComm.getInstance().answerProposal(true);
             switch (firstPlayer) {

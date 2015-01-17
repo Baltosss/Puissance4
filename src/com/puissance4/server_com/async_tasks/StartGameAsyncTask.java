@@ -26,7 +26,7 @@ public class StartGameAsyncTask extends AsyncTask<Void, Void, Integer> {
 
     @Override
     protected Integer doInBackground(Void... params) {
-        return NetworkComm.getInstance().proposeGame(opponent.getName(), GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH);
+        return NetworkComm.getInstance().proposeGame(opponent.getName(), GameConfiguration.GRID_HEIGHT, GameConfiguration.GRID_WIDTH, GameConfiguration.COUNT_SHUFFLE);
     }
 
     @Override

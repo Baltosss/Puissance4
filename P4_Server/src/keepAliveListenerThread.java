@@ -6,7 +6,6 @@ public class keepAliveListenerThread extends TimerTask {
 
   @Override
   public void run() {
-    System.out.println("Current : " + System.currentTimeMillis());
     for (Client client : Server.dataBase.getConnectedClients()) {
       if (client.getLastPing() + 20000 < System.currentTimeMillis()) {
         System.out.println("Client " + client.getName() + " timed out.");

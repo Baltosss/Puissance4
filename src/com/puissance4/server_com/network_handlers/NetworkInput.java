@@ -36,11 +36,12 @@ public class NetworkInput {
 
             switch (token) {
                 case "PROPMATCH":
-                    if (tokenizer.countTokens() >= 3) {
+                    if (tokenizer.countTokens() >= 4) {
                         String advname = tokenizer.nextToken();
                         int x = Integer.parseInt(tokenizer.nextToken());
                         int y = Integer.parseInt(tokenizer.nextToken());
-                        NetworkComm.getInstance().proposalReceived(advname, x, y);
+                        int n = Integer.parseInt(tokenizer.nextToken());
+                        NetworkComm.getInstance().proposalReceived(advname, x, y, n);
                     }
                     break;
                 case "MOVE":

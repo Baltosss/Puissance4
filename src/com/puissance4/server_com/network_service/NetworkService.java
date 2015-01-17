@@ -115,7 +115,7 @@ public class NetworkService extends Service {
         pingHandler.post(pingRunnable);
     }
 
-    public void proposalReceived(String advname, int x, int y) {
+    public void proposalReceived(String advname, int x, int y, int n) {
         //DIALOGUE ET APPELER answerProposal();
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.slot_red_star)
@@ -130,6 +130,7 @@ public class NetworkService extends Service {
         acceptGameIntent.putExtra("ADVNAME", advname);
         acceptGameIntent.putExtra("X", x);
         acceptGameIntent.putExtra("Y", y);
+        acceptGameIntent.putExtra("N", n); //nb shuffles
 
         PendingIntent acceptPendingIntent = PendingIntent.getActivity(this, 0, acceptGameIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         builder.setContentIntent(acceptPendingIntent);
