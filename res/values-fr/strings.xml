@@ -51,7 +51,7 @@
     <string name="opponentDisconnected">L\'adversaire a été déconnecté</string>
     <string name="opponentShuffle">Mélange adverse !</string>
     <string name="noMoreShuffles">Plus de mélanges restants</string>
-
+    <string name="pickOpponent">Choisis un adversaire</string>
     <!--Toast Error Messages-->
     <string name="unknownUsername">Nom d\'utilisateur inconnu</string>
     <string name="connectCommunicationError">Erreur lors de la connexion au serveur</string>
